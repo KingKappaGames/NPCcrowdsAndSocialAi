@@ -1,0 +1,23 @@
+{
+  "$GMPath":"",
+  "%Name":"path_bottomRightDetour",
+  "closed":true,
+  "kind":1,
+  "name":"path_bottomRightDetour",
+  "parent":{
+    "name":"Paths",
+    "path":"folders/Paths.yy",
+  },
+  "points":[
+    {"speed":100.0,"x":526.46124,"y":346.1524,},
+    {"speed":100.0,"x":831.7292,"y":603.67426,},
+    {"speed":100.0,"x":946.6534,"y":497.6588,},
+    {"speed":100.0,"x":1118.1451,"y":648.6322,},
+    {"speed":100.0,"x":999.6578,"y":828.82544,},
+    {"speed":100.0,"x":900.7298,"y":667.5794,},
+    {"speed":100.0,"x":740.86285,"y":755.7738,},
+  ],
+  "precision":4,
+  "resourceType":"GMPath",
+  "resourceVersion":"2.0",
+}

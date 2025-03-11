@@ -1,0 +1,23 @@
+{
+  "$GMPath":"",
+  "%Name":"path_mainLoop",
+  "closed":true,
+  "kind":1,
+  "name":"path_mainLoop",
+  "parent":{
+    "name":"Paths",
+    "path":"folders/Paths.yy",
+  },
+  "points":[
+    {"speed":100.0,"x":33.559937,"y":78.45535,},
+    {"speed":100.0,"x":632.37585,"y":-11.958405,},
+    {"speed":100.0,"x":906.83325,"y":253.63293,},
+    {"speed":100.0,"x":775.23364,"y":480.30228,},
+    {"speed":100.0,"x":312.1631,"y":255.99078,},
+    {"speed":100.0,"x":362.90604,"y":587.04175,},
+    {"speed":100.0,"x":-106.16696,"y":462.71976,},
+  ],
+  "precision":4,
+  "resourceType":"GMPath",
+  "resourceVersion":"2.0",
+}

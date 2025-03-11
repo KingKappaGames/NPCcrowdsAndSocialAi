@@ -1,0 +1,25 @@
+{
+  "$GMPath":"",
+  "%Name":"path_upLeftDetour",
+  "closed":true,
+  "kind":1,
+  "name":"path_upLeftDetour",
+  "parent":{
+    "name":"Paths",
+    "path":"folders/Paths.yy",
+  },
+  "points":[
+    {"speed":100.0,"x":401.74078,"y":-76.45834,},
+    {"speed":100.0,"x":387.7228,"y":-181.95557,},
+    {"speed":100.0,"x":427.76868,"y":-284.4183,},
+    {"speed":100.0,"x":546.68005,"y":-374.91602,},
+    {"speed":100.0,"x":458.7337,"y":-506.8427,},
+    {"speed":100.0,"x":298.5528,"y":-518.0267,},
+    {"speed":100.0,"x":211.00378,"y":-455.89694,},
+    {"speed":100.0,"x":201.09346,"y":-345.30493,},
+    {"speed":100.0,"x":320.0049,"y":-237.19933,},
+  ],
+  "precision":4,
+  "resourceType":"GMPath",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,1 @@
+draw_text(20, 10, pathQuestion);

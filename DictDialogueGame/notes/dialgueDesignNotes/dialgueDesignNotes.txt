@@ -1,0 +1,82 @@
+Okay! This project is a complex beast isn't it?
+
+Brainstorming, lots to think about:
+
+Npcs would have a personal dictionary of values about their preferences and personality and information. 
+These values are all certain and stored within this npc or a log of that npc with markers for how personal or important it is. 
+These values would be your guidance for what they would tell and what they wouldn't
+Secrecy and value info would be maluable through out time so someones love affair might be a deep secret that they maybe tell those closest to them (?)
+but if they are found out during a quest then that info becomes much less guarded because they no longer need to hide it.
+
+They would also have a linking set of knowledge about a bunch of things that relate to them, their family, surroundings, history, ect
+Any given npc could draw values from other npcs that they have relations with (this includes rumor awareness) and they can pass that info on
+in the form of comments or gossip. You would also need these links to have some level of secrecy stored so that a wife wouldn't pass on
+information about her husband that is personal for the husband. perhaps the second party could have a multiplier for things and even an overall loose lippedness
+
+Npcs would also have standardized actions like moving to positions and following or taking items or selling things on their person or in their possesion
+that you could ask them to do and create dynamic behaviors by asking them to follow or sell something. These behaviors would reference data from various things like
+level data or item info to see how much things are worth or how willing they are to move into a fire or walk across the room, at the simpest simply stepping out of the way
+These behaviors would need to work around a large and complex understanding of the environment and contexual info so it'll be hard to get a lot of these things working
+
+I do think that if you ask an npc to do an action and they're in the process of doing it they aught to remember that you made them do it and so if it turns out very well
+they would gain favor to you for the suggestion, to follow them to see something or giving them an item or connecting them with another person they know... Small things I guess
+but maybe if there were like, lost items or missing persons or something and you brought them to the item or body they would be glad for it. That or they'd be upset and annoyed at you
+They'd have to also know whether you were responsible for the action to begin with, you can't kill someone and then bring their partner to the body and gain favor...
+
+
+Perhaps talking about certain subjects could carry mood values, so talking about basic stuff could increase their mood and repour with you but asking them
+to do stupid things or lying or asking about touchy subjects might bother them or decrease their repour (if you did it in a bad way?)
+
+Certain npcs, depending on mood (which depends on environment), would have values for how chatty, trusting, sharing, generous, grudgey (delicate repour), ect they would be
+so while an npc would have an awareness of what things were private and not they might share more than someone else because they have loose lips, so to speak
+and like I said this would be affected by mood or drunkeness or spells or whatever.
+
+Perhaps you could press people in different ways about the things they know and actions they would perform. For example, someone you didn't know might not 
+follow you into a reasonably safe area just out of principle but if you asked them strongly they would accept to avoid arguing. Where as asking them to do something 
+scetchy and trying to push them to do it would damage your repour very quickly as they decided they wouldn't do it more and more. Same with actions.
+
+Certain npcs would have much more specialized responses, so like, a guard is much more likely to fulfill requests because they're a public servant and so following you or doing something trivial is
+part of their regular expectations vs the king would be very unlikely to do anything for you or answer questions because of time and status. 
+
+Responses would be clustered in grid cells as arrays of arrays. The top level array would simply be different types of responses, 
+the 2nd level arrays would be data containing the response and several values tagging when that response would be used, aka, fear, trust, modesty thresholds, that get checked to see if they're viable. Random odds too, if the response is viable add to a result array and randomly choose a weighted result to respond with.
+There are also things we'll have to decide when it comes to mixing these thresholds. A very fearful person (of a third party) who trusts you might allow greater privacy responses because they don't care as much
+while afraid or they see you as a safe friend during dangerous times. 
+
+
+BECAUSE of the complexity of this system I'll need to rely on lots of autofilling for various things. For example, non unique npcs (enemies, general npcs, ect) wouldn't have 
+either the data nor the context that you'd need to give them specific data. What you could do though is create a big list or whatever or demographics and rig them with all kinds of generalizations
+that auto fill in any values not given by default. These DEFAULT values could be replaced not by text but by function references that would completely replace the text response. So if you generated a response
+to the question, "Where are you from?" it wouldn't give "I am from {ORIGIN}" it would just store a function like getHomeland and that would take in some values and build the string, "I am from skyrim."
+I suppose you could also do the keyword thing if you wanted npcs to be able to have semi custom responses but to drop in values verbatim, so "I am from {ORIGIN} like before would look for the origin macro/key value and return that out to the sentence.
+	These autos would be a mix of random assignments and trees of one case into a set of other cases. For example when spawning a random travellor you randomly pick their species.
+If that species is a cold northernly species they would auto fill info about their home being from that place and their preferences would be slightly adjusted to allign with their background.
+They might also gain certain awareness of their past and not of others, a travellor for example probably wouldn't know many local people or rumors but might know a surprising amount about back home.
+	In adition, in many games there are different job classes and races with different comments and voice lines specific to the context. What you could do then is create an npc and specify some general facts
+Let's say it's a bandit in skyrim, their bandit identity would auto fill some other facts about them like they don't mind violence or they have a propensity for stealing or less trust or don't mind bad weather, ect, ect, ect
+	Then as i said, many of these data points would lead into other data points that would lead into others so that given a few starting points and contextual data from the game as they appear
+they would go down through their dictionaries and fill in all kinds of data points using the more general prior assumptions as guides.
+	In terms of game context there would be some randomization or even hard coding for certain enemy types or whatever but then it would go on and grab a bunch of data from the game like time of day, location
+environment, people around them... And it would fill in some places using that.
+
+All in all, the above system might look like: Creating an enemy in a native tribe in the north where it's cold and this bit of code is related to a mission about cultists so they spawn with the hard coded
+values of: profesion: cult/magic  status: medium  age: middle  allignment: evil  power level: middle-high  
+From those hard provided values they might grab context data from their location to give V
+Residence:  script that grabs from surrounding areas based on likelyhood  species: script that randomly gives species based on context and area and ect  homeland:  based on species and context decide origin ect, ect could also give values for wealth based on status and area or crime values for such ect ect
+Then using the provided info and the assumed info from context you could start to fill in more medium level info, personality, policital and faction affiliation, like-dislike of places,things, or people, hobbies, equipment, spells, stats, ect
+From here on out I think that pretty much all values would be autofilled down in series using the values already known to guess at good options. For example at this point with background and behavior and status and equipment/stats and crime and personality and place in society established you can V
+move onto filling in small details like favored items and random belongings or habbits based on various factors. you could also establish awarenesses like knowing about certain people or things based on their place in society and whatnot, specifically if they liked smithing for example, something established above, then they might have more voice lines about smithing or equipment ect
+I'm not sure but I think at the end is when you would take this person and apply to last things, for example looking at enemies and surroundings around you and linking this created npc to other npcs in the area with repour values
+or marking out where they live specifically, like which rooms or beds they return to, or what items are theirs in the current game map. You could also then initialize all their mood values at this point
+using their likes and dislikes you could analyse the environment and asign mood and comfort and fear and other such context feelings. 
+
+
+Random things: 
+There would be a delay between the question and the response depending on the feel of the question. I don't know how you'd decide whether embarassing or sad or fun questions got answered faster/slower but yeah.
+
+
+Specific actions and behaviors...
+
+When it comes to giving npcs items they would use generalized appraisals of value and niceness of the item to decide how they liked the gift and also have a custom collection of items
+that that npc specifically likes. A personal trinket would be very appreciated to someone who'd lost the item or collected them despite being worthless and other's wouldn't care
+These special items would be stored by each npc as things they like (in an array or struct for ex or even file data) and could be adjusted at run time if someone really wants one thing they wouldn't be too happy about a second or third...
