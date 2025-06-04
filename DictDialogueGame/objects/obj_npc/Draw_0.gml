@@ -4,6 +4,20 @@ draw_set_color(image_blend);
 
 draw_circle(x, y, 10, false);
 
+for(var _i = 0; _i < 1; _i++) {
+	textId.draw(x, y + _i * 3, typer);
+}
+msg(typer.get_state())
+
+if(keyboard_check(vk_alt)) {
+	typer.in(.2, .5);
+	typer.reset()
+	scribble_anim_wave(18, .3, .05);
+	scribble_anim_shake(5, 1);
+	scribble_anim_rainbow(1, .001);
+}
+//draw_text(x, y + _i * 5, "This weapon costs BIG CROWN BIG CROWN 1,200");
+
 //draw_circle(x, y, playerCommentRange, true);
 
 //draw_circle(x, y, 100, true);

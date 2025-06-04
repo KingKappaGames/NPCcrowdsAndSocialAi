@@ -51,7 +51,7 @@ function script_answerAction(subject) {
 }
 
 function script_answerMagic(subject) {
-	if(subject.magical == 0) {
+	if(subject.magicStrength == 0) {
 		if(subject.occupation == "scholar" && irandom(1) == 0) {
 			return "No, I've studied it though. I don't have the talent.";
 		} else if(subject.occupation == "king") {

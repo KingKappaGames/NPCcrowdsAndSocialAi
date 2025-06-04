@@ -206,3 +206,7 @@ stopPathMovement = function() {
 }
 
 image_blend = make_color_rgb(irandom(255), irandom(255), irandom(255));
+
+typer = scribble_typist(false);
+textId = scribble("[slant]This[/slant] [shake]weapon[/shake] costs [rainbow]a whole kingdom[/rainbow]. [/][wave]What a rip off!");
+typer.in(random_range(.01, .5), 0);
