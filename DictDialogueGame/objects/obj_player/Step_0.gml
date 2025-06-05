@@ -43,6 +43,10 @@ if(keyboard_check_released(ord("5"))) { // laugh
 	reaction = 5;
 }
 
+if(keyboard_check_released(vk_f9)) {
+	instance_create_depth(mouse_x ,mouse_y, depth, obj_monster);
+}
+
 if(reaction != 0) {
 	var _subject = instance_nearest(x, y, obj_npc);
 	if(instance_exists(_subject)) {

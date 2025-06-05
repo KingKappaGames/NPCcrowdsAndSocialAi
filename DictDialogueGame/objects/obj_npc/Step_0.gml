@@ -92,19 +92,37 @@ if(inDialogue) {
 		//	}
 		//}
 		
-		if(irandom(20) == 0) {
+		
+		if(irandom(5) == 0) {
 			ds_list_clear(npcAroundList)
 			collision_circle_list(x, y, 200, obj_npc, false, true, npcAroundList, true); // get nearby npcs
 			npcAroundCount = ds_list_size(npcAroundList);
-		}
-		
-		if(irandom(5) == 0) {
-			if(instance_exists(followingId)) {
-				followPointX = followingId.x + followingId.xChange * 14;
-				followPointY = followingId.y + followingId.yChange * 14;
-			} else if(followingId != noone) {
-				followingId = noone;
-				followingPoint = false;
+			
+			var _monster = instance_nearest(x, y, obj_monster);
+			var _monsterDist = -1;
+			if(_monster != noone) {
+				_monsterDist = point_distance(x,y, _monster.x, _monster.y);
+				followPointX = _monster.x;
+				followPointY = _monster.y;
+				
+				var _monsterDir = point_direction(x,y, _monster.x, _monster.y);
+				xChange += dcos(_monsterDir) * .35;
+				yChange -= dsin(_monsterDir) * .35;
+				
+				if(attackTimer <= 0) {
+					if(_monsterDist < 60) {
+						attack(point_direction(x,y, _monster.x, _monster.y), 20);
+					}
+				}
+			}
+			if(_monsterDist == -1) {
+				if(instance_exists(followingId)) {
+					followPointX = followingId.x + followingId.xChange * 14;
+					followPointY = followingId.y + followingId.yChange * 14;
+				} else if(followingId != noone) {
+					followingId = noone;
+					followingPoint = false;
+				}
 			}
 				
 			var _dist = point_distance(x, y, followPointX, followPointY);
@@ -207,6 +225,17 @@ if(inDialogue) {
 			}
 		}
 		#endregion
+	}
+	
+	attackTimer--;
+	
+	if(irandom(30) == 0) {
+		var _monster = instance_nearest(x, y, obj_monster);
+		if(instance_exists(_monster) && point_distance(x,y, _monster.x, _monster.y) < 150) {
+			followingPoint = true;
+			followingPointX = _monster.x;
+			followingPointY = _monster.y;
+		}
 	}
 	
 	x += xChange;

@@ -1,6 +1,8 @@
 if(live_call()) { return live_result }
 
 depth -= 3;
+Health = 15;
+attackTimer = 0;
 
 #region npc values for character info
 
@@ -207,6 +209,32 @@ stopPathMovement = function() {
 
 image_blend = make_color_rgb(irandom(255), irandom(255), irandom(255));
 
-typer = scribble_typist(false);
-textId = scribble("[slant]This[/slant] [shake]weapon[/shake] costs [rainbow]a whole kingdom[/rainbow]. [/][wave]What a rip off!");
-typer.in(random_range(.01, .5), 0);
+bloodPart = part_type_create();
+part_type_shape(bloodPart, pt_shape_square);
+part_type_size(bloodPart, .09, .14, -.0045, 0);
+part_type_life(bloodPart, 16, 25);
+part_type_color2(bloodPart, #b20000, #ed1212);
+part_type_direction(bloodPart, 0, 360, 0, 0); // changed changed with use
+part_type_speed(bloodPart, 2, 6.5, -.09, 0); // changed changed with use
+part_type_gravity(bloodPart, .08, 270)
+part_type_orientation(bloodPart, 0, 360, 0, 0, 0);
+
+hit = function(dir, knockback, damage) {
+	Health -= damage;
+	xChange += dcos(dir) * knockback;
+	yChange -= dsin(dir) * knockback;
+	
+	part_particles_create(global.sys, x, y, bloodPart, 10 + irandom(10));
+	
+	if(Health <= 0) {
+		part_particles_create(global.sys, x, y, bloodPart, 20 + irandom(20));
+		instance_destroy();
+	}
+}
+
+attack = function(dir, dist) {
+	var _attackDist = min(dist, 20);
+	script_createAttack(x + dcos(dir) * _attackDist, y - dsin(dir) * _attackDist, dir, 1, 20, 1, 2, 25, obj_monster);
+	
+	attackTimer = 40 + irandom(50);
+}

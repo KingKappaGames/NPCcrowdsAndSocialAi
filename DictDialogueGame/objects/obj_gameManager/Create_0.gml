@@ -2,6 +2,9 @@ randomize();
 
 global.gameManager = id;
 
+global.sys = part_system_create();
+part_system_depth(global.sys, -5000);
+
 #region allegiances
 enum ALLEGIANCES {
 	empire, 
