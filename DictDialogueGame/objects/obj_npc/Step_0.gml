@@ -1,4 +1,8 @@
 if(live_call()) { return live_result }
+	
+//if(keyboard_check_released(vk_f2)) {
+	//scribble_anim_wave(1.8, .25, .1);
+//}
 
 if(inDialogue) {
 	// don't do something..?
@@ -65,7 +69,7 @@ if(inDialogue) {
 					var _pathInfo = script_chooseNextPath(pathCurrent, _pointCrossed, id);
 					startPathMovement(_pathInfo[0], _pathInfo[1], _pathInfo[2]);
 					
-					script_createSpeechBubble(x, y, "Crossed", 80);
+					script_createSpeechBubble(x, y, "Crossed", 80, 30, .1, curve_SBemerge, curve_SBgrow);
 				} else {
 					//if crossed any points of interest (branches, maybe pauses or something else) then recheck your path setting with (choose next path))
 					pathGoalX = path_get_x(pathCurrent, path_position);

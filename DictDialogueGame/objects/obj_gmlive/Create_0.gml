@@ -15,5 +15,3 @@ if (asset_get_index("live_init") == -1) show_error("live_init is missing!\nEithe
 live_init(1, "http://localhost:5100", "");
 
 // if you need to add any overrides because of 
-live_blank_object = gmliveRefObject;
-live_blank_room = gmliveRefRoom;

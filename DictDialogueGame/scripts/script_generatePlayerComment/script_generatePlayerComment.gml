@@ -5,7 +5,7 @@ function script_generatePlayerComment(){
 	var _place = global.territory;
 	
 	if(_place == "pride lands" && irandom(1) == 0) {
-		return ["A visitor to the pride lands?", "Well, it's nice enough. Make yourself at home.", "A countryman. Well met.", "Woah. Calm down, it's only a pleasantry.", "Didn't you know? These are the kings realms.", "Uh, what did I say?"];
+		return ["A visitor to the [#fca3ff]pride lands[c_white]?", "Well, it's nice enough. Make yourself at home.", "A countryman. Well met.", "Woah. Calm down, it's only a pleasantry.", "Didn't you know? These are the kings realms.", "Uh, what did I say?"];
 	} else if(_time == "day" || _time == "morning" || _time == "noon") {
 		return ["Good day.", "Mm.", "...", "Is there a problem?", "I said good day, that's all.", "Right..."];
 	} else {

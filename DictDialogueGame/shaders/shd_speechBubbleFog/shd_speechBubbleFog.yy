@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"shd_speechBubbleFog",
+  "name":"shd_speechBubbleFog",
+  "parent":{
+    "name":"Shaders",
+    "path":"folders/stuffIDontUseMuch/Shaders.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}
