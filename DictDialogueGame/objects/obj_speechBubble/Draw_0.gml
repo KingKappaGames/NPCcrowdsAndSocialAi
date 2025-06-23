@@ -10,7 +10,7 @@ var _fadePortion = 1;
 if(fadeTime > 0 && fadeTime <= fadeTimeMax) {
 	_fadePortion = 1 - (fadeTime / fadeTimeMax);
 	_fade = -((fadeTime * 2) / fadeTimeMax); // 0 to -2     to cut off alpha half way to over
-	messageData.blend(c_white, _fadePortion);
+	messageData.blend(c_white, max(1 + _fade, 0));
 }
 	
 var _tailXOff = clamp((originX - x) / (abs(originY - y) * .01 + 1), -bubbleWidth * .55, bubbleWidth * .55);
@@ -24,8 +24,8 @@ shader_set(shd_speechBubbleFog);
 
 shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "time"), current_time / 1000);
 shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "colorTint"), 1, 1, 0, 1);
-shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "bubbleSize"), .7 * bubbleWidth / 512, .7 * bubbleHeight / 512);
-shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "bubbleRadius"), point_distance(.7 * bubbleWidth / 512, .7 * bubbleHeight / 512, 0, 0));
+shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "bubbleSize"), .6 * bubbleWidth / 512, .6 * bubbleHeight / 512);
+shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "bubbleRadius"), point_distance(.6 * bubbleWidth / 512, .6 * bubbleHeight / 512, 0, 0));
 shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "radiusBufferAdjust"), _fade);
 
 
@@ -35,5 +35,5 @@ draw_surface(_bubbleSurf, x - 256, y - 256);
 shader_reset();
 
 if(createTime >= createTimeMax) {
-	messageData.draw(x - bubbleWidthFinal * .5, y - bubbleHeightFinal * .5, typewritter);
+	messageData.draw(x, y - bubbleHeightFinal * .5, typewritter);
 }

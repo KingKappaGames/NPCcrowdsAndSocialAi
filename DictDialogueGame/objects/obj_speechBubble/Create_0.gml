@@ -44,15 +44,29 @@ getBubbleSurf = function() {
 messageData = scribble(""); // the "text" baked in scribble format
 typewritter = scribble_typist(); // the type writter effect for scribble
 
+
+/// @desc sets the default values for a potential speech bubble, beyond the basic use for one line or another (sets intro and outro among other things)
+/// @param {any*} textString The text to show in the bubble, including scribble formatting
+/// @param {any*} positionCurve The curve to use as character for the spawn path (curve ranges 0-1 for output)
+/// @param {any*} sizeCurve The curve to use as the guide for how big the speech bubble should be as it's forming
+/// @param {any*} [distanceScaleX]=20 The horizontal scale of the dist curve
+/// @param {any*} [distanceScaleY]=20 The vertical scale of the dist curve
+/// @param {any*} [createDelay]=35 How many frames to take while spawning in and growing the text bubble
+/// @param {any*} [typeSpeed]=.2 How many characters per frame to add
+/// @param {any*} [fadeDelay]=30 How many frames to take to remove the speech bubble, while it shrinks and fades out
 setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, distanceScaleY = 20, createDelay = 35, typeSpeed = .2, fadeDelay = 30) {
+	live_auto_call
 	messageData = scribble(textString);
 	
-	distScaleX = distanceScaleX;
-	distScaleY = distanceScaleY;
+	messageData.wrap(256);
+	messageData.align(fa_center, fa_top);
 	
 	var _textBbox = messageData.get_bbox(); // the border of the text
 	bubbleWidthFinal = _textBbox.width; // scribble get width of baked text
 	bubbleHeightFinal = _textBbox.height; // scribble get width of baked text
+	
+	distScaleX = distanceScaleX;
+	distScaleY = distanceScaleY;
 	
 	xCurve = animcurve_get_channel(positionCurve, "x");
 	yCurve = animcurve_get_channel(positionCurve, "y");

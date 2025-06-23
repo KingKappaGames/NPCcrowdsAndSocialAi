@@ -131,6 +131,7 @@
     {"id":{"name":"execute_program_pipe","path":"extensions/execute_program_pipe/execute_program_pipe.yy",},},
     {"id":{"name":"GMLive_fallback","path":"extensions/GMLive_fallback/GMLive_fallback.yy",},},
     {"id":{"name":"shader_replace_simple","path":"extensions/shader_replace_simple/shader_replace_simple.yy",},},
+    {"id":{"name":"font_dialogueText","path":"fonts/font_dialogueText/font_dialogueText.yy",},},
     {"id":{"name":"scribble_fallback_font","path":"fonts/scribble_fallback_font/scribble_fallback_font.yy",},},
     {"id":{"name":"ScribblejrDefaultFont","path":"fonts/ScribblejrDefaultFont/ScribblejrDefaultFont.yy",},},
     {"id":{"name":"dialgueDesignNotes","path":"notes/dialgueDesignNotes/dialgueDesignNotes.yy",},},

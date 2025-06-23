@@ -112,13 +112,13 @@ sayRandomComment = function() {
 				moveStartChance = 30;
 			}
 			comment = script_generatePlayerComment(); // player focused comment
-			script_createSpeechBubble(x + choose(-40, 40), y - 100, comment[0], 190, 80, .15, curve_SBemerge, curve_SBgrow);
+			script_createSpeechBubble(x + choose(-40, 40), y - 100, comment[0], 190, 80, .21, curve_SBemerge, curve_SBgrow);
 			exit;
 		}
 	}
 	
 	comment = script_generateSelfComment(); // non player focused comment
-	script_createSpeechBubble(x + choose(-40, 40), y - 100, comment[0], 170, 80, .15, curve_SBemerge, curve_SBgrow);
+	script_createSpeechBubble(x + choose(-40, 40), y - 100, comment[0], 170, 80, .21, curve_SBemerge, curve_SBgrow);
 }
 
 judgeComment = function(judgment) { // agree, diagree, anger, doubt, laugh

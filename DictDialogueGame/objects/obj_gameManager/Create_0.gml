@@ -6,6 +6,8 @@ global.sys = part_system_create();
 part_system_depth(global.sys, -5000);
 
 scribble_anim_wave(1.8, .25, .1);
+scribble_font_set_default("font_dialogueText");
+
 
 #region allegiances
 enum ALLEGIANCES {
