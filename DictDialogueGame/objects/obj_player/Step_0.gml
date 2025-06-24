@@ -82,6 +82,18 @@ if(keyboard_check_released(ord("H"))) {
 if(keyboard_check_released(ord("N"))) {
 	instance_create_layer(mouse_x, mouse_y, "Instances", obj_npc);
 }
+if(keyboard_check_released(vk_f2)) {
+	var _influence = instance_create_layer(mouse_x, mouse_y, "Instances", obj_steeringNode);
+	_influence.influence = 1;
+}
+if(keyboard_check_released(vk_f3)) {
+	var _influence = instance_create_layer(mouse_x, mouse_y, "Instances", obj_steeringNode);
+	_influence.influence = -1;
+	_influence.influenceRadius = 1500;
+}
+if(keyboard_check_released(vk_f4)) {
+	instance_create_layer(mouse_x, mouse_y, "Instances", obj_steeringNpc);
+}
 
 if(keyboard_check_released(ord("R"))) {
 	with(obj_npc) {
