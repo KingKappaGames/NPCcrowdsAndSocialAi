@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"__cle_shSpriteLightPhong",
+  "name":"__cle_shSpriteLightPhong",
+  "parent":{
+    "name":"Phong",
+    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Shaders/Lighting/Phong.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

@@ -2,7 +2,7 @@ if(live_call()) { return live_result }
 
 draw_circle(x, y, 10, false);
 
-/*
+
 draw_circle(x, y, 15, true);
 for(var _i = 0; _i < seekDirections; _i++) {
 	var _desire = goalArray[_i] * 50;

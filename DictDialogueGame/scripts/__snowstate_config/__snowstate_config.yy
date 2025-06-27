@@ -6,7 +6,7 @@
   "name":"__snowstate_config",
   "parent":{
     "name":"SnowState",
-    "path":"folders/stuffIDontUseMuch/SnowState.yy",
+    "path":"folders/stuffIDontUseMuch/Extensions/SnowState.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

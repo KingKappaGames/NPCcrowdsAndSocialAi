@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"__cle_shPointLight",
+  "name":"__cle_shPointLight",
+  "parent":{
+    "name":"Basic",
+    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Shaders/Lighting/Basic.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

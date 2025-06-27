@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__cle_Settings",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__cle_Settings",
+  "parent":{
+    "name":"CrystalLightingEngine",
+    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

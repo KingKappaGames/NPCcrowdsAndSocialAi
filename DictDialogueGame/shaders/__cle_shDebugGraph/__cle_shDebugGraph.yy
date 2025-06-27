@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"__cle_shDebugGraph",
+  "name":"__cle_shDebugGraph",
+  "parent":{
+    "name":"Resources",
+    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/Debug/Resources.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

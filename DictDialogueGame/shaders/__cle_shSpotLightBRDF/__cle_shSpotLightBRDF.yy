@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"__cle_shSpotLightBRDF",
+  "name":"__cle_shSpotLightBRDF",
+  "parent":{
+    "name":"BRDF",
+    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Shaders/Lighting/BRDF.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

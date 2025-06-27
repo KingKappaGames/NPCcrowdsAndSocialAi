@@ -4,7 +4,7 @@ timer++;
 
 ds_list_clear(consideredInfluences);
 var _consideredCount = collision_circle_list(x, y, 1500, obj_steeringNode, false, true, consideredInfluences, false);
-goalArray = array_create(seekDirections, 0);
+goalArray = array_create(seekDirections, 0.5);
 
 var _influence = 0;
 var _influenceArray = 0;

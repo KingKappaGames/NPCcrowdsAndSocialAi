@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__cle_CookieGenerator",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__cle_CookieGenerator",
+  "parent":{
+    "name":"CookieGenerator",
+    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/CookieGenerator.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
