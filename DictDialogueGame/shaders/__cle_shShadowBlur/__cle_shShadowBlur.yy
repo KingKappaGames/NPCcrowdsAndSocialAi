@@ -4,7 +4,7 @@
   "name":"__cle_shShadowBlur",
   "parent":{
     "name":"SpriteBased",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Shaders/Shadows/SpriteBased.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Shaders/Shadows/SpriteBased.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

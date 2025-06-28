@@ -7,7 +7,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"zUnused",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Assets/Objects/zUnused.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Assets/Objects/zUnused.yy",
   },
   "parentObjectId":null,
   "persistent":false,

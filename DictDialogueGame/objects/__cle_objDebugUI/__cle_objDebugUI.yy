@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Debug",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/Debug.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Modules/Debug.yy",
   },
   "parentObjectId":null,
   "persistent":false,

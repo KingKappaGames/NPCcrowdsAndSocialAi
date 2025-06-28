@@ -4,7 +4,7 @@
   "name":"__cle_shVertDirShadowSmooth",
   "parent":{
     "name":"Smooth",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Shaders/Shadows/VertexBased/Smooth.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Shaders/Shadows/VertexBased/Smooth.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

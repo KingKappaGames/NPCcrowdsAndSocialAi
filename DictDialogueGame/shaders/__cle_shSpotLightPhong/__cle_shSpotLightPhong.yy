@@ -4,7 +4,7 @@
   "name":"__cle_shSpotLightPhong",
   "parent":{
     "name":"Phong",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Shaders/Lighting/Phong.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Shaders/Lighting/Phong.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

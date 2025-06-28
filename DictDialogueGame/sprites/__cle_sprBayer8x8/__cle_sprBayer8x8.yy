@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"Dithering",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Assets/Sprites/Dithering.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Assets/Sprites/Dithering.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

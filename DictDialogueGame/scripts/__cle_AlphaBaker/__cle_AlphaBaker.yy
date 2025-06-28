@@ -6,7 +6,7 @@
   "name":"__cle_AlphaBaker",
   "parent":{
     "name":"AlphaBaker",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/AlphaBaker.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Modules/AlphaBaker.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

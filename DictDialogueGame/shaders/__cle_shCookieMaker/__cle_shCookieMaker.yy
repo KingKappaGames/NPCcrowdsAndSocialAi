@@ -4,7 +4,7 @@
   "name":"__cle_shCookieMaker",
   "parent":{
     "name":"CookieGenerator",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/CookieGenerator.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Modules/CookieGenerator.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

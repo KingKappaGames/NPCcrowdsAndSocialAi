@@ -4,7 +4,7 @@
   "name":"__cle_shBasicLight",
   "parent":{
     "name":"Basic",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Shaders/Lighting/Basic.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Shaders/Lighting/Basic.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

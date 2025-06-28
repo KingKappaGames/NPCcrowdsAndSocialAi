@@ -6,7 +6,7 @@
   "name":"__cle_LightData",
   "parent":{
     "name":"LightData",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/LightData.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Modules/LightData.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

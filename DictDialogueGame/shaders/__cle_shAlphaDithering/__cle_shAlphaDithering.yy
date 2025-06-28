@@ -4,7 +4,7 @@
   "name":"__cle_shAlphaDithering",
   "parent":{
     "name":"Misc",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Shaders/Misc.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Shaders/Misc.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

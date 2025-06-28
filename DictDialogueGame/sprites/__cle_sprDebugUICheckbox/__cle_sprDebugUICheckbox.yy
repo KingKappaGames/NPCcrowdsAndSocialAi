@@ -27,7 +27,7 @@
   "origin":0,
   "parent":{
     "name":"Resources",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/Debug/Resources.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Modules/Debug/Resources.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

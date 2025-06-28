@@ -4,7 +4,7 @@
   "name":"__cle_shEmission",
   "parent":{
     "name":"Materials",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Shaders/Render/Materials.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Shaders/Render/Materials.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

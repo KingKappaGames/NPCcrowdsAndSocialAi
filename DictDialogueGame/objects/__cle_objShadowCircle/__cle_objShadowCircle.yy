@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Shadows (Placeholder)",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Assets/Objects/zUnused/Shadows (Placeholder).yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Assets/Objects/zUnused/Shadows (Placeholder).yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -6,7 +6,7 @@
   "name":"__cle_CookieGenerator",
   "parent":{
     "name":"CookieGenerator",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/CookieGenerator.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Modules/CookieGenerator.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

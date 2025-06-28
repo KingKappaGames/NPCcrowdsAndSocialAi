@@ -165,7 +165,7 @@
   "name":"__cle_fntDebugUI",
   "parent":{
     "name":"Resources",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/Debug/Resources.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Modules/Debug/Resources.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -179,10 +179,7 @@
   "sdfSpread":8,
   "size":12.0,
   "styleName":"Regular",
-  "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
-  },
+  "textureGroupId":null,
   "TTFName":"",
   "usesSDF":false,
 }

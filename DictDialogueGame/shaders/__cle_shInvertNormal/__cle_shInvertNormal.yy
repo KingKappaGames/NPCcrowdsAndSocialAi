@@ -4,7 +4,7 @@
   "name":"__cle_shInvertNormal",
   "parent":{
     "name":"NormalsInverter",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/NormalsInverter.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Modules/NormalsInverter.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

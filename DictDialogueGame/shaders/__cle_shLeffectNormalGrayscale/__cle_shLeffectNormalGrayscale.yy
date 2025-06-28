@@ -4,7 +4,7 @@
   "name":"__cle_shLeffectNormalGrayscale",
   "parent":{
     "name":"LayerEffects",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/LayerEffects.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Modules/LayerEffects.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

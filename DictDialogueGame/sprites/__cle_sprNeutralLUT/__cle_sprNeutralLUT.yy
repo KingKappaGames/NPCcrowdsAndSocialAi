@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"LUTs",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Assets/Sprites/LUTs.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Assets/Sprites/LUTs.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

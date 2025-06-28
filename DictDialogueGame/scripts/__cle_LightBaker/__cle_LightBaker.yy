@@ -6,7 +6,7 @@
   "name":"__cle_LightBaker",
   "parent":{
     "name":"LightBaker (to-do)",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/LightBaker (to-do).yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Modules/LightBaker (to-do).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

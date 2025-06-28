@@ -4,7 +4,7 @@
   "name":"__cle_shSpriteLightBRDF",
   "parent":{
     "name":"BRDF",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Shaders/Lighting/BRDF.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Shaders/Lighting/BRDF.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

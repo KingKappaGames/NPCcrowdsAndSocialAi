@@ -6,7 +6,7 @@
   "name":"__cle_LayerEffects",
   "parent":{
     "name":"LayerEffects",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/LayerEffects.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Modules/LayerEffects.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

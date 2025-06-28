@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Lights (Parents)",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Assets/Objects/Lights (Parents).yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Assets/Objects/Lights (Parents).yy",
   },
   "parentObjectId":{
     "name":"__cle_objLightDynamic",

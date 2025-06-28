@@ -4,7 +4,7 @@
   "name":"__cle_shVertDirShadowBasic",
   "parent":{
     "name":"Basic",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Shaders/Shadows/VertexBased/Basic.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Shaders/Shadows/VertexBased/Basic.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

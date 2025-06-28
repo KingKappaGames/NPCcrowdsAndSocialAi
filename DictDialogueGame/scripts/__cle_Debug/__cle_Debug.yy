@@ -6,7 +6,7 @@
   "name":"__cle_Debug",
   "parent":{
     "name":"Resources",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Modules/Debug/Resources.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Modules/Debug/Resources.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

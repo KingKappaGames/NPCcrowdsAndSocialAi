@@ -4,7 +4,7 @@
   "name":"__cle_shDeferredRender",
   "parent":{
     "name":"Combine",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Shaders/Render/Combine.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Shaders/Render/Combine.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

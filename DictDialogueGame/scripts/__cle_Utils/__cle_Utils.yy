@@ -6,7 +6,7 @@
   "name":"__cle_Utils",
   "parent":{
     "name":"Essential",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Core/Essential.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Core/Essential.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

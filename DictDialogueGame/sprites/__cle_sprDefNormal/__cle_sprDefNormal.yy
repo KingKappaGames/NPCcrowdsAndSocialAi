@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"Passes",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Assets/Sprites/Passes.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Assets/Sprites/Passes.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

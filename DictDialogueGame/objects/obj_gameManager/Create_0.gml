@@ -2,6 +2,21 @@ randomize();
 
 global.gameManager = id;
 
+#region ppx nonsense
+
+ppxRenderer = new PPFX_Renderer();
+
+var effects = [
+    new FX_Colorize(true, color_get_hue(c_orange), 200, 240),
+    new FX_SineWave(true, 1),
+];
+
+ppxDefaultProfile = new PPFX_Profile("Default", effects);
+
+ppxRenderer.ProfileLoad(ppxDefaultProfile);
+
+#endregion
+
 global.sys = part_system_create();
 part_system_depth(global.sys, -5000);
 

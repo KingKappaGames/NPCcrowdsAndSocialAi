@@ -26,7 +26,7 @@
   "origin":4,
   "parent":{
     "name":"SpriteLights",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine/Assets/Sprites/SpriteLights.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine/Assets/Sprites/SpriteLights.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

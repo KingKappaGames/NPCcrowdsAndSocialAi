@@ -6,7 +6,7 @@
   "name":"__cle_Settings",
   "parent":{
     "name":"CrystalLightingEngine",
-    "path":"folders/stuffIDontUseMuch/Extensions/CrystalLightingEngine.yy",
+    "path":"folders/foxyStuff/CrystalLightingEngine.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
