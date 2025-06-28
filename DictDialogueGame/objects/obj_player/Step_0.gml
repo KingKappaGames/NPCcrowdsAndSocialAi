@@ -1,5 +1,10 @@
 if(live_call()) { return live_result }
 
+depth = -y;
+followingLight.x = x;
+followingLight.y = y;
+followingLight.depth = depth;
+
 if(!instance_exists(obj_dialogueManager.dialogueNpcCurrent)) {
 	if(keyboard_check_pressed(vk_shift)) {
 		if(stamina > 0) {

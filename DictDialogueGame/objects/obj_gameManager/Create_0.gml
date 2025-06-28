@@ -2,13 +2,33 @@ randomize();
 
 global.gameManager = id;
 
+#region crystal lights nonsense
+
+gpu_set_zwriteenable(true);
+gpu_set_ztestenable(true);
+gpu_set_alphatestenable(true);
+
+// create system responsible for rendering lights, shadows, materials, etc.
+crystalRenderer = new Crystal_Renderer();
+crystalRenderer.SetAmbientColor(#110022);
+crystalRenderer.SetAmbientIntensity(.88);
+
+#endregion
+
 #region ppx nonsense
+
+application_surface_draw_enable(false);
 
 ppxRenderer = new PPFX_Renderer();
 
+ppxRenderer.SetHDREnable(true);
+
 var effects = [
-    new FX_Colorize(true, color_get_hue(c_orange), 200, 240),
-    new FX_SineWave(true, 1),
+   // new FX_Colorize(true, color_get_hue(#200237), 255, 255, .33),
+	new FX_NoiseGrain(true, .03, .5, .5, 1),
+	new FX_Bloom(true, 8, .95, 10, 1.2),
+	//new FX_Vignette(true, 1, 1, .3, 1.15, c_red, [.5, .5], .2, false) 
+	
 ];
 
 ppxDefaultProfile = new PPFX_Profile("Default", effects);

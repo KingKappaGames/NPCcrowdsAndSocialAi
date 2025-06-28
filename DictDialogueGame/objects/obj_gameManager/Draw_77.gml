@@ -1,4 +1,15 @@
-ppxRenderer.DrawInFullscreen(application_surface);
+//ppxRenderer.DrawInFullscreen(application_surface);
+
+// draw lighting system's final surface to the screen.
+//crystalRenderer.DrawInFullscreen();
 
 
-draw_circle(200, 200, 100, false);
+var _inputSurf = application_surface;
+
+// lighting effects first
+_inputSurf = crystalRenderer.GetRenderSurface();
+
+
+// post processing effects second
+ppxRenderer.DrawInFullscreen(_inputSurf);
+//_inputSurf = objPostProcessing.renderer.GetRenderSurface();

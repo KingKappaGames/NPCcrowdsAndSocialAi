@@ -14,3 +14,10 @@ stamina = staminaMax;
 directId = noone;
 
 leader = false;
+
+followingLight = instance_create_depth(x, y, -1000, obj_pointLight);
+followingLight.color = #ffffff;
+followingLight.radius = 240;
+followingLight.intensity = .3;
+followingLight.castShadows = true;
+followingLight.selfShadows = true;
