@@ -15,6 +15,11 @@ crystalRenderer.SetMaterialsEnable(true);
 crystalRenderer.SetAmbientColor(#0b001a);
 crystalRenderer.SetAmbientIntensity(.2);
 
+emissiveLayer = new Crystal_MaterialLayer(-5700, CRYSTAL_PASS.EMISSIVE);
+emissiveLayer.AddLayers(layer_get_id("EmissiveA")); // range 1
+emissiveLayer.emission = 2;
+emissiveLayer.Apply();
+
 #endregion
 
 #region ppx nonsense
@@ -28,7 +33,7 @@ ppxRenderer.SetHDREnable(true);
 var effects = [
    // new FX_Colorize(true, color_get_hue(#200237), 255, 255, .33),
 	new FX_NoiseGrain(true, .03, .5, .5, 1),
-	new FX_Bloom(true, 5, 2, 10, 1.3, #ffffff),
+	new FX_Bloom(true, 5, 2, 10, 1.25, #ffffff),
 	new FX_Saturation(true, 1),
 	//new FX_Vignette(true, 1, 1, .3, 1.15, c_red, [.5, .5], .2, false) 
 	
@@ -43,7 +48,7 @@ ppxRenderer.ProfileLoad(ppxDefaultProfile);
 #region particles
 
 global.sys = part_system_create();
-part_system_depth(global.sys, -5000);
+part_system_depth(global.sys, -5070);
 
 global.waterTrail = part_type_create();
 var _wTrail = global.waterTrail;

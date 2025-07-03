@@ -4,11 +4,11 @@ linkLength = 30;
 
 material = new Crystal_Material(id);
 material.normalSprite = spr_wormLinkNormal;
-material.normalSpriteSubimg = 1;
+material.normalSpriteSubimg = 0;
 material.emissiveSprite = spr_wormLinkEmissive;
-material.emissiveSpriteSubimg = 1;
+material.emissiveSpriteSubimg = 0;
 material.emissionIntensity = 1;
-material.emission = 3.5;
+material.emission = 4.2;
 
 material.x = x;
 material.y = y;

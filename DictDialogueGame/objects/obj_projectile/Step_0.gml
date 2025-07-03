@@ -19,7 +19,10 @@ if(height <= 0) {
 	//}
 	
 	if(makeChildren) {
-		audio_play_sound(snd_waterSplash, 0, 0);
+		if(size > 11) {
+			audio_play_sound(snd_waterSplash, 0, 0);
+		}
+		
 		var _childCount = floor(power(size, .75) * max(_fallingMult - 1, 0) * random_range(.75, 2.1));
 		
 		_fallingMult = max(_fallingMult - 1, 0) * .9; // speed adjuster at this point

@@ -1,5 +1,7 @@
 if(live_call()) { return live_result }
 
+depth = -y;
+
 reaction = 0;
 
 moveSpeed = .9;

@@ -114,6 +114,16 @@ if(keyboard_check_released(ord("R"))) {
 	leader = false;
 }
 
+if(keyboard_check_released(ord("M"))) {
+	var _dirToMouse = point_direction(x, y, mouse_x, mouse_y);
+	var _missile = instance_create_depth(x, y, depth, obj_missile);
+	_missile.xChange = dcos(_dirToMouse) * 9;
+	_missile.yChange = -dsin(_dirToMouse) * 9;
+	_missile.speedDecay = .99;
+	_missile.duration = 240;
+	_missile.durationMax = 240;
+}
+
 if(keyboard_check_released(ord("P"))) {
 	with(obj_npc) {
 		with(obj_npc) {

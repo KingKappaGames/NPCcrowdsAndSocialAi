@@ -1,20 +1,19 @@
 {
   "$GMObject":"",
-  "%Name":"obj_pointLight",
+  "%Name":"obj_missile",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":1,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_pointLight",
+  "name":"obj_missile",
   "overriddenProperties":[],
   "parent":{
-    "name":"myLightStuff",
-    "path":"folders/foxyStuff/myLightStuff.yy",
+    "name":"Objects",
+    "path":"folders/Objects.yy",
   },
-  "parentObjectId":{
-    "name":"__cle_objPointLight",
-    "path":"objects/__cle_objPointLight/__cle_objPointLight.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

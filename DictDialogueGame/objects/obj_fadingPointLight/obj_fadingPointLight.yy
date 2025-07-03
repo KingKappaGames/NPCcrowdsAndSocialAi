@@ -1,19 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"obj_pointLight",
+  "%Name":"obj_fadingPointLight",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_pointLight",
+  "name":"obj_fadingPointLight",
   "overriddenProperties":[],
   "parent":{
     "name":"myLightStuff",
     "path":"folders/foxyStuff/myLightStuff.yy",
   },
   "parentObjectId":{
-    "name":"__cle_objPointLight",
-    "path":"objects/__cle_objPointLight/__cle_objPointLight.yy",
+    "name":"obj_pointLight",
+    "path":"objects/obj_pointLight/obj_pointLight.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"script_createFadingPointLight",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"script_createFadingPointLight",
+  "parent":{
+    "name":"myLightStuff",
+    "path":"folders/foxyStuff/myLightStuff.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
