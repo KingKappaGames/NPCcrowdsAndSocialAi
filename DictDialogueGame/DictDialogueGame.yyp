@@ -139,6 +139,7 @@
   ],
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
+    {"$GMIncludedFile":"","%Name":"chat.yarn","CopyToMask":-1,"filePath":"datafiles","name":"chat.yarn","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"chatterbox_license.txt","CopyToMask":-1,"filePath":"datafiles","name":"chatterbox_license.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"example_speakerdata_sprite.chatter","CopyToMask":-1,"filePath":"datafiles","name":"example_speakerdata_sprite.chatter","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"example.chatter","CopyToMask":-1,"filePath":"datafiles","name":"example.chatter","resourceType":"GMIncludedFile","resourceVersion":"2.0",},

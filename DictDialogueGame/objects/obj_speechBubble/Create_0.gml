@@ -30,6 +30,8 @@ bubbleHeightFinal = 0; // the width/height curves should both range from 0-1 or 
 bubbleSurf = -1;
 bubbleTextSurf = -1; // use surfaces to store the speech bubbles (especially easy when not in growth period) and use these surfaces to apply shaders and whatnot
 
+choiceHighlight = -1;
+
 getBubbleSurf = function() {
 	if(!surface_exists(bubbleSurf)) {
 		bubbleSurf = surface_create(512, 512); // bit big?
@@ -43,6 +45,7 @@ getBubbleSurf = function() {
 //messeageText = ""; // does the scribble struct contain the text or just the shape?
 messageData = scribble(""); // the "text" baked in scribble format
 typewritter = scribble_typist(); // the type writter effect for scribble
+optionData = -1;
 
 
 /// @desc sets the default values for a potential speech bubble, beyond the basic use for one line or another (sets intro and outro among other things)
@@ -54,16 +57,35 @@ typewritter = scribble_typist(); // the type writter effect for scribble
 /// @param {any*} [createDelay]=35 How many frames to take while spawning in and growing the text bubble
 /// @param {any*} [typeSpeed]=.2 How many characters per frame to add
 /// @param {any*} [fadeDelay]=30 How many frames to take to remove the speech bubble, while it shrinks and fades out
-setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, distanceScaleY = 20, createDelay = 35, typeSpeed = .2, fadeDelay = 30) {
+/// @param {any*} [multipleChoice]=false Whether or not this speech bubble is a choose your own option multi bubble, showing the options, not the response text
+setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, distanceScaleY = 20, createDelay = 35, typeSpeed = .2, fadeDelay = 30, multipleChoiceSet = false) {
 	live_auto_call
-	messageData = scribble(textString);
 	
-	messageData.wrap(256);
-	messageData.align(fa_center, fa_top);
+	multipleChoice = multipleChoiceSet;
 	
-	var _textBbox = messageData.get_bbox(); // the border of the text
-	bubbleWidthFinal = _textBbox.width; // scribble get width of baked text
-	bubbleHeightFinal = _textBbox.height; // scribble get width of baked text
+	if(multipleChoice) {
+		var _optionCount = array_length(textString);
+		var _alignments = [fa_center, fa_right, fa_left, fa_center];
+		for(var _i = _optionCount - 1; _i >= 0; _i--) {
+			messageData[_i] = scribble(textString[_i]);
+			messageData[_i].wrap(256);
+			
+			messageData[_i].align(_alignments[_i], fa_middle);
+		}
+		
+		var _textBoxTop = messageData[0].get_bbox();
+		bubbleWidthFinal = _textBoxTop.width * 2 + 40;
+		bubbleHeightFinal = _textBoxTop.height * 2 + 40;
+	} else {
+		messageData = scribble(textString);
+		
+		messageData.wrap(256);
+		messageData.align(fa_center, fa_top);
+		
+		var _textBbox = messageData.get_bbox(); // the border of the text
+		bubbleWidthFinal = _textBbox.width; // scribble get width of baked text
+		bubbleHeightFinal = _textBbox.height; // scribble get width of baked text
+	}
 	
 	distScaleX = distanceScaleX;
 	distScaleY = distanceScaleY;
@@ -85,9 +107,9 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 	fadeTimeMax = fadeDelay;
 }
 
-textBegin = function(speed = textSpeed) {
+textBegin = function(writeSpeed = textSpeed) {
 	typewritter.reset();
-	typewritter.in(speed, .5);
+	typewritter.in(writeSpeed, .5);
 }
 
 

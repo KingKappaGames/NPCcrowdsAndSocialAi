@@ -3,7 +3,7 @@
 // Whether chatterboxes should default to singleton mode. This is useful to most RPGs where lines
 // of dialogue arrive one at a time. More modern narrative games tend to deliver larger chunks of
 // text and, as such, singleton mode is less useful for those sorts of games.
-#macro CHATTERBOX_DEFAULT_SINGLETON  true
+#macro CHATTERBOX_DEFAULT_SINGLETON  false
 
 // Root folder in Included Files to look in for Chatterbox files.
 #macro CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY  ""
