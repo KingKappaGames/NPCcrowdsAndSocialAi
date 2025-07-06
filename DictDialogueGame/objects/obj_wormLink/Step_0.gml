@@ -10,6 +10,9 @@ if(_dist > linkLength) {
 	image_angle = _dir;
 }
 
+depth = -y;
+
 material.x = x;
 material.y = y;
 material.angle = image_angle;
+material.depth = depth;

@@ -8,6 +8,8 @@ text = -1;
 
 bubble = noone;
 
+ChatterboxAddFunction("showMsg", script_junkScript);
+
 
 //var _text = ChatterboxGetAllContentString(chatterbox);
 //var _meta = ChatterboxGetContent(chatterbox, 0);

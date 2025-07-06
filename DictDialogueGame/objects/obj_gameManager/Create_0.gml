@@ -17,7 +17,7 @@ crystalRenderer.SetAmbientIntensity(.2);
 
 emissiveLayer = new Crystal_MaterialLayer(-5700, CRYSTAL_PASS.EMISSIVE);
 emissiveLayer.AddLayers(layer_get_id("EmissiveA")); // range 1
-emissiveLayer.emission = 2;
+emissiveLayer.emission = 2.5;
 emissiveLayer.Apply();
 
 #endregion

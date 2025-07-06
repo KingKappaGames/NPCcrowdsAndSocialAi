@@ -7,6 +7,7 @@ followingLight.depth = depth;
 
 mouseLight.x = mouse_x;
 mouseLight.y = mouse_y;
+mouseLight.depth = -mouse_y;
 
 if(!instance_exists(obj_dialogueManager.dialogueNpcCurrent)) {
 	if(keyboard_check_pressed(vk_shift)) {

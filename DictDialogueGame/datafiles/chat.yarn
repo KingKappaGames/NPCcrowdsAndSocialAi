@@ -15,6 +15,7 @@ This is the end, woe be I, remember me. #cat
     It's already over.
 -> You may find peace within yourself.
     I am not so big a man.
+    <<showMsg("Doggy", "Catty", "Piggy")>>
 [jitter]ima watashi wa yamashita[/jitter]
 ===
 __PrivCrochet_colorID: 1
