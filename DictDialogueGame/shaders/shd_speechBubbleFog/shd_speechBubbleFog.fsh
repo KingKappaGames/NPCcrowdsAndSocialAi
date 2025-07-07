@@ -16,8 +16,8 @@ uniform float radiusBufferAdjust; // this a passed value along with the constant
 uniform vec4 uvs;
 
 const float tintStrength = .9;
-const float radialAdhesion = 15.0; // this basically is a way to set how "strict" the roundness of the bubble shader is, if it's really high, like 250, then the bubble will be a slightly pixelated oval, if it's low like 20 it will be a oil lamp like blob. Lower than that and it starts to fractal all over the screen soooo yeah..
-const float radiusBuffer = 0.4; // this is the extra space added to the radius, probably other ways to handle this but eh
+const float radialAdhesion = 72.0; // this basically is a way to set how "strict" the roundness of the bubble shader is, if it's really high, like 250, then the bubble will be a slightly pixelated oval, if it's low like 20 it will be a oil lamp like blob. Lower than that and it starts to fractal all over the screen soooo yeah..
+const float radiusBuffer = -0.55; // this is the extra space added to the radius, probably other ways to handle this but eh
 
 const vec4 baseColor = vec4(0., 0., 0., 1.0);
 
@@ -29,14 +29,14 @@ void main()
 	vec2 tex = vec2( (v_vTexcoord.x - uvs.r) / uvs.b, (v_vTexcoord.y - uvs.g) / uvs.a );
 	
 	float verticalWiggleDistort =   (sin(time * 3.32 + tex.x * 173.2) * .003) - (sin(-time * 4.32 + tex.x * 233.2) * .0018);
-	float horizontalWiggleDistort = (sin(time * 3.2 + tex.y * 174.8) * .003)   - (sin(-time * 4.32 + tex.y * 233.2) * .0018); // * uv range but.. for surfaces specifically not relevant
-	vec2 newTexCoord = vec2(tex.x + horizontalWiggleDistort, tex.y + verticalWiggleDistort); 
+	float horizontalWiggleDistort = (sin(time * 3.2 + tex.y * 174.8) * .003)  - (sin(-time * 4.32 + tex.y * 233.2) * .0018); // * uv range but.. for surfaces specifically not relevant
+	vec2 newTexCoord = vec2(tex.x + horizontalWiggleDistort, tex.y * (.08 * bubbleSize.x / bubbleSize.y) + verticalWiggleDistort); 
 	
 	float alpha = 1.0;// - pow(fract(sin(time * 	.01 + tex.x * 1523. + tex.y * 4711.)* 125.0), 10.0);
-	float dist = distance(vec2((bubbleCenter.x - tex.x), (bubbleCenter.y - tex.y) * (bubbleSize.x / bubbleSize.y)), vec2(0.0, 0.0)) / bubbleRadius; // uv dist from center to pixel (with a scale to make the lesser axis more represented, thus giving a compressed distance on one axis (basically it gives ovals), then you also normalize this to the bubble radius instead of the surface as a whole
+	float dist = sqrt(pow(.5 - tex.x, 2.0) + pow(.5 - tex.y, 2.0)); // uv dist from center to pixel (with a scale to make the lesser axis more represented, thus giving a compressed distance on one axis (basically it gives ovals), then you also normalize this to the bubble radius instead of the surface as a whole
 	float cutoff = radialAdhesion - (dist - (radiusBuffer + radiusBufferAdjust)) * radialAdhesion; // over will draw
-	
-	float noiseValue = sin(tex.x * 103.2 + time * 3.52) + sin(tex.x * 159.84 - time * 1.87) + sin(tex.y * 113.2 + time * 2.71) + sin(tex.y * 224.34 - time * 1.56);
+
+	float noiseValue = sin(newTexCoord.x * 103.2 + time * 3.52) + sin(newTexCoord.x * 159.84 - time * 1.87) + sin(newTexCoord.y * 113.2 + time * 2.71) + sin(newTexCoord.y * 224.34 - time * 1.56);
 	
 	if(noiseValue > cutoff * 1.) { // rising opacity here, from none to some to mostly full to normal draw
 		discard; // clear pixel

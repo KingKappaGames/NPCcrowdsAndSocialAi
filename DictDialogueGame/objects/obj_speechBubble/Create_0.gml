@@ -67,7 +67,7 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 	
 	if(multipleChoice) {
 		var _optionCount = array_length(textString);
-		var _alignments = [fa_center, fa_right, fa_left, fa_center];
+		var _alignments = [fa_center, fa_right, fa_center, fa_left];
 		for(var _i = _optionCount - 1; _i >= 0; _i--) {
 			messageData[_i] = scribble(textString[_i]);
 			messageData[_i].wrap(256);
@@ -75,18 +75,20 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 			messageData[_i].align(_alignments[_i], fa_middle);
 		}
 		
-		var _textBoxTop = messageData[0].get_bbox();
-		bubbleWidthFinal = _textBoxTop.width * 2 + 40;
-		bubbleHeightFinal = _textBoxTop.height * 2 + 40;
+		var _textBoxLeft = messageData[1].get_bbox();
+		var _textBoxRight = messageData[3].get_bbox();
+		
+		bubbleWidthFinal = _textBoxLeft.width + _textBoxRight.width + 100;
+		bubbleHeightFinal = _textBoxRight.height * 2 + 100;
 	} else {
 		messageData = scribble(textString);
 		
 		messageData.wrap(256);
-		messageData.align(fa_center, fa_top);
+		messageData.align(fa_center, fa_middle);
 		
 		var _textBbox = messageData.get_bbox(); // the border of the text
-		bubbleWidthFinal = _textBbox.width; // scribble get width of baked text
-		bubbleHeightFinal = _textBbox.height; // scribble get width of baked text
+		bubbleWidthFinal = _textBbox.width + 64; // scribble get width of baked text
+		bubbleHeightFinal = _textBbox.height + 48; // scribble get width of baked text
 	}
 	
 	distScaleX = distanceScaleX;

@@ -724,7 +724,7 @@
     {"id":{"name":"spr_blibby","path":"sprites/spr_blibby/spr_blibby.yy",},},
     {"id":{"name":"spr_blibbyFly","path":"sprites/spr_blibbyFly/spr_blibbyFly.yy",},},
     {"id":{"name":"spr_blibbyWalk","path":"sprites/spr_blibbyWalk/spr_blibbyWalk.yy",},},
-    {"id":{"name":"spr_box2x2","path":"sprites/spr_box2x2/spr_box2x2.yy",},},
+    {"id":{"name":"spr_box","path":"sprites/spr_box/spr_box.yy",},},
     {"id":{"name":"spr_caveWall","path":"sprites/spr_caveWall/spr_caveWall.yy",},},
     {"id":{"name":"spr_caveWallNormal","path":"sprites/spr_caveWallNormal/spr_caveWallNormal.yy",},},
     {"id":{"name":"spr_collisionMask","path":"sprites/spr_collisionMask/spr_collisionMask.yy",},},
