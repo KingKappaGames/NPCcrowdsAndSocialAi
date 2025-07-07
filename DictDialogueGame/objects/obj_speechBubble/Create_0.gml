@@ -1,3 +1,5 @@
+depth = -2000;
+
 duration = 120;
 
 fadeTime = 0;

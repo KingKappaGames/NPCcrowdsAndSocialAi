@@ -48,8 +48,13 @@ shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "bubbleRadius"), po
 shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "radiusBufferAdjust"), _fade);
 
 
-var _bubbleSurf = getBubbleSurf();
-draw_surface(_bubbleSurf, x - 256, y - 256);
+//var _bubbleSurf = getBubbleSurf();
+//draw_surface(_bubbleSurf, x - 256, y - 256);
+
+var _uvs = sprite_get_uvs(spr_box2x2, 0);
+shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "uvs"), _uvs[0], _uvs[1], _uvs[6], _uvs[7]); // x/y start, horizontal/vertical width
+
+draw_sprite_ext(spr_box2x2, 0, x, y, 256, 256, 0, c_white, 1);
 
 shader_reset();
 
@@ -71,3 +76,5 @@ if(createTime >= createTimeMax) {
 		messageData.draw(x, y - bubbleHeightFinal * .5, typewritter);
 	}
 }
+
+draw_circle(x, y, 15, false);
