@@ -5,7 +5,7 @@ if(keyboard_check(vk_enter)) {
 	text = -1;
 }
 
-if(keyboard_check_released(vk_space)) {
+if(keyboard_check_released(vk_space) || mouse_check_button_released(mb_left)) {
 	with(bubble) {
 		if(!multipleChoice && typewritter.get_state() < 1) {
 			typewritter.skip(); // skip text to end but don't delete or end bubble
@@ -70,9 +70,9 @@ if(keyboard_check_released(vk_space)) {
 		var _metadata = metadata[0];
 		if(_metadata == "monster") {
 			//?
-			_textSpeed = .3;
+			_textSpeed = .44;
 		} else if(_metadata == "human") {
-			_textSpeed = .3;
+			_textSpeed = .6;
 		} else if(_metadata == "jap") {
 			_textSpeed = 2;
 		}

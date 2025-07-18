@@ -33,7 +33,9 @@ bubbleSurf = -1;
 bubbleTextSurf = -1; // use surfaces to store the speech bubbles (especially easy when not in growth period) and use these surfaces to apply shaders and whatnot
 
 multipleChoice = false;
+choiceAngles = [90, 180, 0, 270]; // four options at top, left, right, bottom
 choiceHighlight = -1;
+choiceArrowDirection = 90;
 
 getBubbleSurf = function() {
 	if(!surface_exists(bubbleSurf)) {
@@ -68,7 +70,16 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 	
 	if(multipleChoice) {
 		var _optionCount = array_length(textString);
-		var _alignments = [fa_center, fa_right, fa_center, fa_left];
+		
+		var _alignments = 0;
+		if(_optionCount == 2) {
+			_alignments = [fa_right, fa_left];
+		} else if(_optionCount == 3) {
+			_alignments = [fa_center, fa_right, fa_left];
+		} else if(_optionCount == 4) {
+			_alignments = [fa_center, fa_right, fa_left, fa_center];
+		}
+		
 		for(var _i = _optionCount - 1; _i >= 0; _i--) {
 			messageData[_i] = scribble(textString[_i]);
 			messageData[_i].wrap(256);
@@ -76,19 +87,33 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 			messageData[_i].align(_alignments[_i], fa_middle);
 		}
 		
-		var _textBoxLeft = 40;
-		var _textBoxRight = 40;
+		var _textBoxLeft = 0;
+		var _textBoxRight = 0;
 		
-		if(_optionCount > 3) {
+		if(_optionCount == 2) { // left right
+			_textBoxLeft = messageData[0].get_bbox();
+			_textBoxRight = messageData[1].get_bbox();
+			
+			bubbleWidthFinal = _textBoxLeft.width + _textBoxRight.width + 100;
+			bubbleHeightFinal = _textBoxRight.height * 2 + 100;
+			
+			choiceAngles = [180, 0];
+		} else if(_optionCount == 3) { // top left right
+			_textBoxLeft = messageData[1].get_bbox();
+			_textBoxRight = messageData[2].get_bbox();
+			
+			bubbleWidthFinal = _textBoxLeft.width + _textBoxRight.width + 100;
+			bubbleHeightFinal = _textBoxRight.height * 2 + 100;
+			
+			choiceAngles = [90, 180, 0];
+		} else if(_optionCount == 4) { // top left bottom right
 			_textBoxLeft = messageData[1].get_bbox();
 			_textBoxRight = messageData[3].get_bbox();
 			
 			bubbleWidthFinal = _textBoxLeft.width + _textBoxRight.width + 100;
 			bubbleHeightFinal = _textBoxRight.height * 2 + 100;
-		} else {
-			var _textBoxTop = messageData[0].get_bbox();
-			bubbleWidthFinal = _textBoxTop.width + 100;
-			bubbleHeightFinal = _textBoxTop.height * 1.4 + 120;
+			
+			choiceAngles = [90, 180, 0, 270];
 		}
 	} else {
 		messageData = scribble(textString);
@@ -97,7 +122,7 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 		messageData.align(fa_center, fa_middle);
 		
 		var _textBbox = messageData.get_bbox(); // the border of the text
-		bubbleWidthFinal = _textBbox.width + 64; // scribble get width of baked text
+		bubbleWidthFinal = _textBbox.width + 72; // scribble get width of baked text
 		bubbleHeightFinal = _textBbox.height + 48; // scribble get width of baked text
 	}
 	

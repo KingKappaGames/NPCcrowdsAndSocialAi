@@ -6,10 +6,10 @@ followingLight.y = y;
 followingLight.depth = depth;
 followingLight.persistent = true;
 
-mouseLight.x = mouse_x;
-mouseLight.y = mouse_y;
-mouseLight.depth = -mouse_y;
-mouseLight.persistent = true;
+//mouseLight.x = mouse_x;
+//mouseLight.y = mouse_y;
+//mouseLight.depth = -mouse_y;
+//mouseLight.persistent = true;
 
 if(!instance_exists(obj_dialogueManager.dialogueNpcCurrent)) {
 	if(keyboard_check_pressed(vk_shift)) {
@@ -169,7 +169,7 @@ if(mouse_check_button_released(mb_left)) {
 }
 
 if(mouse_check_button_released(mb_left)) {
-	var _wave = shockwave_instance_create(mouse_x, mouse_y, "Instances", irandom(5), 5, .02);
+	var _wave = shockwave_instance_create(mouse_x, mouse_y, "Instances", irandom(5), .3, .05);
 	_wave.depth = irandom_range(-5000, 5000);
 }
 

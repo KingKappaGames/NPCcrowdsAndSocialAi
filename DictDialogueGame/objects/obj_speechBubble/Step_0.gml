@@ -29,15 +29,15 @@ if(createTime < createTimeMax) { // not yet fully created
 			instance_destroy();
 		}
 	} else { // still current and all that
-		var _dir = 90;
+		var _dir = 0;
 		var _count = array_length(messageData);
 		for(var _i = 0; _i < _count; _i++) {
-			var _bbox = messageData[_i].get_bbox(x + dcos(_dir) * 30, y - dsin(_dir) * 30);
-			if(point_in_rectangle(mouse_x, mouse_y, _bbox.left - 1, _bbox.top - 1, _bbox.right + 1, _bbox.bottom + 1)) {
+			_dir = choiceAngles[_i];
+			var _bbox = messageData[_i].get_bbox(x + dcos(_dir) * 32, y - dsin(_dir) * 28);
+			if(point_in_rectangle(mouse_x, mouse_y, _bbox.left - 5, _bbox.top - 5, _bbox.right + 5, _bbox.bottom + 5)) {
 				choiceHighlight = _i;
 				break;
 			}
-			_dir += 90;
 		}
 	}
 }
