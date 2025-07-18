@@ -4,6 +4,7 @@ global.gameManager = id;
 
 #region crystal lights nonsense
 
+application_surface_draw_enable(false); // set up global rendering values
 gpu_set_zwriteenable(true);
 gpu_set_ztestenable(true);
 gpu_set_alphatestenable(true);
@@ -15,8 +16,8 @@ crystalRenderer.SetMaterialsEnable(true);
 crystalRenderer.SetAmbientColor(#0b001a);
 crystalRenderer.SetAmbientIntensity(.2);
 
-emissiveLayer = new Crystal_MaterialLayer(-5700, CRYSTAL_PASS.EMISSIVE);
-emissiveLayer.AddLayers(layer_get_id("EmissiveA")); // range 1
+emissiveLayer = new Crystal_MaterialLayer(-5700, CRYSTAL_PASS.EMISSIVE); // make layer for emissive lights and whatnot
+emissiveLayer.AddLayers(layer_get_id("EmissiveA"));
 emissiveLayer.emission = 2.5;
 emissiveLayer.Apply();
 
@@ -24,24 +25,34 @@ emissiveLayer.Apply();
 
 #region ppx nonsense
 
-application_surface_draw_enable(false);
-
 ppxRenderer = new PPFX_Renderer();
 
 ppxRenderer.SetHDREnable(true);
 
-var effects = [
+var _gameEffects = [
    // new FX_Colorize(true, color_get_hue(#200237), 255, 255, .33),
 	new FX_NoiseGrain(true, .03, .5, .5, 1),
 	new FX_Bloom(true, 5, 2, 10, 1.25, #ffffff),
 	new FX_Saturation(true, 1),
+	new FX_Shockwaves(true, 0.1, 0.2, sprite_get_texture(__ppf_sprPrismLutGP, 0)),
 	//new FX_Vignette(true, 1, 1, .3, 1.15, c_red, [.5, .5], .2, false) 
 	
 ];
 
-ppxDefaultProfile = new PPFX_Profile("Default", effects);
+var _perScreenEffects = [
+   // new FX_Colorize(true, color_get_hue(#200237), 255, 255, .33),
+	new FX_NoiseGrain(true, .2, .7, 50, 1),
+	new FX_Bloom(true, 5, 1, 10, 1.25, #ffffff),
+	new FX_ScanLines(true, .5,, .1, .1),
+	//new FX_Vignette(true, 1, 1, .3, 1.15, c_red, [.5, .5], .2, false) 
+	
+];
+
+ppxDefaultProfile = new PPFX_Profile("Default", _gameEffects); // _gameEffects
 
 ppxRenderer.ProfileLoad(ppxDefaultProfile);
+
+shockwavesRenderer = new PPFX_ShockwaveRenderer(); // you also need a shockwave renderer apparently
 
 #endregion
 

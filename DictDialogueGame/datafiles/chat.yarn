@@ -1,12 +1,13 @@
 #__PrivCrochet_version:1
 __PrivCrochet_colorID: 0
-__PrivCrochet_position: 488,465
+__PrivCrochet_position: 488,466
 __PrivCrochet_tags: 
 title: Start
 ---
-This is the first thing i'll say, but you know, I'm a bit of a yapper. #dog
-This is the next line of the start node. #dog
-This is the end, woe be I, remember me. #cat
+//<<declare $player = 0>>
+This is the first thing i'll say, but you know, I'm a bit of a chatterbox, heh! #monster
+This is the next line of the start node. #monster
+This is the end, woe be I, remember me. #monster
 -> I really don't care.
     Alas nobody cares in the end...
 -> I will try.
@@ -14,14 +15,40 @@ This is the end, woe be I, remember me. #cat
 -> -Say nothing-
     It's already over.
 -> You may find peace within yourself.
-    I am not so big a man.
+    I am not so big a man. #human
     <<showMsg("Doggy", "Catty", "Piggy")>>
-[jitter]ima watashi wa yamashita[/jitter]
+    <<pDistance($player)>>
+    <<declare $dist = 0>>
+    <<set $dist to pDistance($player)>>
+    <<if $dist < 120>>
+        Baker: Hello there, player!
+    <<else>>
+        Baker: I can't- I can't hear you over there! You're {$dist} feet away!
+    <<endif>>
+    <<stop>>
+
+[jitter]ima watashi wa yamashita[/jitter] #jap
 ===
 __PrivCrochet_colorID: 1
 __PrivCrochet_position: 1116,468
 __PrivCrochet_tags: 
 title: Next
 ---
-And so the yapping continues!
+You again? 
+Well I'm glad to see you, actually.
+The thing is, I've been thinking since we last talked.
+I think...
+I think there's still hope.
+That we can find purpose and beat the lords.
+-> You're wrong.
+    What? You told me yourself-
+    Did they hurt you? Force your thoughts to yield?
+    I have to go.
+-> There is always a way.
+    Well.
+    I hope you're right.
+    That is what we will try.
+    [c_green]And if we win... [/color]
+    I want you to have something, something I've kept hidden for a [wobble]better time[/wobble].
+    But we must win. There is no treasure after life. Hah...
 ===

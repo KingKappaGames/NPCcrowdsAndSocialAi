@@ -2,13 +2,20 @@ ChatterboxLoadFromFile("chat.yarn");
 chatterbox = ChatterboxCreate("chat.yarn", true);
 ChatterboxJump(chatterbox, "Start");
 
+dialogueGlobalPosition = 0;
 dialoguePosition = 0;
 
 text = -1;
+metadata = -1;
 
 bubble = noone;
 
+
+
+ChatterboxAddFunction("pDistance", distance_to_object);
 ChatterboxAddFunction("showMsg", script_junkScript);
+ChatterboxVariableDefault("player", 0);
+ChatterboxVariableSet("player", obj_player);
 
 
 //var _text = ChatterboxGetAllContentString(chatterbox);

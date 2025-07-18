@@ -1,2 +1,3 @@
-// free from memory when not in use.
+// free renderer(s) from memory when not in use.
 crystalRenderer.Destroy();
+shockwavesRenderer.Destroy();

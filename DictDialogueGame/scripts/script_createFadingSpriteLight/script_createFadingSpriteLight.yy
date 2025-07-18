@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"script_createFadingSpriteLight",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"script_createFadingSpriteLight",
+  "parent":{
+    "name":"myLightStuff",
+    "path":"folders/foxyStuff/myLightStuff.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

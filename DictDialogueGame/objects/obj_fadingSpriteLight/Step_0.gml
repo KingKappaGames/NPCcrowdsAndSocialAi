@@ -2,7 +2,7 @@ timer--;
 
 var _sizeOut = animcurve_channel_evaluate(sizeCurve, 1 - (timer / timerMax));
 
-radius = originalRadius * _sizeOut;
+radius = sizeOriginalX * _sizeOut;
 intensity = _sizeOut;
 
 if(timer <= 0) {

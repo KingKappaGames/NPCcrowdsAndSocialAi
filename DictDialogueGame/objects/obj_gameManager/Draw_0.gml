@@ -1,4 +1,7 @@
 if(live_call()) { return live_result }
+	
+// renderize shockwaves surface
+shockwavesRenderer.Render(ppxRenderer);
 
 //var _bg = getBGSurf();
 

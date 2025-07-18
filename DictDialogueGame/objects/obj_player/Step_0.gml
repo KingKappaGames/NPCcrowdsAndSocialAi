@@ -4,10 +4,12 @@ depth = -y;
 followingLight.x = x;
 followingLight.y = y;
 followingLight.depth = depth;
+followingLight.persistent = true;
 
 mouseLight.x = mouse_x;
 mouseLight.y = mouse_y;
 mouseLight.depth = -mouse_y;
+mouseLight.persistent = true;
 
 if(!instance_exists(obj_dialogueManager.dialogueNpcCurrent)) {
 	if(keyboard_check_pressed(vk_shift)) {
@@ -125,6 +127,10 @@ if(keyboard_check_released(ord("M"))) {
 	_missile.durationMax = 240;
 }
 
+if(keyboard_check_released(ord("R"))) {
+	room_goto(Room2);
+}
+
 if(keyboard_check_released(ord("P"))) {
 	with(obj_npc) {
 		with(obj_npc) {
@@ -136,6 +142,11 @@ if(keyboard_check_released(ord("P"))) {
 			}
 		}
 	}
+}
+
+if(keyboard_check_released(ord("L"))) {
+	mouseLight.enabled = !mouseLight.enabled;
+	mouseLight.radius = irandom_range(50, 1000);
 }
 
 if(mouse_check_button_pressed(mb_left)) {
@@ -155,6 +166,11 @@ if(mouse_check_button_released(mb_left)) {
 	}
 	
 	directId = noone;
+}
+
+if(mouse_check_button_released(mb_left)) {
+	var _wave = shockwave_instance_create(mouse_x, mouse_y, "Instances", irandom(5), 5, .02);
+	_wave.depth = irandom_range(-5000, 5000);
 }
 
 camera_set_view_pos(view_camera[0], x - camera_get_view_width(view_camera[0]) / 2, y - camera_get_view_height(view_camera[0]) / 2);

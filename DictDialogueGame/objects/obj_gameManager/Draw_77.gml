@@ -3,7 +3,6 @@
 // draw lighting system's final surface to the screen.
 //crystalRenderer.DrawInFullscreen();
 
-
 var _inputSurf = application_surface;
 
 // lighting effects first

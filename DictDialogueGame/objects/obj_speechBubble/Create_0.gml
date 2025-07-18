@@ -32,6 +32,7 @@ bubbleHeightFinal = 0; // the width/height curves should both range from 0-1 or 
 bubbleSurf = -1;
 bubbleTextSurf = -1; // use surfaces to store the speech bubbles (especially easy when not in growth period) and use these surfaces to apply shaders and whatnot
 
+multipleChoice = false;
 choiceHighlight = -1;
 
 getBubbleSurf = function() {
@@ -75,11 +76,20 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 			messageData[_i].align(_alignments[_i], fa_middle);
 		}
 		
-		var _textBoxLeft = messageData[1].get_bbox();
-		var _textBoxRight = messageData[3].get_bbox();
+		var _textBoxLeft = 40;
+		var _textBoxRight = 40;
 		
-		bubbleWidthFinal = _textBoxLeft.width + _textBoxRight.width + 100;
-		bubbleHeightFinal = _textBoxRight.height * 2 + 100;
+		if(_optionCount > 3) {
+			_textBoxLeft = messageData[1].get_bbox();
+			_textBoxRight = messageData[3].get_bbox();
+			
+			bubbleWidthFinal = _textBoxLeft.width + _textBoxRight.width + 100;
+			bubbleHeightFinal = _textBoxRight.height * 2 + 100;
+		} else {
+			var _textBoxTop = messageData[0].get_bbox();
+			bubbleWidthFinal = _textBoxTop.width + 100;
+			bubbleHeightFinal = _textBoxTop.height * 1.4 + 120;
+		}
 	} else {
 		messageData = scribble(textString);
 		
