@@ -1,8 +1,5 @@
 if(keyboard_check(vk_enter)) {
 	ChatterboxJump(chatterbox, "Start");
-	dialogueGlobalPosition = 0;
-	dialoguePosition = 0;
-	text = -1;
 }
 
 if(keyboard_check_released(vk_space) || mouse_check_button_released(mb_left)) {
@@ -16,16 +13,35 @@ if(keyboard_check_released(vk_space) || mouse_check_button_released(mb_left)) {
 	}
 	
 	var _multi = false;
+	var _choicesAlreadyChosen = undefined;
 	var _fadeDuration = 9999;
 	if(text == -1) {
-		if(dialogueGlobalPosition == 0) {
-			text = ChatterboxGetContent(chatterbox, 0);
-			metadata = ChatterboxGetContentMetadata(chatterbox, 0);
-		} else if(dialogueGlobalPosition == 1) {
-			ChatterboxJump(chatterbox, "Next");
-			text = ChatterboxGetContent(chatterbox, 0);
-			metadata = ChatterboxGetContentMetadata(chatterbox, 0);
+		if(dialogueValueCollection.firstMet == 0) {
+			ChatterboxJump(chatterbox, "Start");
+		} else {
+			var _timesMet = dialogueValueCollection.timesMet;
+			if(_timesMet == 3) {
+				if(dialogueValueCollection.secretTold) {
+					ChatterboxJump(chatterbox, "Friend");
+				} else {
+					ChatterboxJump(chatterbox, "LeaveMeAlone");
+				}
+			} else if(_timesMet > 3) {
+				exit; // no talking (testing whether canceling dialogue interaction works
+			} else if(_timesMet < 3) {
+				if(!dialogueValueCollection.secretTold || irandom(1) == 0) {
+					ChatterboxJump(chatterbox, "Next");
+				} else {
+					ChatterboxJump(chatterbox, "Secret");
+				}
+			}
 		}
+		
+		text = ChatterboxGetContent(chatterbox, 0);
+		metadata = ChatterboxGetContentMetadata(chatterbox, 0);
+		
+		dialogueValueCollection.timesMet++;
+		dialogueValueCollection.firstMet = true;
 	} else {
 		
 		var _optionCount = ChatterboxGetOptionCount(chatterbox);
@@ -34,14 +50,16 @@ if(keyboard_check_released(vk_space) || mouse_check_button_released(mb_left)) {
 			if(text == ChatterboxGetContent(chatterbox, 0)) { // first time passing this thing (aka the text shown is the intro line, not the options given after)
 				var _info = ChatterboxGetOptionArray(chatterbox);
 				var _count = array_length(_info);
+				_choicesAlreadyChosen = array_create(_count);
 				text = array_create(_count);
 				for(var _i = 0; _i < _count; _i++) { // populate this response with the options from the current last phrase, not the phrase itself (previous comment was lead in comment, next will be response to your option)
 					text[_i] = _info[_i].text;
+					_choicesAlreadyChosen[_i] = ChatterboxGetOptionChosen(chatterbox, _i);
 				}
 					
 				_multi = true;
 			} else {
-				var _choice = bubble.choiceHighlight;
+				var _choice = bubble.choiceHighlightOptionIndex;
 				if(_choice != -1) {
 					ChatterboxSelect(chatterbox, _choice);
 				} else {
@@ -57,7 +75,6 @@ if(keyboard_check_released(vk_space) || mouse_check_button_released(mb_left)) {
 			if(ChatterboxIsStopped(chatterbox)) {
 				text = -1;
 				_fadeDuration = 90;
-				dialogueGlobalPosition = 1; // should be some kind of data setting system to tag dialogues followed and conditional comments and whatnot but for now just test jumping based on a variable..
 			} else {
 				text = ChatterboxGetContent(chatterbox, 0);
 				metadata = ChatterboxGetContentMetadata(chatterbox, 0);
@@ -79,9 +96,8 @@ if(keyboard_check_released(vk_space) || mouse_check_button_released(mb_left)) {
 	}
 	
 	if(text != -1) {
-		bubble = script_createSpeechBubble(x, y - 100, text, _fadeDuration, 20, _textSpeed, curve_SBemerge, curve_SBgrow,,, _multi);
+		bubble = script_createSpeechBubble(x, y - 100, text, _fadeDuration, 20, _textSpeed, curve_SBemerge, curve_SBgrow,,, _multi, _choicesAlreadyChosen, _choicesAlreadyChosen);
+		dialogueValueCollection.totalDialogueLinesGiven++;
+		optionChosenArrayDebug = _choicesAlreadyChosen;
 	}
-	//dialoguePosition++;
-		
-	
 };

@@ -36,6 +36,7 @@ if(createTime < createTimeMax) { // not yet fully created
 			var _bbox = messageData[_i].get_bbox(x + dcos(_dir) * 32, y - dsin(_dir) * 28);
 			if(point_in_rectangle(mouse_x, mouse_y, _bbox.left - 5, _bbox.top - 5, _bbox.right + 5, _bbox.bottom + 5)) {
 				choiceHighlight = _i;
+				choiceHighlightOptionIndex = choiceTextIndexArray[_i];
 				break;
 			}
 		}

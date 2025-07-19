@@ -1,16 +1,36 @@
 ChatterboxLoadFromFile("chat.yarn");
 chatterbox = ChatterboxCreate("chat.yarn", true);
+
+var _setVar = function(name, value, target = id) { // load this into chatterbox to set from there
+	variable_instance_set(target, name, value);
+}
+
+var _setCollectionValue = function(name, value) {
+	dialogueValueCollection[$ name] = value;
+}
+
+ChatterboxAddFunction("setVar", _setVar);
+ChatterboxAddFunction("setCollectionValue", _setCollectionValue);
+
 ChatterboxJump(chatterbox, "Start");
 
-dialogueGlobalPosition = 0;
-dialoguePosition = 0;
+dialogueValueCollection = {
+	firstMet : 0,
+	secretTold : 0,
+	questDone : 0,
+	itemGiven : 0,
+	timesMet : 0,
+	totalDialogueLinesGiven : 0 // total amount of talking to this person, can be thought of as familiarity
+}
+
+optionChosenArrayDebug = -1;
 
 text = -1;
 metadata = -1;
 
 bubble = noone;
 
-
+#macro optionAlreadyChosenCullOrFade 1 // 0 being cull, 1 being fade 
 
 ChatterboxAddFunction("pDistance", distance_to_object);
 ChatterboxAddFunction("showMsg", script_junkScript);

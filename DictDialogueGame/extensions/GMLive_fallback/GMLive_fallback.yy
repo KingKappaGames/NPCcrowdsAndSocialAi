@@ -40,8 +40,8 @@
   "optionsFile":"options.json",
   "packageId":"",
   "parent":{
-    "name":"GMLive",
-    "path":"folders/stuffIDontUseMuch/Extensions/GMLive.yy",
+    "name":"DictDialogueGame",
+    "path":"DictDialogueGame.yyp",
   },
   "productId":"",
   "resourceType":"GMExtension",

@@ -10,8 +10,8 @@
   "name":"obj_newSnowStateNpc",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"GMLive",
+    "path":"folders/stuffIDontUseMuch/Extensions/GMLive.yy",
   },
   "parentObjectId":null,
   "persistent":false,

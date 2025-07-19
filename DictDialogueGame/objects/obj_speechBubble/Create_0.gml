@@ -1,4 +1,4 @@
-depth = -2000;
+depth = -5000;
 
 duration = 120;
 
@@ -33,8 +33,15 @@ bubbleSurf = -1;
 bubbleTextSurf = -1; // use surfaces to store the speech bubbles (especially easy when not in growth period) and use these surfaces to apply shaders and whatnot
 
 multipleChoice = false;
+
 choiceAngles = [90, 180, 0, 270]; // four options at top, left, right, bottom
-choiceHighlight = -1;
+
+choiceHighlight = -1; // the option in the speech bubble that is being highlighted (will be different than the option index highlight if any options have been removed below thus shifting the index)
+choiceHighlightOptionIndex = -1; // the option index in chatterbox that is being highlighted
+
+choiceChosenArray = -1;
+choiceTextIndexArray = -1;
+
 choiceArrowDirection = 90;
 
 getBubbleSurf = function() {
@@ -50,6 +57,7 @@ getBubbleSurf = function() {
 //messeageText = ""; // does the scribble struct contain the text or just the shape?
 messageData = scribble(""); // the "text" baked in scribble format
 typewritter = scribble_typist(); // the type writter effect for scribble
+typewritter.character_delay_add(".", 400); // hopefully adds a 1 second delay every period that is found
 optionData = -1;
 
 
@@ -63,16 +71,40 @@ optionData = -1;
 /// @param {any*} [typeSpeed]=.2 How many characters per frame to add
 /// @param {any*} [fadeDelay]=30 How many frames to take to remove the speech bubble, while it shrinks and fades out
 /// @param {any*} [multipleChoice]=false Whether or not this speech bubble is a choose your own option multi bubble, showing the options, not the response text
-setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, distanceScaleY = 20, createDelay = 35, typeSpeed = .2, fadeDelay = 30, multipleChoiceSet = false) {
+/// @param {any*} [chosenArraySet]=-1 If this is an option set this will pass the options that have already been chosen (array of options as bools of chosen_before) before in the game (or in this chatterbox instance at least?)
+setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, distanceScaleY = 20, createDelay = 35, typeSpeed = .2, fadeDelay = 30, multipleChoiceSet = false, chosenArraySet = -1) {
 	live_auto_call
 	
 	multipleChoice = multipleChoiceSet;
+	choiceChosenArray = chosenArraySet;
 	
 	if(multipleChoice) {
+		
+		var _initialOptionLength = array_length(textString);
+		choiceTextIndexArray = array_create(_initialOptionLength); // asign each text option in the multi choice to a resulting choice index that will be returned when you select it
+		var _choiceIndex = 0;
+		repeat(_initialOptionLength) {
+			choiceTextIndexArray[_choiceIndex] = _choiceIndex;
+			_choiceIndex++;
+		}
+		
+		if(chosenArraySet != -1) {
+			if(optionAlreadyChosenCullOrFade == 0) {
+				for(var _cullI = array_length(chosenArraySet) - 1; _cullI >= 0; _cullI--) { // remove options that are already selected
+					if(chosenArraySet[_cullI] == 1) {
+						array_delete(textString, _cullI, 1);
+						array_delete(choiceTextIndexArray, _cullI, 1); // cull both the option and the index it relates to from the net option data arrays
+					}
+				}
+			}
+		}
+		
 		var _optionCount = array_length(textString);
 		
 		var _alignments = 0;
-		if(_optionCount == 2) {
+		if(_optionCount == 1) {
+			_alignments = [fa_center];
+		} else if(_optionCount == 2) {
 			_alignments = [fa_right, fa_left];
 		} else if(_optionCount == 3) {
 			_alignments = [fa_center, fa_right, fa_left];
@@ -90,7 +122,14 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 		var _textBoxLeft = 0;
 		var _textBoxRight = 0;
 		
-		if(_optionCount == 2) { // left right
+		if(_optionCount == 1) { // left right
+			var _textBoxTop = messageData[0].get_bbox();
+			
+			bubbleWidthFinal = _textBoxTop.width + 70;
+			bubbleHeightFinal = _textBoxTop.height + 100;
+			
+			choiceAngles = [90];
+		} else if(_optionCount == 2) { // left right
 			_textBoxLeft = messageData[0].get_bbox();
 			_textBoxRight = messageData[1].get_bbox();
 			
@@ -144,6 +183,8 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 	
 	fadeTime = 0;
 	fadeTimeMax = fadeDelay;
+	
+	show_debug_message("Array choices " + string(chosenArraySet))
 }
 
 textBegin = function(writeSpeed = textSpeed) {

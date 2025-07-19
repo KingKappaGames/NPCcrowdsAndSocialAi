@@ -1,13 +1,13 @@
 #__PrivCrochet_version:1
 __PrivCrochet_colorID: 0
-__PrivCrochet_position: 488,466
+__PrivCrochet_position: -332,43
 __PrivCrochet_tags: 
 title: Start
 ---
-//<<declare $player = 0>>
-This is the first thing i'll say, but you know, I'm a bit of a chatterbox, heh! #monster
-This is the next line of the start node. #monster
-This is the end, woe be I, remember me. #monster
+<<set $secret to false>>
+This is the first thing i'll say, but you know, I'm a bit of a yapper. #dog
+This is the next line of the start node. #dog
+This is the end, woe be I, remember me. #cat
 -> I really don't care.
     Alas nobody cares in the end...
 -> I will try.
@@ -15,40 +15,76 @@ This is the end, woe be I, remember me. #monster
 -> -Say nothing-
     It's already over.
 -> You may find peace within yourself.
-    I am not so big a man. #human
+    I am not so big a man.
     <<showMsg("Doggy", "Catty", "Piggy")>>
-    <<pDistance($player)>>
-    <<declare $dist = 0>>
-    <<set $dist to pDistance($player)>>
-    <<if $dist < 120>>
-        Baker: Hello there, player!
-    <<else>>
-        Baker: I can't- I can't hear you over there! You're {$dist} feet away!
-    <<endif>>
-    <<stop>>
-
-[jitter]ima watashi wa yamashita[/jitter] #jap
+[jitter]ima watashi wa yamashita[/jitter]
 ===
-__PrivCrochet_colorID: 1
-__PrivCrochet_position: 1116,468
+__PrivCrochet_colorID: 0
+__PrivCrochet_position: -104,50
 __PrivCrochet_tags: 
 title: Next
 ---
-You again? 
-Well I'm glad to see you, actually.
-The thing is, I've been thinking since we last talked.
-I think...
-I think there's still hope.
-That we can find purpose and beat the lords.
--> You're wrong.
-    What? You told me yourself-
-    Did they hurt you? Force your thoughts to yield?
-    I have to go.
--> There is always a way.
-    Well.
-    I hope you're right.
-    That is what we will try.
-    [c_green]And if we win... [/color]
-    I want you to have something, something I've kept hidden for a [wobble]better time[/wobble].
-    But we must win. There is no treasure after life. Hah...
+You again!
+Do you want to hear a secret?
+-> Sure!
+    Cool, I probably shouldn't be telling random people this...
+    Are you sure you're trust worthy?
+    -> Of course!
+        Okay! Well here it is,
+        <<set $secret to true>>
+        <<setCollectionValue("secretTold", $secret)>>
+        I actually killed Alarasu
+        I used a knife and hide the body in the great green expanse out of town
+        You won't tell anyone! I'm glad I can trust you.
+    -> It would be better if you were more careful...
+        <<if $secret>>
+        Oh, wait, that's pretty strange considering
+        I already told you
+        The bloody [delay, 700] truth [delay, 600] and details
+        What are you trying to imply...
+        Friend?
+        ....
+        ...
+        ..
+        <<else>>
+        Oh, you're right... But doesn't you not thinking I should tell you make you trust worthy?
+        <<endif>>
+        But I'll keep it safe, you're right after all.
+-> Not really.
+    Oh. Alright.
+That's todo. Bye!
+===
+__PrivCrochet_colorID: 0
+__PrivCrochet_position: 344,63
+__PrivCrochet_tags: 
+title: LeaveMeAlone
+---
+Why are you still here!
+It's been at least [bold]5 times![/bold]
+Stop talking to me!
+Leave me alone!
+===
+__PrivCrochet_colorID: 0
+__PrivCrochet_position: 126,57
+__PrivCrochet_tags: 
+title: Friend
+---
+I'm always glad to see you, friend.
+And when you're around
+I feel happy because
+It's like the weight is shared between us 
+You know what I mean?
+Haha, I'm glad.
+Glad as can be.
+[shake][c_red]Trust[/shake][/c] is a wonderful thing.
+...
+===
+__PrivCrochet_colorID: 0
+__PrivCrochet_position: 2,-222
+__PrivCrochet_tags: 
+title: Secret
+---
+Oh!
+It's my secret buddy!
+I'm kinda busy though, not much for talking right now. Sorry!
 ===

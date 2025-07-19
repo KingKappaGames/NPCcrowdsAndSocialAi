@@ -1,4 +1,4 @@
-function script_createSpeechBubble(xx, yy, messageText, durationSet, createDelay, textSpeed, posCurve, sizeCurve, arrowOriginX = x, arrowOriginY = y - (sprite_height / 2) - 25, multipleChoiceSet = false){
+function script_createSpeechBubble(xx, yy, messageText, durationSet, createDelay, textSpeed, posCurve, sizeCurve, arrowOriginX = x, arrowOriginY = y - (sprite_height / 2) - 25, multipleChoiceSet = false, optionsChosenArraySet = -1){
 	var _bubble = instance_create_layer(arrowOriginX, arrowOriginY, "Instances", obj_speechBubble);
 	_bubble.sourceId = id; // guess the caller
 	
@@ -8,7 +8,7 @@ function script_createSpeechBubble(xx, yy, messageText, durationSet, createDelay
 	var _textLength = string_length(messageText);
 	_bubble.duration = durationSet + _textLength / textSpeed;
 	
-	_bubble.setState(messageText, posCurve, sizeCurve, xx - arrowOriginX, yy - arrowOriginY, createDelay, textSpeed, 20, multipleChoiceSet);
+	_bubble.setState(messageText, posCurve, sizeCurve, xx - arrowOriginX, yy - arrowOriginY, createDelay, textSpeed, 20, multipleChoiceSet, optionsChosenArraySet);
 	
 	return _bubble;
 }

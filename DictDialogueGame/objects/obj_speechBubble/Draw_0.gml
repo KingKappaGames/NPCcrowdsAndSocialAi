@@ -5,36 +5,37 @@ if(instance_exists(sourceId)) {
 	originY = sourceId.y;
 }
 
-var _fade = 0;
+var _fadeAlpha = 1;
 var _fadePortion = 1;
 if(fadeTime > 0 && fadeTime <= fadeTimeMax) {
 	_fadePortion = 1 - (fadeTime / fadeTimeMax);
-	_fade = -((fadeTime * 2) / fadeTimeMax); // 0 to -2     to cut off alpha half way to over
-	if(multipleChoice) {
-		for(var _i = array_length(messageData) - 1; _i >= 0; _i--) {
-			messageData[_i].blend(, max(1 + _fade, 0));
-		}
-	} else {
-		messageData.blend(, max(1 + _fade, 0));
-	}
+	_fadeAlpha = max(1 - ((fadeTime * 2) / fadeTimeMax), 0); // 1 to -1 clamped to 1 to 0 by half way     to cut off alpha half way to over
 }
 
 
 if(multipleChoice) {
+	var _useChosenArray = false;
+	if(optionAlreadyChosenCullOrFade == 1) {
+		_useChosenArray = !(choiceChosenArray == -1);
+	}
 	for(var _i = array_length(messageData) - 1; _i >= 0; _i--) {
-		messageData[_i].blend(c_white);
+		var _col = choiceHighlight == _i ? c_yellow : c_white;
+		if(optionAlreadyChosenCullOrFade == 1) {
+			var _optionAlreadyChosenFade = _useChosenArray ? 1 - min(choiceChosenArray[_i], 1) * .4 : 1;
+			messageData[_i].blend(_col, _fadeAlpha * _optionAlreadyChosenFade);  // blend fade alpha with option chosen alpha (.4 alpha for already chosen ones)
+		} else {
+			messageData[_i].blend(_col, _fadeAlpha);  // no option chosen fade so just fade with bubble
+		}
 	}
-	
-	if(choiceHighlight != -1) {
-		messageData[choiceHighlight].blend(c_yellow);
-	}
+} else {
+	messageData.blend(, _fadeAlpha);
 }
 	
 #region speech bubble tail draw (thought bubble steps)
 var _tailXOff = clamp((originX - x) / (abs(originY - y) * .01 + 1), -bubbleWidth * .55, bubbleWidth * .55);
 draw_set_color(c_black);
 for(var _pointI = 3; _pointI < 6; _pointI++) {
-	draw_circle(lerp(originX, x + _tailXOff, _pointI / 6), lerp(originY, y, _pointI / 6), _fadePortion * (_pointI * .5 + 2 + dsin((_pointI * 173 + current_time)) * .7), false);
+	draw_circle(lerp(originX, x + _tailXOff, _pointI / 6), lerp(originY, y, _pointI / 6), _fadeAlpha * (_pointI * .5 + 2 + dsin((_pointI * 173 + current_time)) * .7), false);
 }
 draw_set_color(c_white);
 #endregion
@@ -48,11 +49,7 @@ shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "time"), current_ti
 shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "colorTint"), 1, 1, 0, 1);
 shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "bubbleSize"), .6 * bubbleWidth / 512, .6 * bubbleHeight / 512);
 shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "bubbleRadius"), point_distance(.6 * bubbleWidth / 512, .6 * bubbleHeight / 512, 0, 0));
-shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "radiusBufferAdjust"), _fade);
-
-
-//var _bubbleSurf = getBubbleSurf();
-//draw_surface(_bubbleSurf, x - 256, y - 256);
+shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "radiusBufferAdjust"), _fadePortion * 2 - 2); // 0 to -2
 
 var _uvs = sprite_get_uvs(spr_box, 0);
 shader_set_uniform_f(shader_get_uniform(shd_speechBubbleFog, "uvs"), _uvs[0], _uvs[1], _uvs[2] - _uvs[0], _uvs[3] - _uvs[1]); // x/y start, horizontal/vertical width
@@ -65,17 +62,18 @@ shader_reset();
 
 if(createTime >= createTimeMax) { // active
 	if(multipleChoice) {
-		
+		draw_set_alpha(_fadeAlpha);
 		draw_circle(x, y, 5, true);
 		draw_line_width(x - 7, y - 7, x + 7, y + 7, 1.5); // little cross icon in the center of choice bubble
 		draw_line_width(x + 7, y - 7, x - 7, y + 7, 1.5);
 		
 		if(choiceHighlight != -1) {
-			choiceArrowDirection -= angle_difference(choiceArrowDirection, choiceAngles[choiceHighlight]) * .21;
+			choiceArrowDirection -= angle_difference(choiceArrowDirection, choiceAngles[choiceHighlight]) * .26;
 			
-			draw_arrow(x, y, x + dcos(choiceArrowDirection) * 21, y - dsin(choiceArrowDirection) * 17, 9);
-			
+			draw_arrow(x, y, x + dcos(choiceArrowDirection) * 21, y - dsin(choiceArrowDirection) * 17, 10);
 		}
+		
+		draw_set_alpha(1);
 		
 		var _dir = 0;
 		var _count = array_length(messageData);
