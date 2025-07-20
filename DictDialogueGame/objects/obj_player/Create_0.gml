@@ -35,7 +35,7 @@ mouseLight.shaderType = LIGHT_SHADER_BRDF;
 
 
 var _prevLink = id;
-repeat(3) {
+repeat(1) {
 	var _link = instance_create_depth(x, y, depth, obj_wormLink);
 	_link.sourceId = _prevLink;
 	_prevLink = _link;

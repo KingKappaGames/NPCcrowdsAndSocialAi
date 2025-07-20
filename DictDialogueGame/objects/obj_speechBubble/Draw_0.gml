@@ -15,17 +15,11 @@ if(fadeTime > 0 && fadeTime <= fadeTimeMax) {
 
 if(multipleChoice) {
 	var _useChosenArray = false;
-	if(optionAlreadyChosenCullOrFade == 1) {
-		_useChosenArray = !(choiceChosenArray == -1);
-	}
+	_useChosenArray = !(choiceChosenArray == -1);
 	for(var _i = array_length(messageData) - 1; _i >= 0; _i--) {
 		var _col = choiceHighlight == _i ? c_yellow : c_white;
-		if(optionAlreadyChosenCullOrFade == 1) {
-			var _optionAlreadyChosenFade = _useChosenArray ? 1 - min(choiceChosenArray[_i], 1) * .4 : 1;
-			messageData[_i].blend(_col, _fadeAlpha * _optionAlreadyChosenFade);  // blend fade alpha with option chosen alpha (.4 alpha for already chosen ones)
-		} else {
-			messageData[_i].blend(_col, _fadeAlpha);  // no option chosen fade so just fade with bubble
-		}
+		var _optionAlreadyChosenFade = _useChosenArray ? 1 - min(choiceChosenArray[_i], 1) * .4 : 1;
+		messageData[_i].blend(_col, _fadeAlpha * _optionAlreadyChosenFade);  // blend fade alpha with option chosen alpha (.4 alpha for already chosen ones)
 	}
 } else {
 	messageData.blend(, _fadeAlpha);

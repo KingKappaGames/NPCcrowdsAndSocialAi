@@ -24,13 +24,12 @@ dialogueValueCollection = {
 }
 
 optionChosenArrayDebug = -1;
+optionCriteriaArrayDebug = -1;
 
 text = -1;
 metadata = -1;
 
 bubble = noone;
-
-#macro optionAlreadyChosenCullOrFade 1 // 0 being cull, 1 being fade 
 
 ChatterboxAddFunction("pDistance", distance_to_object);
 ChatterboxAddFunction("showMsg", script_junkScript);

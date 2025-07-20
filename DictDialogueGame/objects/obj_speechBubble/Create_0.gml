@@ -39,6 +39,8 @@ choiceAngles = [90, 180, 0, 270]; // four options at top, left, right, bottom
 choiceHighlight = -1; // the option in the speech bubble that is being highlighted (will be different than the option index highlight if any options have been removed below thus shifting the index)
 choiceHighlightOptionIndex = -1; // the option index in chatterbox that is being highlighted
 
+choiceCriteriaArray = -1;
+
 choiceChosenArray = -1;
 choiceTextIndexArray = -1;
 
@@ -71,12 +73,13 @@ optionData = -1;
 /// @param {any*} [typeSpeed]=.2 How many characters per frame to add
 /// @param {any*} [fadeDelay]=30 How many frames to take to remove the speech bubble, while it shrinks and fades out
 /// @param {any*} [multipleChoice]=false Whether or not this speech bubble is a choose your own option multi bubble, showing the options, not the response text
-/// @param {any*} [chosenArraySet]=-1 If this is an option set this will pass the options that have already been chosen (array of options as bools of chosen_before) before in the game (or in this chatterbox instance at least?)
-setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, distanceScaleY = 20, createDelay = 35, typeSpeed = .2, fadeDelay = 30, multipleChoiceSet = false, chosenArraySet = -1) {
+/// @param {any*} [choiceSeenArraySet]=-1 If this is an option set this will pass the options that have already been chosen (array of options as bools of chosen_before) before in the game (or in this chatterbox instance at least?)
+/// @param {any*} [choiceCriteriaArraySet]=-1 If this is a multiple choice set then this array contains the result booleans of each entries criteria (or multiple) including optionally the question of whether it's been selected before (depends on the chatterscript side)
+setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, distanceScaleY = 20, createDelay = 35, typeSpeed = .2, fadeDelay = 30, multipleChoiceSet = false, choiceSeenArraySet = -1, choiceCriteriaArraySet = -1) {
 	live_auto_call
 	
 	multipleChoice = multipleChoiceSet;
-	choiceChosenArray = chosenArraySet;
+	choiceChosenArray = choiceSeenArraySet;
 	
 	if(multipleChoice) {
 		
@@ -88,13 +91,12 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 			_choiceIndex++;
 		}
 		
-		if(chosenArraySet != -1) {
-			if(optionAlreadyChosenCullOrFade == 0) {
-				for(var _cullI = array_length(chosenArraySet) - 1; _cullI >= 0; _cullI--) { // remove options that are already selected
-					if(chosenArraySet[_cullI] == 1) {
-						array_delete(textString, _cullI, 1);
-						array_delete(choiceTextIndexArray, _cullI, 1); // cull both the option and the index it relates to from the net option data arrays
-					}
+		if(choiceCriteriaArraySet != -1) {
+			for(var _cullI = array_length(choiceCriteriaArraySet) - 1; _cullI >= 0; _cullI--) { // remove options that don't pass criteria
+				if(choiceCriteriaArraySet[_cullI] == 0) {
+					array_delete(textString, _cullI, 1);
+					array_delete(choiceTextIndexArray, _cullI, 1); // cull both the option and the index it relates to from the net option data arrays
+					array_delete(choiceSeenArraySet, _cullI, 1);
 				}
 			}
 		}
@@ -183,8 +185,6 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 	
 	fadeTime = 0;
 	fadeTimeMax = fadeDelay;
-	
-	show_debug_message("Array choices " + string(chosenArraySet))
 }
 
 textBegin = function(writeSpeed = textSpeed) {

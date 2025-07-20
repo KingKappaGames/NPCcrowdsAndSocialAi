@@ -14,6 +14,7 @@ if(keyboard_check_released(vk_space) || mouse_check_button_released(mb_left)) {
 	
 	var _multi = false;
 	var _choicesAlreadyChosen = undefined;
+	var _choicesCriteriaResults = undefined;
 	var _fadeDuration = 9999;
 	if(text == -1) {
 		if(dialogueValueCollection.firstMet == 0) {
@@ -45,16 +46,18 @@ if(keyboard_check_released(vk_space) || mouse_check_button_released(mb_left)) {
 	} else {
 		
 		var _optionCount = ChatterboxGetOptionCount(chatterbox);
-		show_debug_message(_optionCount);
 		if(_optionCount != 0) {
 			if(text == ChatterboxGetContent(chatterbox, 0)) { // first time passing this thing (aka the text shown is the intro line, not the options given after)
 				var _info = ChatterboxGetOptionArray(chatterbox);
 				var _count = array_length(_info);
 				_choicesAlreadyChosen = array_create(_count);
+				_choicesCriteriaResults = array_create(_count);
+				
 				text = array_create(_count);
 				for(var _i = 0; _i < _count; _i++) { // populate this response with the options from the current last phrase, not the phrase itself (previous comment was lead in comment, next will be response to your option)
 					text[_i] = _info[_i].text;
 					_choicesAlreadyChosen[_i] = ChatterboxGetOptionChosen(chatterbox, _i);
+					_choicesCriteriaResults[_i] = ChatterboxGetOptionConditionBool(chatterbox, _i);
 				}
 					
 				_multi = true;
@@ -96,8 +99,9 @@ if(keyboard_check_released(vk_space) || mouse_check_button_released(mb_left)) {
 	}
 	
 	if(text != -1) {
-		bubble = script_createSpeechBubble(x, y - 100, text, _fadeDuration, 20, _textSpeed, curve_SBemerge, curve_SBgrow,,, _multi, _choicesAlreadyChosen, _choicesAlreadyChosen);
+		bubble = script_createSpeechBubble(x, y - 100, text, _fadeDuration, 20, _textSpeed, curve_SBemerge, curve_SBgrow,,, _multi, _choicesAlreadyChosen, _choicesCriteriaResults);
 		dialogueValueCollection.totalDialogueLinesGiven++;
 		optionChosenArrayDebug = _choicesAlreadyChosen;
+		optionCriteriaArrayDebug = _choicesCriteriaResults;
 	}
 };
