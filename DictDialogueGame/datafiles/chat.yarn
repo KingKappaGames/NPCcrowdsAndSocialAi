@@ -6,17 +6,17 @@ title: Start
 ---
 <<set $secret to false>>
 This is the first thing i'll say, but you know, I'm a bit of a yapper. #dog
-This is the next line of the start node. #dog
+This is the next line of the start node. And your distance is <<distanceTo(getId("other"))>>, just fyi. #dog
 This is the end, woe be I, remember me. #cat
 -> I really don't care.
     Alas nobody cares in the end...
--> I will try. << if !optionChosen()>>
+-> I'll try. << if !optionChosen()>>
     Oh, won't we all.
--> -Say nothing- << if pDistance($player) < 150 >>
+-> -Say nothing-
     It's already over.
 -> You may find peace within yourself.
     I am not so big a man.
-[jitter]ima watashi wa yamashita[/jitter]
+[jitter]ima watashi wa yamashita[/jitter] #jap
 ===
 __PrivCrochet_colorID: 0
 __PrivCrochet_position: -104,50

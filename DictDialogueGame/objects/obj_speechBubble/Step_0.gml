@@ -1,12 +1,19 @@
-if(keyboard_check(ord("1"))) {
-	choiceHighlight = 0;
-} else if(keyboard_check(ord("2"))) {
-	choiceHighlight = 1;
-} else if(keyboard_check(ord("3"))) {
-	choiceHighlight = 2;
-} else if(keyboard_check(ord("4"))) {
-	choiceHighlight = 3;
+if(multipleChoice) {
+	if(keyboard_check(ord("1"))) {
+		choiceHighlight = 0;
+	} else if(keyboard_check(ord("2"))) {
+		choiceHighlight = 1;
+	} else if(keyboard_check(ord("3"))) {
+		choiceHighlight = 2;
+	} else if(keyboard_check(ord("4"))) {
+		choiceHighlight = 3;
+	}
+	
+	if(choiceHighlight >= array_length(messageData)) {
+		choiceHighlight = -1;
+	}
 }
+	
 
 if(createTime < createTimeMax) { // not yet fully created
 	createTime++;

@@ -1,5 +1,9 @@
 if(live_call()) { return live_result }
 
+global.player = id;
+
+ChatterboxVariableSet("player", id); // load player id into chatterbox globals.. kinda neat to do this kind of thing with chatterbox!
+
 depth = -y;
 
 reaction = 0;
@@ -32,7 +36,7 @@ mouseLight.radius = 750;
 mouseLight.intensity = .4;
 mouseLight.shaderType = LIGHT_SHADER_BRDF;
 
-
+inDialogue = false;
 
 var _prevLink = id;
 repeat(1) {

@@ -112,13 +112,13 @@ sayRandomComment = function() {
 				moveStartChance = 30;
 			}
 			comment = script_generatePlayerComment(); // player focused comment
-			script_createSpeechBubble(x + choose(-40, 40), y - 100, comment[0], 190, 80, .21, curve_SBemerge, curve_SBgrow);
+			script_createSpeechBubble(id, "shadow", x + choose(-40, 40), y - 100, comment[0], 190, 80, .21, curve_SBemerge, curve_SBgrow);
 			exit;
 		}
 	}
 	
 	comment = script_generateSelfComment(); // non player focused comment
-	script_createSpeechBubble(x + choose(-40, 40), y - 100, comment[0], 170, 80, .21, curve_SBemerge, curve_SBgrow);
+	script_createSpeechBubble(id, "shadow", x + choose(-40, 40), y - 100, comment[0], 170, 80, .21, curve_SBemerge, curve_SBgrow);
 }
 
 judgeComment = function(judgment) { // agree, diagree, anger, doubt, laugh
@@ -130,10 +130,10 @@ judgeComment = function(judgment) { // agree, diagree, anger, doubt, laugh
 	}
 	if(is_array(comment)) {
 		comment = comment[judgment]; // select actual comment from comment info
-		script_createSpeechBubble(x, y - 80, is_array(comment) ? comment[0] : comment, 190, 80, .15, curve_SBemerge, curve_SBgrow); // pass either the first index if it is an array or the whole thing if not
+		script_createSpeechBubble(id, "shadow", x, y - 80, is_array(comment) ? comment[0] : comment, 190, 80, .15, curve_SBemerge, curve_SBgrow); // pass either the first index if it is an array or the whole thing if not
 	} else {
 		comment = "..."; // no more tree to follow..
-		script_createSpeechBubble(x, y - 80, comment, 190, 80, .15, curve_SBemerge, curve_SBgrow);
+		script_createSpeechBubble(id, "shadow", x, y - 80, comment, 190, 80, .15, curve_SBemerge, curve_SBgrow);
 	}
 	
 	randomCommentTimer += 300;

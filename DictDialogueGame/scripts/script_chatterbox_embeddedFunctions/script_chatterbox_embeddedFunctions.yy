@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"script_junkScript",
+  "%Name":"script_chatterbox_embeddedFunctions",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"script_junkScript",
+  "name":"script_chatterbox_embeddedFunctions",
   "parent":{
     "name":"Scripts",
     "path":"folders/Scripts.yy",

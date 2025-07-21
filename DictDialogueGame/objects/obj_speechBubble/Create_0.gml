@@ -10,6 +10,10 @@ createTimeMax = 20;
 
 sourceId = noone;
 
+bubbleType = ""; // shadow or others to come..?
+bubbleTextColor = c_white;
+bubbleTextColorHighlight = c_yellow;
+
 originX = 0;
 originY = 0;
 
@@ -25,9 +29,11 @@ heightCurve = -1;
 
 bubbleWidth = 0;
 bubbleHeight = 0;
-
 bubbleWidthFinal = 0;
 bubbleHeightFinal = 0; // the width/height curves should both range from 0-1 or over 1, they should both end at 1, the multiplier of goalW/H then multiplies with the "scales" from those curves
+
+bubbleDrawOffX = 0;
+bubbleDrawOffY = 0; // how much to displace the bubble itself compared to the icons and text
 
 bubbleSurf = -1;
 bubbleTextSurf = -1; // use surfaces to store the speech bubbles (especially easy when not in growth period) and use these surfaces to apply shaders and whatnot
@@ -46,6 +52,12 @@ choiceTextIndexArray = -1;
 
 choiceArrowDirection = 90;
 
+//messeageText = ""; // does the scribble struct contain the text or just the shape?
+messageData = scribble(""); // the "text" baked in scribble format
+typewritter = scribble_typist(); // the type writter effect for scribble
+typewritter.character_delay_add(".", 400); // hopefully adds a delay every period that is found
+optionData = -1;
+
 getBubbleSurf = function() {
 	if(!surface_exists(bubbleSurf)) {
 		bubbleSurf = surface_create(512, 512); // bit big?
@@ -55,12 +67,6 @@ getBubbleSurf = function() {
 	}
 	return bubbleSurf;
 }
-
-//messeageText = ""; // does the scribble struct contain the text or just the shape?
-messageData = scribble(""); // the "text" baked in scribble format
-typewritter = scribble_typist(); // the type writter effect for scribble
-typewritter.character_delay_add(".", 400); // hopefully adds a 1 second delay every period that is found
-optionData = -1;
 
 
 /// @desc sets the default values for a potential speech bubble, beyond the basic use for one line or another (sets intro and outro among other things)
@@ -130,6 +136,8 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 			bubbleWidthFinal = _textBoxTop.width + 70;
 			bubbleHeightFinal = _textBoxTop.height + 100;
 			
+			bubbleDrawOffX = 0; // center always center yo
+			
 			choiceAngles = [90];
 		} else if(_optionCount == 2) { // left right
 			_textBoxLeft = messageData[0].get_bbox();
@@ -137,6 +145,8 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 			
 			bubbleWidthFinal = _textBoxLeft.width + _textBoxRight.width + 100;
 			bubbleHeightFinal = _textBoxRight.height * 2 + 100;
+			
+			bubbleDrawOffX = (_textBoxRight.width - _textBoxLeft.width) * .5;    // the furthest left point on the hitboxes + (the widest aspect of the bubble, whether that's the width of a top or bottom or the width or the two sides and center combined) / 2
 			
 			choiceAngles = [180, 0];
 		} else if(_optionCount == 3) { // top left right
@@ -146,13 +156,17 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 			bubbleWidthFinal = _textBoxLeft.width + _textBoxRight.width + 100;
 			bubbleHeightFinal = _textBoxRight.height * 2 + 100;
 			
+			bubbleDrawOffX = (_textBoxRight.width - _textBoxLeft.width) * .5;
+			
 			choiceAngles = [90, 180, 0];
 		} else if(_optionCount == 4) { // top left bottom right
 			_textBoxLeft = messageData[1].get_bbox();
-			_textBoxRight = messageData[3].get_bbox();
+			_textBoxRight = messageData[2].get_bbox();
 			
 			bubbleWidthFinal = _textBoxLeft.width + _textBoxRight.width + 100;
 			bubbleHeightFinal = _textBoxRight.height * 2 + 100;
+			
+			bubbleDrawOffX = (_textBoxRight.width - _textBoxLeft.width) * .5;
 			
 			choiceAngles = [90, 180, 0, 270];
 		}
@@ -161,10 +175,13 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 		
 		messageData.wrap(256);
 		messageData.align(fa_center, fa_middle);
+		messageData.blend(bubbleTextColor);
 		
 		var _textBbox = messageData.get_bbox(); // the border of the text
 		bubbleWidthFinal = _textBbox.width + 72; // scribble get width of baked text
 		bubbleHeightFinal = _textBbox.height + 48; // scribble get width of baked text
+		
+		bubbleDrawOffX = 0;
 	}
 	
 	distScaleX = distanceScaleX;

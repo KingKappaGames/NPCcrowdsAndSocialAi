@@ -130,3 +130,4 @@ animcurve_set_live(curve_SBgrow, true);
 animcurve_set_live(curve_SBemerge, true);
 sprite_set_live(spr_background, true);
 shader_set_live(shd_speechBubbleFog, 1);
+shader_set_live(shd_speechBubbleWhite, 1);
