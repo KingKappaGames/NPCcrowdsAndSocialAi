@@ -74,6 +74,7 @@ using their likes and dislikes you could analyse the environment and asign mood 
 Random things: 
 There would be a delay between the question and the response depending on the feel of the question. I don't know how you'd decide whether embarassing or sad or fun questions got answered faster/slower but yeah.
 
+If the player didn't have anything to say they would shake their head or do a little uh-uh noise while the dialogue is happening, just to signify there's nothing there
 
 Specific actions and behaviors...
 

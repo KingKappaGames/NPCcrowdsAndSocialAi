@@ -6,17 +6,23 @@ title: Start
 ---
 <<set $secret to false>>
 This is the first thing i'll say, but you know, I'm a bit of a yapper. #dog
-This is the next line of the start node. And your distance is <<distanceTo(getId("other"))>>, just fyi. #dog
+This is the next line of the start node. #dog #react
+-> happy
+    Good! This is the happy response! <-V->
+-> angry
+    This is the angry response, frick you!
+-> sad
+    This is the sad response, wuh! ):
 This is the end, woe be I, remember me. #cat
 -> I really don't care.
     Alas nobody cares in the end...
--> I'll try. << if !optionChosen()>>
+-> I will try. << if !optionChosen()>>
     Oh, won't we all.
--> -Say nothing-
+-> -Say nothing- << if distanceTo($player) < 150 >>
     It's already over.
 -> You may find peace within yourself.
     I am not so big a man.
-[jitter]ima watashi wa yamashita[/jitter] #jap
+[jitter]ima watashi wa yamashita[/jitter]
 ===
 __PrivCrochet_colorID: 0
 __PrivCrochet_position: -104,50
@@ -72,8 +78,14 @@ I'm always glad to see you, friend.
 And when you're around
 I feel happy because
 It's like the weight is shared between us 
-You know what I mean?
-Haha, I'm glad.
+You know what I mean? #react
+-> 
+    Happy are you?
+->
+    Don't get angry with me now! ... But anyway...
+->
+    So- Oh, what's wrong? Regretting your words? But you know-
+I'm glad.
 Glad as can be.
 [shake][c_red]Trust[/shake][/c] is a wonderful thing.
 ...
