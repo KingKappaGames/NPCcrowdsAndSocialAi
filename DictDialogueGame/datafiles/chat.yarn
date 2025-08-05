@@ -1,12 +1,14 @@
 #__PrivCrochet_version:1
 __PrivCrochet_colorID: 0
-__PrivCrochet_position: -332,43
+__PrivCrochet_position: -331,43
 __PrivCrochet_tags: 
 title: Start
 ---
 <<set $secret to false>>
 This is the first thing i'll say, but you know, I'm a bit of a yapper. #dog
 This is the next line of the start node. #dog #react
+-> blank
+    blank
 -> happy
     Good! This is the happy response! <-V->
 -> angry
@@ -79,11 +81,15 @@ And when you're around
 I feel happy because
 It's like the weight is shared between us 
 You know what I mean? #react
--> 
+-> blank
+    blank
+-> happy
     Happy are you?
-->
+    That's probably good.
+    This is the third line for the sub response of the happy response..
+-> angry
     Don't get angry with me now! ... But anyway...
-->
+-> sad
     So- Oh, what's wrong? Regretting your words? But you know-
 I'm glad.
 Glad as can be.

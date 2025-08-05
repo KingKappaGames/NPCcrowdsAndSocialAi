@@ -116,16 +116,16 @@ dialogueDoInteraction = function(speaker) {
 			} else {
 				if(emotionReactionsAvaialble) {
 					// How do I skip an option??
-					var _index = -1;
+					var _index = 0;
 					if(keyboard_check_released(ord("7"))) { // happy
-						_index = 0;
-					} else if(keyboard_check_released(ord("8"))) { // angry
 						_index = 1;
-					} else if(keyboard_check_released(ord("9"))) { // sad
+					} else if(keyboard_check_released(ord("8"))) { // angry
 						_index = 2;
+					} else if(keyboard_check_released(ord("9"))) { // sad
+						_index = 3;
 					}
 					
-					if(_index == -1) {
+					if(_index == 0) {
 						ChatterboxSelect(chatterbox, 0); // when "skipping" a react option set simply choose the first option then jump to the next right away...? (this assumes nothing important lies in the first option... maybe make a dummy option?
 						ChatterboxContinue(chatterbox);
 					} else {
@@ -156,6 +156,7 @@ dialogueDoInteraction = function(speaker) {
 				
 			if(_metadata == "react") { // whether the comment can be reacted to with emotion reactions
 				emotionReactionsAvaialble = true;
+				instance_create_depth(x + irandom_range(-50, 50), y + irandom_range(-50, 50), -5000, obj_reactExclamation);
 			} else if(_metadata == "monster") {
 				//?
 				_textSpeed = .44;
