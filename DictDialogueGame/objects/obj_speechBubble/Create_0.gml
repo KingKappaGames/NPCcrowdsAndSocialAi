@@ -3,7 +3,7 @@ depth = -5000;
 duration = 120;
 
 fadeTime = 0;
-fadeTimeMax = 20;
+fadeTimeMax = 60;
 
 createTime = 0;
 createTimeMax = 20;
@@ -18,6 +18,7 @@ originX = 0;
 originY = 0;
 
 textSpeed = 1;
+textSmoothness = .5;
 
 distScaleX = 20;
 distScaleY = 20;
@@ -34,9 +35,8 @@ bubbleHeightFinal = 0; // the width/height curves should both range from 0-1 or 
 
 bubbleDrawOffX = 0;
 bubbleDrawOffY = 0; // how much to displace the bubble itself compared to the icons and text
-
-bubbleSurf = -1;
-bubbleTextSurf = -1; // use surfaces to store the speech bubbles (especially easy when not in growth period) and use these surfaces to apply shaders and whatnot
+bubbleDrawOffXFinal = 0; // the goal values for these to approach
+bubbleDrawOffYFinal = 0;
 
 multipleChoice = false;
 
@@ -55,18 +55,9 @@ choiceArrowDirection = 90;
 //messeageText = ""; // does the scribble struct contain the text or just the shape?
 messageData = scribble(""); // the "text" baked in scribble format
 typewritter = scribble_typist(); // the type writter effect for scribble
-typewritter.character_delay_add(".", 400); // hopefully adds a delay every period that is found
+//typewritter.character_delay_add(".", 400); // hopefully adds a delay every period that is found (works but maybe laggy and i'm on the laptop and slowdown for delay is annoying so disable for now
 optionData = -1;
 
-getBubbleSurf = function() {
-	if(!surface_exists(bubbleSurf)) {
-		bubbleSurf = surface_create(512, 512); // bit big?
-		surface_set_target(bubbleSurf);
-		draw_clear(c_black);
-		surface_reset_target();
-	}
-	return bubbleSurf;
-}
 
 
 /// @desc sets the default values for a potential speech bubble, beyond the basic use for one line or another (sets intro and outro among other things)
@@ -81,8 +72,9 @@ getBubbleSurf = function() {
 /// @param {any*} [multipleChoice]=false Whether or not this speech bubble is a choose your own option multi bubble, showing the options, not the response text
 /// @param {any*} [choiceSeenArraySet]=-1 If this is an option set this will pass the options that have already been chosen (array of options as bools of chosen_before) before in the game (or in this chatterbox instance at least?)
 /// @param {any*} [choiceCriteriaArraySet]=-1 If this is a multiple choice set then this array contains the result booleans of each entries criteria (or multiple) including optionally the question of whether it's been selected before (depends on the chatterscript side)
-setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, distanceScaleY = 20, createDelay = 35, typeSpeed = .2, fadeDelay = 30, multipleChoiceSet = false, choiceSeenArraySet = -1, choiceCriteriaArraySet = -1) {
-	live_auto_call
+/// @param {any*} [replaceSameBubble]=false Whether this state should rewritten to this bubbl
+setState = function(textString, positionCurve = undefined, sizeCurve = undefined, distanceScaleX = 20, distanceScaleY = 20, createDelay = 35, typeSpeed = .2, fadeDelay = 30, multipleChoiceSet = false, choiceSeenArraySet = -1, choiceCriteriaArraySet = -1, replaceSameBubble = false) {
+	//live_auto_call
 	
 	multipleChoice = multipleChoiceSet;
 	choiceChosenArray = choiceSeenArraySet;
@@ -136,7 +128,7 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 			bubbleWidthFinal = _textBoxTop.width + 70;
 			bubbleHeightFinal = _textBoxTop.height + 100;
 			
-			bubbleDrawOffX = 0; // center always center yo
+			bubbleDrawOffXFinal = 0; // center always center yo
 			
 			choiceAngles = [90];
 		} else if(_optionCount == 2) { // left right
@@ -146,7 +138,7 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 			bubbleWidthFinal = _textBoxLeft.width + _textBoxRight.width + 100;
 			bubbleHeightFinal = _textBoxRight.height * 2 + 100;
 			
-			bubbleDrawOffX = (_textBoxRight.width - _textBoxLeft.width) * .5;    // the furthest left point on the hitboxes + (the widest aspect of the bubble, whether that's the width of a top or bottom or the width or the two sides and center combined) / 2
+			bubbleDrawOffXFinal = (_textBoxRight.width - _textBoxLeft.width) * .5;    // the furthest left point on the hitboxes + (the widest aspect of the bubble, whether that's the width of a top or bottom or the width or the two sides and center combined) / 2
 			
 			choiceAngles = [180, 0];
 		} else if(_optionCount == 3) { // top left right
@@ -156,7 +148,7 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 			bubbleWidthFinal = _textBoxLeft.width + _textBoxRight.width + 100;
 			bubbleHeightFinal = _textBoxRight.height * 2 + 100;
 			
-			bubbleDrawOffX = (_textBoxRight.width - _textBoxLeft.width) * .5;
+			bubbleDrawOffXFinal = (_textBoxRight.width - _textBoxLeft.width) * .5;
 			
 			choiceAngles = [90, 180, 0];
 		} else if(_optionCount == 4) { // top left bottom right
@@ -166,7 +158,7 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 			bubbleWidthFinal = _textBoxLeft.width + _textBoxRight.width + 100;
 			bubbleHeightFinal = _textBoxRight.height * 2 + 100;
 			
-			bubbleDrawOffX = (_textBoxRight.width - _textBoxLeft.width) * .5;
+			bubbleDrawOffXFinal = (_textBoxRight.width - _textBoxLeft.width) * .5;
 			
 			choiceAngles = [90, 180, 0, 270];
 		}
@@ -181,32 +173,40 @@ setState = function(textString, positionCurve, sizeCurve, distanceScaleX = 20, d
 		bubbleWidthFinal = _textBbox.width + 72; // scribble get width of baked text
 		bubbleHeightFinal = _textBbox.height + 48; // scribble get width of baked text
 		
-		bubbleDrawOffX = 0;
+		bubbleDrawOffXFinal = 0;
 	}
 	
 	distScaleX = distanceScaleX;
 	distScaleY = distanceScaleY;
 	
-	xCurve = animcurve_get_channel(positionCurve, "x");
-	yCurve = animcurve_get_channel(positionCurve, "y");
-	widthCurve = animcurve_get_channel(sizeCurve, "width");
-	heightCurve = animcurve_get_channel(sizeCurve, "height");
-	
-	bubbleWidth = 1;
-	bubbleHeight = 1;
+	if(!is_undefined(positionCurve)) {
+		xCurve = animcurve_get_channel(positionCurve, "x");
+		yCurve = animcurve_get_channel(positionCurve, "y");
+	}
+	if(!is_undefined(sizeCurve)) {
+		widthCurve = animcurve_get_channel(sizeCurve, "width");
+		heightCurve = animcurve_get_channel(sizeCurve, "height");
+	}
 	
 	textSpeed = typeSpeed;
+	//textSmoothness = .5;
 	
 	createTime = 0;
 	createTimeMax = createDelay;
 	
 	fadeTime = 0;
 	fadeTimeMax = fadeDelay;
+	
+	//if(createTimeMax == 0) {
+	//	bubbleWidth = bubbleWidthFinal;
+	//	bubbleHeight = bubbleHeightFinal; // how to mark that when a bubble is set to a new state it should assume the correct size..?
+	//}
 }
 
-textBegin = function(writeSpeed = textSpeed) {
+textBegin = function(writeSpeed = textSpeed, smoothness = textSmoothness) {
 	typewritter.reset();
-	typewritter.in(writeSpeed, .5);
+	typewritter.in(writeSpeed, smoothness);
+	textSmoothness = smoothness; // this is the only place to do this.. that's not how this should work?
 }
 
 

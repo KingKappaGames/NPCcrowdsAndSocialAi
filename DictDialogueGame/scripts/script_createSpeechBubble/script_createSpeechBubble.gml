@@ -33,7 +33,7 @@ function script_createSpeechBubble(source, bubbleTypeSet, xx, yy, messageText, d
 	var _textLength = string_length(messageText);
 	_bubble.duration = durationSet + _textLength / textSpeed;
 	
-	_bubble.setState(messageText, posCurve, sizeCurve, xx - arrowOriginX, yy - arrowOriginY, createDelay, textSpeed, 20, multipleChoiceSet, optionsChosenArraySet, optionsCriteriaArraySet);
+	_bubble.setState(messageText, posCurve, sizeCurve, xx - arrowOriginX, yy - arrowOriginY, createDelay, textSpeed, undefined, multipleChoiceSet, optionsChosenArraySet, optionsCriteriaArraySet);
 	
 	return _bubble;
 }

@@ -68,8 +68,6 @@ dialogueDoInteraction = function(speaker) {
 			if(!multipleChoice && typewritter.get_state() < 1) {
 				typewritter.skip(); // skip text to end but don't delete or end bubble
 				exit;
-			} else {
-				duration = 0; // text already ended so end bubble / close dialogue (and continue if applicable)
 			}
 		}
 		
@@ -150,6 +148,7 @@ dialogueDoInteraction = function(speaker) {
 		var _metadata = "";
 			
 		emotionReactionsAvaialble = false;
+		var _recreateBubble = false;
 			
 		for(var _metaI = 0; _metaI < _metadataCount; _metaI++) {
 			_metadata = metadata[_metaI];
@@ -157,6 +156,8 @@ dialogueDoInteraction = function(speaker) {
 			if(_metadata == "react") { // whether the comment can be reacted to with emotion reactions
 				emotionReactionsAvaialble = true;
 				instance_create_depth(x + irandom_range(-50, 50), y + irandom_range(-50, 50), -5000, obj_reactExclamation);
+			} else if(_metadata == "newBubble") {
+				_recreateBubble = true;
 			} else if(_metadata == "monster") {
 				//?
 				_textSpeed = .44;
@@ -169,12 +170,23 @@ dialogueDoInteraction = function(speaker) {
 		#endregion
 			
 		if(text != -1) {
-			bubble = script_createSpeechBubble(id, bubbleType, x, y - 100, text, _fadeDuration, 20, _textSpeed, curve_SBemerge, curve_SBgrow, ,, _multi, _choicesAlreadyChosen, _choicesCriteriaResults);
+			var _bubbleExists = instance_exists(bubble);
+			if(!_bubbleExists || _recreateBubble) {
+				if(_bubbleExists) {
+					bubble.duration = 0; // end previous bubble
+				}
+				
+				bubble = script_createSpeechBubble(id, bubbleType, x, y - 100, text, _fadeDuration, 20, _textSpeed, curve_SBemerge, curve_SBgrow, ,, _multi, _choicesAlreadyChosen, _choicesCriteriaResults);
+			} else {          // this 0 is create delay, important if you're replacing the bubble.. Maybe I should make a proper re-apply script or something
+				bubble.setState(text,,,,, 0, _textSpeed, 20, _multi, _choicesAlreadyChosen, _choicesCriteriaResults);
+				bubble.textBegin();
+			}
 			dialogueValueCollection.totalDialogueLinesGiven++;
 				
 			optionChosenArrayDebug = _choicesAlreadyChosen;
 			optionCriteriaArrayDebug = _choicesCriteriaResults;
 		} else { // dialogue over?
+			bubble.duration = 0; // text already ended so end bubble / close dialogue
 			dialogueClose();
 		}
 	}

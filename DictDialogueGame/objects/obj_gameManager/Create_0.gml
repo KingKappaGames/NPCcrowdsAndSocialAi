@@ -15,6 +15,7 @@ crystalRenderer.SetHDREnable(true);
 crystalRenderer.SetMaterialsEnable(true);
 crystalRenderer.SetAmbientColor(#0b001a);
 crystalRenderer.SetAmbientIntensity(.2);
+crystalRenderer.SetRenderEnable(false)
 
 emissiveLayer = new Crystal_MaterialLayer(-5700, CRYSTAL_PASS.EMISSIVE); // make layer for emissive lights and whatnot
 emissiveLayer.AddLayers(layer_get_id("EmissiveA"));
@@ -28,6 +29,7 @@ emissiveLayer.Apply();
 ppxRenderer = new PPFX_Renderer();
 
 ppxRenderer.SetHDREnable(true);
+ppxRenderer.SetRenderEnable(false)
 
 var _gameEffects = [
    // new FX_Colorize(true, color_get_hue(#200237), 255, 255, .33),

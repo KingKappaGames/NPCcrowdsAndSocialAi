@@ -1,3 +1,8 @@
+msg("#");
+//msg(createTime); // outputting 20???? Why?
+//msg(createTimeMax);
+msg(string(x) + " / " + string(y));
+
 if(multipleChoice) {
 	if(keyboard_check(ord("1"))) {
 		choiceHighlight = 0;
@@ -19,10 +24,18 @@ if(createTime < createTimeMax) { // not yet fully created
 	createTime++;
 	
 	var _createProgress = createTime / createTimeMax;
-	x = originX + animcurve_channel_evaluate(xCurve, _createProgress) * distScaleX;
-	y = originY + animcurve_channel_evaluate(yCurve, _createProgress) * distScaleY;
-	bubbleWidth = animcurve_channel_evaluate(widthCurve, _createProgress) * bubbleWidthFinal;
-	bubbleHeight = animcurve_channel_evaluate(heightCurve, _createProgress) * bubbleHeightFinal;
+	if(xCurve != -1) {
+		x = originX + animcurve_channel_evaluate(xCurve, _createProgress) * distScaleX;
+	}
+	if(yCurve != -1) {
+		y = originY + animcurve_channel_evaluate(yCurve, _createProgress) * distScaleY;
+	}
+	if(widthCurve != -1) {
+		bubbleWidth = animcurve_channel_evaluate(widthCurve, _createProgress) * bubbleWidthFinal;
+	}
+	if(heightCurve != -1) {
+		bubbleHeight = animcurve_channel_evaluate(heightCurve, _createProgress) * bubbleHeightFinal;
+	}
 	
 	if(createTime == createTimeMax) {
 		textBegin();
@@ -36,6 +49,11 @@ if(createTime < createTimeMax) { // not yet fully created
 			instance_destroy();
 		}
 	} else { // still current and all that
+		bubbleWidth = lerp(bubbleWidth, bubbleWidthFinal, .11);
+		bubbleHeight = lerp(bubbleHeight, bubbleHeightFinal, .11);
+		bubbleDrawOffX = lerp(bubbleDrawOffX, bubbleDrawOffXFinal, .07); // push bubble to correct positions quickly, especially important for switching sizes and positions for an existing bubble, though I do feel there should be a better place to do this...
+		bubbleDrawOffY = lerp(bubbleDrawOffY, bubbleDrawOffYFinal, .07);
+		
 		var _dir = 0;
 		var _count = array_length(messageData);
 		for(var _i = 0; _i < _count; _i++) {

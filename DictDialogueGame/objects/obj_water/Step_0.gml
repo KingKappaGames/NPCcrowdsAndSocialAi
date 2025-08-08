@@ -13,7 +13,7 @@ if(mouse_check_button(mb_right)) {
 
 
 //if(irandom(1) == 0) {
-	script_createWaterProjectile(x + irandom(2400), y + irandom(2400), 500, random_range(1.5, 2.2), random_range(-1, 1), random_range(-1, 1), random_range(-5, -6),,,, false);
+	//script_createWaterProjectile(x + irandom(2400), y + irandom(2400), 500, random_range(1.5, 2.2), random_range(-1, 1), random_range(-1, 1), random_range(-5, -6),,,, false);
 //}
 
 

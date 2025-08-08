@@ -40,9 +40,9 @@ Do you want to hear a secret?
         Okay! Well here it is,
         <<set $secret to true>>
         <<setCollectionValue("secretTold", $secret)>>
-        I actually killed Alarasu
+        I actually killed Alarasu #newBubble
         I used a knife and hide the body in the great green expanse out of town
-        You won't tell anyone! I'm glad I can trust you.
+        You won't tell anyone! I'm glad I can trust you. #newBubble
     -> It would be better if you were more careful...
         <<if $secret>>
         Oh, wait, that's pretty strange considering

@@ -9,7 +9,7 @@ var _fadeAlpha = 1;
 var _fadePortion = 1;
 if(fadeTime > 0 && fadeTime <= fadeTimeMax) {
 	_fadePortion = 1 - (fadeTime / fadeTimeMax);
-	_fadeAlpha = max(1 - ((fadeTime * 2.5) / fadeTimeMax), 0); // 1 to -1 clamped to 1 to 0 by half way     to cut off alpha half way to over
+	_fadeAlpha = max(1 - ((fadeTime * 3.5) / fadeTimeMax), 0); // 1 to -1 clamped to 1 to 0 by half way     to cut off alpha half way to over
 }
 
 
@@ -93,5 +93,7 @@ if(createTime >= createTimeMax) { // active
 }
 
 gpu_set_ztestenable(true);
+
+draw_text(x-bubbleWidthFinal / 2 - 70, y, string(createTime) + " / " + string(createTimeMax));
 
 //draw_circle(x, y, 12, false);
