@@ -9,9 +9,12 @@ dialogueString = "";
 responseString = "";
 previousDialogueString = "";
 
-dialogueDictionary = ds_grid_create(12, 2);
+dialogueDictionary = ds_grid_create(13, 2);
 
-#region dialogue entries
+#region dialogue entries script_answerRomanticPartner
+ds_grid_set(dialogueDictionary, 12, 0, "are you single");
+ds_grid_set(dialogueDictionary, 12, 1, [script_answerRomanticPartner, 1]); // what are the values for response choosing specifically?
+
 ds_grid_set(dialogueDictionary, 11, 0, "do you support the lord");
 ds_grid_set(dialogueDictionary, 11, 1, [["Sure, I've no problems. Why do you ask?", .5], ["It doesn't matter, as long as he does his job he's just fine.", .5]]); // what are the values for response choosing specifically?
 		
@@ -25,7 +28,7 @@ ds_grid_set(dialogueDictionary, 8, 0, "do you work in the city");
 ds_grid_set(dialogueDictionary, 8, 1, [["No, not since the collapse. Nice place though, people are doing their best out there.", 1]]);
 		
 ds_grid_set(dialogueDictionary, 7, 0, "how are you");
-ds_grid_set(dialogueDictionary, 7, 1, [["I'm fine thanks.", 1]]);
+ds_grid_set(dialogueDictionary, 7, 1, [["I'm fine, thanks.", .5], [script_answerMood, .5]]);
 	
 ds_grid_set(dialogueDictionary, 6, 0, "are you married");
 ds_grid_set(dialogueDictionary, 6, 1, [["Yes, but I'm not going to talk about it anymore.", 1]]);
@@ -95,18 +98,27 @@ decideResponseFromSet = function(gridX, gridY = 1) {
 	var _validResponses = [];
 	var _validCount = 0;
 	
-	for(var _criteriaCheckI = array_length(_responseData) - 1; _criteriaCheckI > -1; _criteriaCheckI--) { // figure out which responses can't be used do to criteria and add the valid ones to valid responses []
-		//if(_responseData[_criteriaCheckI][which pos(s) to check?] > npcFear or npcTrust or npcDrunkeness) { // success criteria based on values and checks
-			array_push(_validResponses, _responseData[_criteriaCheckI]); //success
-			_validCount++;
-		//}
+	if(is_array(_responseData[0])) {
+		for(var _criteriaCheckI = array_length(_responseData) - 1; _criteriaCheckI > -1; _criteriaCheckI--) { // figure out which responses can't be used do to criteria and add the valid ones to valid responses []
+			//if(_responseData[_criteriaCheckI][which pos(s) to check?] > npcFear or npcTrust or npcDrunkeness) { // success criteria based on values and checks
+				array_push(_validResponses, _responseData[_criteriaCheckI]); //success
+				_validCount++;
+			//}
+		}
+	} else {
+		_validResponses[0] = _responseData;
+		_validCount = 1;
 	}
 	
 	msg("Valid count: " + string(_validCount));
 	
 	if(_validCount > 0) {
-		if(_validCount == 1) {
-			responseString = _validResponses[0][0]; // just pass on the only option if there's only one
+		if(_validCount == 1) { // only one response which also means you don't have to do the random choosing (only one means no choosing you know?..)
+			if(is_string(_validResponses[0][0])) {
+				responseString = _validResponses[0][0];
+			} else if(typeof(_validResponses[0][0]) == "ref") {
+				responseString = _validResponses[0][0](dialogueNpcCurrent);
+			}
 		} else { // more than one working option, choose random
 			var _randTotal = 0; //grab random from collection of possible
 			for(var _randCountUpI = array_length(_validResponses) - 1; _randCountUpI > -1; _randCountUpI--) {

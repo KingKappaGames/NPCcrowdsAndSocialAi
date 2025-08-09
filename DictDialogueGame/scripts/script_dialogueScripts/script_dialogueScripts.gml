@@ -31,17 +31,17 @@ function script_answerAge(subject) {
 }
 
 function script_answerAction(subject) {
-	if(pathCurrent != -1) {
+	if(subject.pathCurrent != -1) {
 		if(irandom(2) == 0) {
 			return $"I'm walking. Uh.";
 		} else {
-			return $"I'm on my way for {path_get_name(path_index)}.";
+			return $"I'm on my way for {path_get_name(subject.pathCurrent)}.";
 		}
 	} else {
 		if(irandom(2) == 0) {
 			return $"Standing here- Talking to you. Now what do you want?";
 		} else {
-			if(occupation == "peasant") {
+			if(subject.occupation == "peasant") {
 				return $"Nothing in the world.";
 			} else {
 				return "I need to get back to work."; // way to end dialogue from certain points?
@@ -84,6 +84,44 @@ function script_answerMagic(subject) {
 			return "How would you know? Are you studied? Nevermind!";
 		} else {
 			return $"Don't suggest anything you don't mean to.";
+		}
+	}
+}
+
+function script_answerRomanticPartner(subject) {
+	with(subject) {
+		if(relationshipLevelPartner == "single") {
+			if(irandom(1) == 0) {
+				return $"I'm alone.";
+			} else if(irandom(1) == 0) {
+				return $"Don't be rude-";
+			} else {
+				return $"That... Well I'm not with anyone.";
+			}
+		} else {
+			if(random(1) < trust) { // be cautious
+				if(irandom(1) == 0) {
+					return $"Yes well, I'm {relationshipLevelPartner}.";
+				} else {
+					return $"I'm with {relationshipPartner} and we're {relationshipLevelPartner}.";
+				}
+			} else {
+				if(irandom(1) == 0) {
+					return $"I'm not really sure why that matters..?";
+				} else {
+					return $"That's not something I want to tell just anyone, sorry...";
+				}	
+			}
+		}
+	}
+}
+
+function script_answerMood(subject) {
+	with(subject) {
+		if(trust > .3 && irandom(1) == 0) {
+			return $"I'm {script_dialogueGetEmotion(id, "insert")}.";
+		} else {
+			return "What does it matter?";
 		}
 	}
 }

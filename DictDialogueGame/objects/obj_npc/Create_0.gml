@@ -11,6 +11,8 @@ residence = -1; // specific city or village, not house, not region (could be non
 homeland = -1;
 gender = -1;
 age = -1;
+relationshipLevelPartner = -1;
+relationshipPartner = -1;
 objectAllegiance = -1;
 
 occupation = -1;

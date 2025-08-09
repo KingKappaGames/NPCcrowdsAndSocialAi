@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"script_getPathPOIs",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"paths",
+    "path":"folders/Scripts/paths.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

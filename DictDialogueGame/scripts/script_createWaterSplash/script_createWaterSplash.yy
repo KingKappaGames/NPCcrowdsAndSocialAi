@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"script_createWaterSplash",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"water",
+    "path":"folders/Scripts/water.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

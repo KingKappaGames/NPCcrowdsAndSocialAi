@@ -1,8 +1,3 @@
-msg("#");
-//msg(createTime); // outputting 20???? Why?
-//msg(createTimeMax);
-msg(string(x) + " / " + string(y));
-
 if(multipleChoice) {
 	if(keyboard_check(ord("1"))) {
 		choiceHighlight = 0;

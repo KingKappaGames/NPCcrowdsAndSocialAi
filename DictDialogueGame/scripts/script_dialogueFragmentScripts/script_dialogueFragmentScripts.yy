@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"script_npcGeneratePersonality",
+  "%Name":"script_dialogueFragmentScripts",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"script_npcGeneratePersonality",
+  "name":"script_dialogueFragmentScripts",
   "parent":{
     "name":"dialogue",
     "path":"folders/Scripts/dialogue.yy",

@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"script_ACT_actions",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"dialogue",
+    "path":"folders/Scripts/dialogue.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

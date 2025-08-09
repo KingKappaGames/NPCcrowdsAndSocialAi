@@ -153,6 +153,23 @@ function script_npcGeneratePersonality(){
 	if(personality == -1) {
 		personality = choose("dreamer", "sullen", "naive", "greedy", "hateful", "loving", "lonely");
 	}
+	if(relationshipLevelPartner == -1) {
+		relationshipLevelPartner = choose("single", "friend", "dating", "engaged", "married");
+		if(relationshipLevelPartner != "single") {
+			relationshipPartner = instance_find(obj_npc, irandom(instance_number(obj_npc) - 1));	
+			if(relationshipPartner == id) { // can't be married to yourself yo
+				relationshipPartner = noone;
+				relationshipLevelPartner = "single";
+			} else {
+				if(personality == "hateful") {
+					relationshipPartner = noone;
+					relationshipLevelPartner = "single"; // idk basic quality setting vs relationship (hateful means no marriage I guess?)
+				}
+			}
+		} else {
+			relationshipPartner = noone;
+		}
+	}
 	if(trust == -1) {
 		trust = random(1);
 	}
