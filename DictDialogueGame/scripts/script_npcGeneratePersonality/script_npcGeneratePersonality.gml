@@ -16,6 +16,8 @@ function script_npcGeneratePersonality(){
 		age = random(200);
 		if(homeland == "surface" || residence == "surface") {
 			age = random(100); // random thing, ages aren't as high when you're mortal or mortal adjacent, this obviously would need expanded but still
+		} else if(homeland == "pride lands") {
+			age = random(350); // people there go slow yo
 		}
 	}
 	if(objectAllegiance == -1) {
@@ -70,6 +72,12 @@ function script_npcGeneratePersonality(){
 	}
 	if(religion == -1) {
 		religion = choose("proud soul", "reach follower", "mortalist", "fatalist");
+		
+		if(homeland == "surface" && residence == "surface") {
+			if(random(1) < .9) {
+				religion = choose("atheist", "false gods");
+			}
+		}
 	}
 	if(wealth == -1) {
 		wealth = power(irandom(20), 5);
@@ -88,7 +96,7 @@ function script_npcGeneratePersonality(){
 		} else if(occupation == "witness") {
 			status = "witness";
 		} else {
-			status = round(sqrt(sqrt(wealth)));
+			status = wealth;
 			if(status < 250) {
 				status = "empty";
 			} else if(status < 5000) {
@@ -108,6 +116,12 @@ function script_npcGeneratePersonality(){
 			alignment = choose(0, 1);
 		} else {
 			alignment = 1 - (wealth / (wealth + 1000));
+			
+			if(religion == "reach follower") {
+				alignment *= .5;
+			} else if(religion == "proud soul") {
+				alignment = min(alignment * 1.1 + .05, 1);
+			}
 		}
 	}
 	
@@ -115,6 +129,12 @@ function script_npcGeneratePersonality(){
 		criminality = random(1);
 		if(occupation == "packer") {
 			criminality = 0;
+		}
+		
+		if(religion == "reach follower") {
+			alignment *= .5;
+		} else if(religion == "proud soul") {
+			alignment = min(alignment * 1.15 + .08, 1);
 		}
 	}
 	if(magicStrength == -1) {
@@ -124,6 +144,13 @@ function script_npcGeneratePersonality(){
 			magicStrength = clamp(random(1) - random(1) + random(occupation == "scholar"), 0, 1); // butchery honestly
 		} else {
 			magicStrength = random(1);
+		}
+		
+		if(homeland == "surface") {
+			magicStrength *= .75;
+		}
+		if(wealth > 10_000) {
+			magicStrength = min(magicStrength * 1.25, 1); // access to money leads to better magic, perhaps? (notice no flat ups, just an innate interest or ability is helped by resources)
 		}
 	}
 	if(magicField == -1) {
@@ -137,6 +164,10 @@ function script_npcGeneratePersonality(){
 		extraversion = random(1);
 		if(occupation == "witness" || occupation == "feaster" || occupation == "neuveu lord" || occupation == "rotted") {
 			extraversion *= .5;
+		}
+		
+		if(occupation == "peasant" || religion == "mortalist" || residence == "pride lands") {
+			extraversion = min(extraversion * 1.1 + .05, 1);
 		}
 	}
 	if(selfWorth == -1) {
@@ -152,7 +183,20 @@ function script_npcGeneratePersonality(){
 	}
 	if(personality == -1) {
 		personality = choose("dreamer", "sullen", "naive", "greedy", "hateful", "loving", "lonely");
+		
+		if(wealth > 250_000) {
+			if(personality == "naive") {
+				personality = "hateful";
+			}
+		}
+		
+		if(irandom(3) == 0) {
+			if(wealth > 1_000_000) {
+				personality = choose("loving", "hateful", "lonely");
+			}
+		}
 	}
+	
 	if(relationshipLevelPartner == -1) {
 		relationshipLevelPartner = choose("single", "friend", "dating", "engaged", "married");
 		if(relationshipLevelPartner != "single") {
@@ -171,31 +215,87 @@ function script_npcGeneratePersonality(){
 		}
 	}
 	if(trust == -1) {
-		trust = random(1);
+		trust = min(random(1) + (selfWorth / 10 - .05), 1);
+		
+		if(occupation == "lord") {
+			trust = 1; // lords need not fear their subjects...
+		} else if(relationshipLevelPartner == "single") {
+			trust = min(trust * 1.05 + .03, 1);
+		}
+		
+		if(personality == "loving") {
+			trust = min(trust * 1.1 + .2, 1);
+		} else if(personality == "lonely") {
+			trust = min(trust + .1, 1);
+		} else if(personality == "naive") {
+			trust = min(trust * 1.4 + .03, 1);
+		} else if(personality == "hateful" || personality == "sullen") {
+			trust = trust * .6;
+		} else if(personality == "greedy") {
+			trust = trust * .85;
+		}
 	}
 	if(energyPersonality == -1) {
 		energyPersonality = random(1); // this would be vitality/how spry they were, age is a big impact but also magic and history
+		
+		if(personality == "sullen") {
+			energyPersonality *= .7;
+		} else if(personality == "dreamer") {
+			energyPersonality = min(energyPersonality + .1, 1);
+		}
 	}
 	if(joy == -1) {
 		joy = random(1);
+		
+		if(personality == "loving") { 
+			joy = min(joy * 1.1 + .08, 1);
+		} else if(personality == "hateful") {
+			joy = max(joy * .5 - .03, 0);
+		}
 	}
 	if(curiosity == -1) {
 		curiosity = random(1);
+		
+		if(personality == "dreamer") { 
+			curiosity = min(curiosity * 1.25 + .15, 1);
+		} else if(personality == "sullen") {
+			curiosity = max(curiosity * .5 - .03, 0);
+		}
 	}
 	if(combativeness == -1) {
 		combativeness = random(1);
+		
+		if(personality == "loving") {
+			combativeness = max(combativeness * .5 - .03, 0);
+		}
 	}
 	if(knowledgeGeneral == -1) {
 		knowledgeGeneral = random(1);
+		
+		if(personality == "dreamer") { 
+			knowledgeGeneral = min(knowledgeGeneral * 1.1 + .08, 1);
+		} else if(personality == "naive") {
+			knowledgeGeneral = max(knowledgeGeneral * .7 - .03, 0);
+		}
 	}
 	if(speedValue == -1) {
-		speedValue = .25 + random(1);
+		speedValue = .25 + random(1) + energyPersonality / 5;
+		
+		if(personality == "sullen") {
+			speedValue = max(speedValue * .85 - .03, 0);
+		}
 	}
 	if(weightValue == -1) {
 		weightValue = .25 + random(1);
 	}
 	if(keenness == -1) {
 		keenness = random(1);
+		
+		if(personality == "greedy") { 
+			keenness = min(keenness * 1.1 + .08, 1);
+		} else if(personality == "naive") {
+			keenness = max(keenness * .7 - .03, 0);
+		}
 	}
 	
 	//if( == -1) {
@@ -232,5 +332,5 @@ function script_npcGeneratePersonality(){
 	
 	image_blend = c_white;
 	
-	//maybe at the end all the values should be remerged to create a slightly higher homogenaity in the values you end up with? Or not, i dunno
+	//maybe at the end all the values should be remerged to create a slightly higher homogenaity in the values you end up with? Or not, i dunno (yeah probably, like take the "finished" set and recompare with all the values to eliminate any really improper values and "smooth everything out" a little..?)
 }

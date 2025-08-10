@@ -9,11 +9,17 @@ dialogueString = "";
 responseString = "";
 previousDialogueString = "";
 
-dialogueDictionary = ds_grid_create(13, 2);
+dialogueDictionary = ds_grid_create(15, 2);
 
 #region dialogue entries script_answerRomanticPartner
+ds_grid_set(dialogueDictionary, 14, 0, "are you poor");
+ds_grid_set(dialogueDictionary, 14, 1, [[script_answerStatus, .6], ["That's not very nice...", .3]]); // what are the values for response choosing specifically?
+
+ds_grid_set(dialogueDictionary, 13, 0, "are you rich");
+ds_grid_set(dialogueDictionary, 13, 1, [[script_answerStatus, .65], ["Do I look it?", .24], ["Hah!", .1]]); // what are the values for response choosing specifically?
+
 ds_grid_set(dialogueDictionary, 12, 0, "are you single");
-ds_grid_set(dialogueDictionary, 12, 1, [script_answerRomanticPartner, 1]); // what are the values for response choosing specifically?
+ds_grid_set(dialogueDictionary, 12, 1, [[script_answerRomanticPartner, .9], ["Wow!", .1]]); // what are the values for response choosing specifically?
 
 ds_grid_set(dialogueDictionary, 11, 0, "do you support the lord");
 ds_grid_set(dialogueDictionary, 11, 1, [["Sure, I've no problems. Why do you ask?", .5], ["It doesn't matter, as long as he does his job he's just fine.", .5]]); // what are the values for response choosing specifically?

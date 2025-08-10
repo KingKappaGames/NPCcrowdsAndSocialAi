@@ -27,3 +27,75 @@ function script_dialogueGetEmotion(subject, form){
 		}
 	}
 }
+
+function script_dialogueGetWealth(subject, form, addArticle = false){ // todo on the article...
+	with(subject) { //"dreamer", "sullen", "naive", "greedy", "hateful", "loving", "lonely");
+		if(form == "insert") {
+			if(personality == "sullen" || personality == "hateful") {
+				if(wealth < 250) {
+					return choose("poor", "pathetic", "dirty");
+				} else if(wealth < 3000) {
+					return choose("average", "irrelevant", "lower-class"); // embeded self identifier for the phrase..?
+				} else if(wealth < 100_000) {
+					return choose("rich", "doing well"); // embeded self identifier for the phrase..?
+				} else {
+					return choose("filthy rich", "undeserving");
+				}
+			} else if(personality == "greedy") {
+				if(wealth < 250) {
+					return choose("wanton " + script_dialogueGetGender(id, "insert"), "beggar");
+				} else if(wealth < 3000) {
+					return choose("average", "disapointing"); // embeded self identifier for the phrase..?
+				} else if(wealth < 100_000) {
+					return choose("elite", "worthy", "rich", "proper"); // embeded self identifier for the phrase..?
+				} else {
+					return choose("unrivaled", "kingly", "divine", "royal", "filthy rich");
+				}
+			} else {
+				if(trust < .5) {
+					if(wealth < 250) {
+						return choose("poor", "poor");
+					} else if(wealth < 3000) {
+						return choose("average", "commoner"); // embeded self identifier for the phrase..?
+					} else if(wealth < 100_000) {
+						return choose("high-class", "rich", "wealthy"); // embeded self identifier for the phrase..?
+					} else {
+						return choose("divine", "royal", "filthy rich");
+					}
+				} else { // trusting
+					if(wealth < 250) {
+						return choose("poor", "beggar");
+					} else if(wealth < 3000) {
+						return choose("middle-class", "common " + script_dialogueGetGender(id, "insert"), "commoner"); // embeded self identifier for the phrase..?
+					} else if(wealth < 100_000) {
+						return choose("high-class", "dignified " + script_dialogueGetGender(id, "insert"), "elite", "rich", "wealthy"); // embeded self identifier for the phrase..?
+					} else {
+						return choose("unrivaled", "kingly", "divine", "royal", "filthy rich");
+					}
+				}
+			}
+		} else {
+			return "idk man"; // what goes here?
+		}
+	}
+}
+
+function script_dialogueGetGender(subject, form) {
+	if(subject.gender == 0) {
+		if(subject.age < 12) {
+			return "boy";
+		} else if(subject.age < 70) {
+			return choose("man", "boy", "chap");
+		} else {
+			return choose("old-man", "man", "pop", "gramps");
+		}
+	} else {
+		if(subject.age < 12) {
+			return "girl";
+		} else if(subject.age < 70) {
+			return choose("woman", "lady", "girl");
+		} else {
+			return choose("old-woman", "lady", "granny");
+		}
+	}
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"script_npcJudgeOtherPersonality",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"script_npcJudgeOtherPersonality",
+  "parent":{
+    "name":"dialogue",
+    "path":"folders/Scripts/dialogue.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

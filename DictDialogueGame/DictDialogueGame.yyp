@@ -595,6 +595,7 @@
     {"id":{"name":"script_getClosestPathPosition","path":"scripts/script_getClosestPathPosition/script_getClosestPathPosition.yy",},},
     {"id":{"name":"script_getPathPOIs","path":"scripts/script_getPathPOIs/script_getPathPOIs.yy",},},
     {"id":{"name":"script_npcGeneratePersonality","path":"scripts/script_npcGeneratePersonality/script_npcGeneratePersonality.yy",},},
+    {"id":{"name":"script_npcJudgeOtherPersonality","path":"scripts/script_npcJudgeOtherPersonality/script_npcJudgeOtherPersonality.yy",},},
     {"id":{"name":"script_setValue","path":"scripts/script_setValue/script_setValue.yy",},},
     {"id":{"name":"script_startPathDirection","path":"scripts/script_startPathDirection/script_startPathDirection.yy",},},
     {"id":{"name":"shader_replace_simple_macros","path":"scripts/shader_replace_simple_macros/shader_replace_simple_macros.yy",},},

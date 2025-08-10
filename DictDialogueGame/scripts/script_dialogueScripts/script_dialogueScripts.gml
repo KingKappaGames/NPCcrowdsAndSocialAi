@@ -125,3 +125,13 @@ function script_answerMood(subject) {
 		}
 	}
 }
+
+function script_answerStatus(subject) {
+	with(subject) {
+		if(trust > .4 && irandom(3) != 0) {
+			return $"I'm {script_dialogueGetWealth(id, "insert")}.";
+		} else {
+			return "Why does it matter?";
+		}
+	}
+}

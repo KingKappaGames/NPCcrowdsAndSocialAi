@@ -129,7 +129,8 @@ if(keyboard_check_released(ord("P"))) {
 				var _arrow = instance_create_layer(other.x, other.y, "Instances", obj_debugArrow);
 				_arrow.targetX = x;
 				_arrow.targetY = y;
-				_arrow.feeling = script_getAllegianceJudgement(objectAllegiance, other.objectAllegiance);
+				//_arrow.feeling = script_getAllegianceJudgement(objectAllegiance, other.objectAllegiance);
+				_arrow.feeling = script_npcJudgeOtherPersonality(id, other.id);
 			}
 		}
 	}
