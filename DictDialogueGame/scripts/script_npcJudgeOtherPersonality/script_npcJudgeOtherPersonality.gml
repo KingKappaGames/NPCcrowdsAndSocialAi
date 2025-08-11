@@ -1,3 +1,4 @@
+///@desc Script that uses one npc to judge another, based on characteristics only, and the judgement will be one way, the two won't have the same view of each other
 function script_npcJudgeOtherPersonality(subject, target) {
 	var _opinion = .5;
 	

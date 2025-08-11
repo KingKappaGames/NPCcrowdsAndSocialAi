@@ -261,6 +261,14 @@ if(keyboard_check_released(ord("L"))) {
 	followPointY = mouse_y;
 }
 
+var _item = instance_nearest(x, y, obj_itemDrop);
+if(instance_exists(_item)) {
+	if(point_distance(x, y, _item.x, _item.y) < 50) {
+		var _opinion = script_npcJudgeItem(id, _item.item);
+		image_blend = make_color_rgb((1 - _opinion) * 255, _opinion * 255, 0);
+	}
+}
+
 /*
 This is finicky hard /: AI steering behaviors and group movement
 

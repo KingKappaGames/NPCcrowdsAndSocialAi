@@ -1,5 +1,29 @@
 // perhaps scripts that return a value subjectily from an npc could be called "answer+The thing they get?" Just positing a naming convention
 
+function script_answerName(subject) {
+	with(subject) {
+		if(trust > .4 && irandom(3) != 0) {
+			if(irandom(1) == 0) {
+				var _firstLetter = string_char_at(occupation, 1);
+				var _addN = "";
+				if(_firstLetter == "e" || _firstLetter == "a" || _firstLetter == "u" || _firstLetter == "i" || _firstLetter == "o") { // love thissss
+					_addN = "n";
+				}
+				
+				return $"I'm {name} and I'm a{_addN} {occupation}"; // these should be wrapped in fragment getters for context and phrasing..
+			} else {
+				return $"My name's {name}, nice to meet you.";
+			}
+		} else {
+			if(irandom(1) == 0) {
+				return "Why does it matter?";
+			} else {
+				return "I'm not telling you that right now, sorry."
+			}
+		}
+	}
+}
+
 function script_answerAge(subject) {
 	if(subject.age < 3) {
 		return $"Goo goo ({subject.age}) ga ga bitch";
@@ -103,7 +127,7 @@ function script_answerRomanticPartner(subject) {
 				if(irandom(1) == 0) {
 					return $"Yes well, I'm {relationshipLevelPartner}.";
 				} else {
-					return $"I'm with {relationshipPartner} and we're {relationshipLevelPartner}.";
+					return $"I'm with {relationshipPartner.name} and we're {relationshipLevelPartner}.";
 				}
 			} else {
 				if(irandom(1) == 0) {

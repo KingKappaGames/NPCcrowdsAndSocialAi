@@ -9,9 +9,15 @@ dialogueString = "";
 responseString = "";
 previousDialogueString = "";
 
-dialogueDictionary = ds_grid_create(15, 2);
+dialogueDictionary = ds_grid_create(17, 2); // REMEMBER TO INCREMENT
 
-#region dialogue entries script_answerRomanticPartner
+#region dialogue entries script_answerName
+ds_grid_set(dialogueDictionary, 16, 0, "what is your name");
+ds_grid_set(dialogueDictionary, 16, 1, [script_answerName, 1]); // what are the values for response choosing specifically?
+
+ds_grid_set(dialogueDictionary, 15, 0, "are you ready to die");
+ds_grid_set(dialogueDictionary, 15, 1, [["What?!", .5], ["Murderer!", .5]]); // what are the values for response choosing specifically?
+
 ds_grid_set(dialogueDictionary, 14, 0, "are you poor");
 ds_grid_set(dialogueDictionary, 14, 1, [[script_answerStatus, .6], ["That's not very nice...", .3]]); // what are the values for response choosing specifically?
 
@@ -40,7 +46,7 @@ ds_grid_set(dialogueDictionary, 6, 0, "are you married");
 ds_grid_set(dialogueDictionary, 6, 1, [["Yes, but I'm not going to talk about it anymore.", 1]]);
 
 ds_grid_set(dialogueDictionary, 5, 0, "who are you");
-ds_grid_set(dialogueDictionary, 5, 1, [["I'm Antha. What do you want?", 1]]);
+ds_grid_set(dialogueDictionary, 5, 1, [[script_answerName, 1]]);
 		
 ds_grid_set(dialogueDictionary, 4, 0, "where do you live");
 ds_grid_set(dialogueDictionary, 4, 1, [["I'm not telling you that. You shouldn't ask.", 1]]);

@@ -46,6 +46,7 @@ if(leader) {
 
 if(keyboard_check(vk_control)) {
 	var _data = [
+	name,
 	residence,
 	homeland,
 	gender,
@@ -78,6 +79,7 @@ if(keyboard_check(vk_control)) {
 	];
 	
 	var _dataNames = [
+	"name",
 	"residence",
 	"homeland",
 	"gender",

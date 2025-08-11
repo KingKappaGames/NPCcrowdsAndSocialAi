@@ -57,6 +57,8 @@ function script_npcGeneratePersonality(){
 				occupation = choose("bard", "knight", "wizard", "noble", "peasant", "king", "craftsman", "slave");
 			} else if(residence == "pride lands") {
 				occupation = choose("lord", "wanderer", "cultivator", "scholar", "worshipper", "packer");
+			} else if(residence == "reaches") {
+				occupation = choose("wanderer", "rotted", "guide", "knight", "worshipper", "cultist", "fallen hero");
 			}
 			
 			if(gender == 1) {
@@ -67,6 +69,10 @@ function script_npcGeneratePersonality(){
 				if(irandom(20) == 0) {
 					occupation = "war worm";
 				}
+			}
+			
+			if(occupation == -1) { // something didn't catch this one
+				occupation = "wanderer (bug)";
 			}
 		}
 	}
@@ -195,6 +201,47 @@ function script_npcGeneratePersonality(){
 				personality = choose("loving", "hateful", "lonely");
 			}
 		}
+	}
+	
+	if(name == -1) { // this one is tedious but simple, needs expanded
+		var _firstName = [];
+		var _lastName = [];
+		
+		if(gender == 0) {
+			name = "John Doe"; // iykyk
+		} else {
+			name = "Jane Doe";
+		}
+		
+		if(homeland == "surface") {
+			if(age < 12) {
+				if(gender == 0) {
+					_firstName = array_concat(_firstName, ["Timmy", "Billy", "Sam", "Jack", "Oliver", "Lucien", "Ryan", "Connor", "Rowan", "Chris", "Tyber", "Martin"]);
+				} else {
+					_firstName = array_concat(_firstName, ["Sally", "Vanesa", "Sammy", "Arrielle", "Olivia", "Luce", "Whitney"]);
+				}
+				_firstName = array_concat(_firstName, ["Scout", "Chip"]);
+			} else {
+				// FIRST NAMES FOR ADULTS
+				_firstName = array_concat(_firstName, ["Jim", "Ryan", "Sam", "Jack", "Oliver", "Lucien", "Michael", "Vladamir", "Chris", "Tyber", "Martin"]);
+			}
+			
+			_lastName = array_concat(_lastName, ["O'Brien", "McMathews", "Fletcher", "Reeves", "Abhorsen", "Maguire", "Andrews", "Putin", "Doskoyevsky"]);
+		} else if(homeland == "pride lands") {
+			_firstName = array_concat(_firstName, ["Kel", "Inget", "Cravir", "Ukel", "Tarruv", "Yoharel", "Dobanok"]);
+			_lastName = array_concat(_lastName, ["Oto-tok", "Witwatcher", "The Distant", "The Illuminated", "Ieli", "The Failed"]); // titles?
+		} else if(homeland == "dark realm") {
+			_firstName = array_concat(_firstName, ["Asrok", "Sater", "Bakohem", "Dasr", "Linla", "Abyr", "Gloonso"]);
+			_lastName = array_concat(_lastName, ["Lighter", "Raiser", "The Masked", "The Forgotten", "Viluces", "The Failed"]); // titles?
+		} else if(homeland == "quiet vegas") {
+			_firstName = array_concat(_firstName, ["Lef", "Ko", "Evk", "Tek", "Os", "Qui", "Bo-g", "Yij"]);
+			_lastName = array_concat(_lastName, ["Walker", "Whiser", "The Distant", "The Fallen", "Arrelarrena", "Sinh"]); // titles?
+		} else if(homeland == "reaches") {
+			_firstName = array_concat(_firstName, ["Tet", "Beet", "Kih", "Ta", "Pech", "Aee", "Sep"]);
+			_lastName = array_concat(_lastName, ["Walker", "O Seer", "The Followed", "The Hopeful", "Donne", "The Lost"]); // titles?
+		}
+		
+		name = _firstName[irandom(array_length(_firstName) - 1)] + " " + _lastName[irandom(array_length(_lastName) - 1)];
 	}
 	
 	if(relationshipLevelPartner == -1) {
