@@ -1,6 +1,6 @@
 // perhaps scripts that return a value subjectily from an npc could be called "answer+The thing they get?" Just positing a naming convention
 
-function script_answerName(subject) {
+function script_answerName(subject, otherSpeaker = noone) {
 	with(subject) {
 		if(trust > .4 && irandom(3) != 0) {
 			if(irandom(1) == 0) {
@@ -24,7 +24,7 @@ function script_answerName(subject) {
 	}
 }
 
-function script_answerAge(subject) {
+function script_answerAge(subject, otherSpeaker = noone) {
 	if(subject.age < 3) {
 		return $"Goo goo ({subject.age}) ga ga bitch";
 	} else if(subject.age < 11) {
@@ -54,7 +54,7 @@ function script_answerAge(subject) {
 	}
 }
 
-function script_answerAction(subject) {
+function script_answerAction(subject, otherSpeaker = noone) {
 	if(subject.pathCurrent != -1) {
 		if(irandom(2) == 0) {
 			return $"I'm walking. Uh.";
@@ -74,7 +74,7 @@ function script_answerAction(subject) {
 	}
 }
 
-function script_answerMagic(subject) {
+function script_answerMagic(subject, otherSpeaker = noone) {
 	if(subject.magicStrength == 0) {
 		if(subject.occupation == "scholar" && irandom(1) == 0) {
 			return "No, I've studied it though. I don't have the talent.";
@@ -112,7 +112,7 @@ function script_answerMagic(subject) {
 	}
 }
 
-function script_answerRomanticPartner(subject) {
+function script_answerRomanticPartner(subject, otherSpeaker = noone) {
 	with(subject) {
 		if(relationshipLevelPartner == "single") {
 			if(irandom(1) == 0) {
@@ -140,20 +140,20 @@ function script_answerRomanticPartner(subject) {
 	}
 }
 
-function script_answerMood(subject) {
+function script_answerMood(subject, otherSpeaker = noone) {
 	with(subject) {
 		if(trust > .3 && irandom(1) == 0) {
-			return $"I'm {script_dialogueGetEmotion(id, "insert")}.";
+			return $"I'm {script_dialogueGetEmotion(id, otherSpeaker, "insert")}.";
 		} else {
 			return "What does it matter?";
 		}
 	}
 }
 
-function script_answerStatus(subject) {
+function script_answerStatus(subject, otherSpeaker = noone) {
 	with(subject) {
 		if(trust > .4 && irandom(3) != 0) {
-			return $"I'm {script_dialogueGetWealth(id, "insert")}.";
+			return $"I'm {script_dialogueGetWealth(id, otherSpeaker, "insert")}.";
 		} else {
 			return "Why does it matter?";
 		}

@@ -6,10 +6,26 @@ followingLight.y = y;
 followingLight.depth = depth;
 followingLight.persistent = true;
 
-//mouseLight.x = mouse_x;
-//mouseLight.y = mouse_y;
-//mouseLight.depth = -mouse_y;
-//mouseLight.persistent = true;
+if(instance_exists(heldItem)) {
+	var _speed = point_distance(0, 0, xChange, yChange);
+	
+	heldItem.x = x;
+	heldItem.y = y - 20;
+	heldItem.y += dsin(current_time * .3 * (_speed + 1)) * 10 * (_speed + 1); // jostle more and faster with speed
+	
+	if(keyboard_check_released(ord("B"))) { // drop
+		heldItem = noone;
+	}
+} else {
+	if(keyboard_check_released(ord("B"))) { // pick up nearby item
+		var _nearest = instance_nearest(x, y, obj_itemDrop);
+		if(instance_exists(_nearest)) {
+			if(point_distance(x, y, _nearest.x, _nearest.y) < 70) {
+				heldItem = _nearest;
+			}
+		}
+	}
+}
 
 if(!instance_exists(obj_dialogueManager.dialogueNpcCurrent)) {
 	if(keyboard_check_pressed(vk_shift)) {
@@ -93,18 +109,6 @@ if(keyboard_check_released(ord("H"))) {
 if(keyboard_check_released(ord("N"))) {
 	instance_create_layer(mouse_x, mouse_y, "Instances", obj_npc);
 }
-if(keyboard_check_released(vk_f2)) {
-	var _influence = instance_create_layer(mouse_x, mouse_y, "Instances", obj_steeringNode);
-	_influence.influenceStrength = 1;
-}
-if(keyboard_check_released(vk_f3)) {
-	var _influence = instance_create_layer(mouse_x, mouse_y, "Instances", obj_steeringNode);
-	_influence.influenceStrength = -1;
-	_influence.influenceRadius = 1500;
-}
-if(keyboard_check_released(vk_f4)) {
-	instance_create_layer(mouse_x, mouse_y, "Instances", obj_steeringNpc);
-}
 
 if(keyboard_check_released(ord("R"))) {
 	with(obj_npc) {
@@ -136,11 +140,6 @@ if(keyboard_check_released(ord("P"))) {
 	}
 }
 
-if(keyboard_check_released(ord("L"))) {
-	mouseLight.enabled = !mouseLight.enabled;
-	mouseLight.radius = irandom_range(50, 1000);
-}
-
 if(mouse_check_button_pressed(mb_left)) {
 	var _directId = instance_nearest(mouse_x, mouse_y, obj_npc);
 	if(instance_exists(_directId)) {
@@ -160,10 +159,6 @@ if(mouse_check_button_released(mb_left)) {
 	directId = noone;
 }
 
-if(mouse_check_button_released(mb_left)) {
-	var _wave = shockwave_instance_create(mouse_x, mouse_y, "Instances", irandom(5), .3, .05);
-	_wave.depth = irandom_range(-5000, 5000);
-}
 
 camera_set_view_pos(view_camera[0], x - camera_get_view_width(view_camera[0]) / 2, y - camera_get_view_height(view_camera[0]) / 2);
 

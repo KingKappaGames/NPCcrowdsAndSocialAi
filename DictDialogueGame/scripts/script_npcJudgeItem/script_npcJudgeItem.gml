@@ -28,10 +28,10 @@ function script_npcJudgeItem(subject, item){
 				_opinion *= .65;
 			}
 		}
-	}
-	
-	if(occupation == "scholar") {
-		_opinion += item.complexity * .55; // they be loving that stuff...
+		
+		if(occupation == "scholar") {
+			_opinion += item.complexity * .55; // they be loving that stuff...
+		}
 	}
 	
 	return _opinion;

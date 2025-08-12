@@ -6,6 +6,8 @@ ChatterboxVariableSet("player", id); // load player id into chatterbox globals..
 
 depth = -y;
 
+heldItem = noone;
+
 reaction = 0;
 
 moveSpeed = .9;
@@ -28,13 +30,6 @@ followingLight.intensity = .09;
 followingLight.castShadows = true;
 followingLight.selfShadows = true;
 followingLight.shaderType = LIGHT_SHADER_BRDF;
-
-
-mouseLight = instance_create_depth(x, y, -1000, obj_pointLight);
-mouseLight.color = #ffffff;
-mouseLight.radius = 750;
-mouseLight.intensity = .4;
-mouseLight.shaderType = LIGHT_SHADER_BRDF;
 
 inDialogue = false;
 

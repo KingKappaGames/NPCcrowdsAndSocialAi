@@ -2,7 +2,7 @@
 
 //forms are grammar, so like, if you needed the response as a sentence insert, as in, "I'm {happy/sad/tired}!" then saying "I'm been tough!" doesn't make sense. So the forms signify whether the response is to be inserted directly, a response chunk, or a full sentence maybe?
 
-function script_dialogueGetEmotion(subject, form){
+function script_dialogueGetEmotion(subject, otherSpeaker = noone, form = "insert"){
 	with(subject) { //"dreamer", "sullen", "naive", "greedy", "hateful", "loving", "lonely");
 		if(form == "insert") {
 			if(personality == "sullen" || personality == "hateful") {
@@ -28,7 +28,7 @@ function script_dialogueGetEmotion(subject, form){
 	}
 }
 
-function script_dialogueGetWealth(subject, form, addArticle = false){ // todo on the article...
+function script_dialogueGetWealth(subject, otherSpeaker = noone, form = "insert", addArticle = false){ // todo on the article...
 	with(subject) { //"dreamer", "sullen", "naive", "greedy", "hateful", "loving", "lonely");
 		if(form == "insert") {
 			if(personality == "sullen" || personality == "hateful") {
@@ -80,7 +80,7 @@ function script_dialogueGetWealth(subject, form, addArticle = false){ // todo on
 	}
 }
 
-function script_dialogueGetGender(subject, form) {
+function script_dialogueGetGender(subject, otherSpeaker = noone, form = "insert") {
 	if(subject.gender == 0) {
 		if(subject.age < 12) {
 			return "boy";

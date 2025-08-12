@@ -1,4 +1,4 @@
-if(live_call()) { return live_result }
+//if(live_call()) { return live_result }
 
 draw_set_color(image_blend);
 

@@ -9,9 +9,12 @@ dialogueString = "";
 responseString = "";
 previousDialogueString = "";
 
-dialogueDictionary = ds_grid_create(17, 2); // REMEMBER TO INCREMENT
+dialogueDictionary = ds_grid_create(18, 2); // REMEMBER TO INCREMENT
 
 #region dialogue entries script_answerName
+ds_grid_set(dialogueDictionary, 17, 0, "do you want an item");
+ds_grid_set(dialogueDictionary, 17, 1, [script_npcGiveItem, 1]); // what are the values for response choosing specifically?
+
 ds_grid_set(dialogueDictionary, 16, 0, "what is your name");
 ds_grid_set(dialogueDictionary, 16, 1, [script_answerName, 1]); // what are the values for response choosing specifically?
 
@@ -129,7 +132,7 @@ decideResponseFromSet = function(gridX, gridY = 1) {
 			if(is_string(_validResponses[0][0])) {
 				responseString = _validResponses[0][0];
 			} else if(typeof(_validResponses[0][0]) == "ref") {
-				responseString = _validResponses[0][0](dialogueNpcCurrent);
+				responseString = _validResponses[0][0](dialogueNpcCurrent, global.player); // need some value to store the other partner in the conversation (it won't always just be player right)
 			}
 		} else { // more than one working option, choose random
 			var _randTotal = 0; //grab random from collection of possible
@@ -148,7 +151,7 @@ decideResponseFromSet = function(gridX, gridY = 1) {
 					if(is_string(_validResponses[_randDecayI][0])) {
 						responseString = _validResponses[_randDecayI][0];
 					} else if(typeof(_validResponses[_randDecayI][0]) == "ref") {
-						responseString = _validResponses[_randDecayI][0](dialogueNpcCurrent);
+						responseString = _validResponses[_randDecayI][0](dialogueNpcCurrent, global.player);
 					}
 					break;
 				}
