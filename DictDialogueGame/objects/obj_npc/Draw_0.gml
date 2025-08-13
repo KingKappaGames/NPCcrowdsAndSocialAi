@@ -46,6 +46,7 @@ if(leader) {
 
 if(keyboard_check(vk_control)) {
 	var _data = [
+	id,
 	name,
 	residence,
 	homeland,
@@ -75,10 +76,18 @@ if(keyboard_check(vk_control)) {
 	
 	speedValue,
 	weightValue,
-	keenness
+	keenness,
+	
+	emotionOpinion,
+	emotionMood,
+	emotionTrust,
+	emotionAnger,
+	emotionFear,
+	emotionEnergy,
 	];
 	
 	var _dataNames = [
+	"id",
 	"name",
 	"residence",
 	"homeland",
@@ -108,7 +117,14 @@ if(keyboard_check(vk_control)) {
 	
 	"speedValue",
 	"weightValue",
-	"keenness"
+	"keenness",
+	
+	"emotionOpinion",
+	"emotionMood",
+	"emotionTrust",
+	"emotionAnger",
+	"emotionFear",
+	"emotionEnergy",
 	];
 	
 	for(var _i = array_length(_data) - 1; _i >= 0; _i--) {

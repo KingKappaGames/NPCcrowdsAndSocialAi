@@ -5,14 +5,22 @@ if(keyboard_check(vk_control)) {
 	item.itemType,
 	item.value,
 	item.alignment,
-	item.complexity
+	item.complexity,
+	item.danger,
+	item.magical, 
+	item.weight,
+	item.owner,
 	];
 	
 	var _dataNames = [
 	"type",
 	"value",
 	"alignment",
-	"complexity"
+	"complexity",
+	"danger",
+	"magical",
+	"weight",
+	"owner"
 	];
 	
 	for(var _i = array_length(_data) - 1; _i >= 0; _i--) {

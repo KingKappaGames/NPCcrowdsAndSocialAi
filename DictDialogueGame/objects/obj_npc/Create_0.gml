@@ -53,10 +53,13 @@ playerCommentRange = 140;
 
 topicsDiscussed = [];
 expectingAnswer = false;
-frustration = 0;
-fear = 0;
-friendliness = 0;
-energy = 0;
+
+emotionOpinion = 0;
+emotionMood = 0;
+emotionAnger = 0;
+emotionFear = 0;
+emotionTrust = 0;
+emotionEnergy = 0;
 
 moveDelay = 0;
 moveStartChance = 120;

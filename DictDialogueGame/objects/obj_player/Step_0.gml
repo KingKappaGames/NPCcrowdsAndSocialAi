@@ -1,5 +1,7 @@
 if(live_call()) { return live_result }
 
+audio_listener_set_position(0, x, y, 0);
+
 depth = -y;
 followingLight.x = x;
 followingLight.y = y;

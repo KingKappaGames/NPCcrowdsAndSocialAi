@@ -9,6 +9,8 @@ dialogueString = "";
 responseString = "";
 previousDialogueString = "";
 
+bubble = noone;
+
 dialogueDictionary = ds_grid_create(18, 2); // REMEMBER TO INCREMENT
 
 #region dialogue entries script_answerName
@@ -158,4 +160,9 @@ decideResponseFromSet = function(gridX, gridY = 1) {
 			} // cut down the random until it "lands" on a result
 		}
 	} // if it has no valids (which shouldn't ever happen for the record...) then it'll say the default string above.
+	
+	if(instance_exists(bubble)) { bubble.duration = 0; }
+	
+	var _npc = dialogueNpcCurrent;
+	bubble = script_createSpeechBubble(_npc, "white", _npc.x, _npc.y - 100, responseString, 720, 25, .5, curve_SBemerge, curve_SBgrow, ,,,,);
 }

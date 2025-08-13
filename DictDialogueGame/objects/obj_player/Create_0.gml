@@ -1,5 +1,7 @@
 if(live_call()) { return live_result }
 
+audio_listener_orientation(0, 0, 1000, 0, -1, 0)
+
 global.player = id;
 
 ChatterboxVariableSet("player", id); // load player id into chatterbox globals.. kinda neat to do this kind of thing with chatterbox!

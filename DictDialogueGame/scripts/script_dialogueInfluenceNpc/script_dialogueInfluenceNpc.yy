@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"script_itemGenerateValues",
+  "%Name":"script_dialogueInfluenceNpc",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"script_itemGenerateValues",
+  "name":"script_dialogueInfluenceNpc",
   "parent":{
     "name":"dialogue",
     "path":"folders/Scripts/dialogue.yy",
