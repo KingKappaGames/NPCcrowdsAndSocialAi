@@ -44,93 +44,107 @@ if(leader) {
 	draw_sprite(spr_crown, 1, x, y - 10);
 }
 
-if(keyboard_check(vk_control)) {
-	var _data = [
-	id,
-	name,
-	residence,
-	homeland,
-	gender,
-	age,
-	objectAllegiance,
+if(keyboard_check_pressed(vk_control)) {
+	showDebug = (showDebug + 1) % 3;
+}
 	
-	occupation,
-	religion,
-	wealth,
-	status,
-	alignment,                              /// monka bro wtf
-	criminality,
-	magicStrength,
-	magicField,
-	powerLevel,
+if(showDebug > 0) {
+	var _emotions = [emotionOpinion, emotionMood, emotionTrust, emotionAnger, emotionFear, emotionEnergy];
+	var _color = [c_white, c_yellow, c_green, c_red, c_purple, c_orange];
+	for(var _i = 0; _i < 6; _i++) {
+		draw_set_color(_color[_i]);
+		draw_circle(x + dcos(_i * 60) * 24, y - dsin(_i * 60) * 24, max(2.5 + sqrt(1 + _emotions[_i] * 10) - 1, 0), true);
+	}
+	draw_set_color(c_white);
 	
-	extraversion,
-	selfWorth,
-	personality,
-	trust,
-	energyPersonality,
-	joy,
-	curiosity,
-	combativeness,
-	knowledgeGeneral, 
+	if(showDebug > 1) {
+		var _data = [
+		id,
+		name,
+		residence,
+		homeland,
+		gender,
+		age,
+		objectAllegiance,
 	
-	speedValue,
-	weightValue,
-	keenness,
+		occupation,
+		religion,
+		wealth,
+		status,
+		alignment,                              /// monka bro wtf
+		criminality,
+		magicStrength,
+		magicField,
+		powerLevel,
 	
-	emotionOpinion,
-	emotionMood,
-	emotionTrust,
-	emotionAnger,
-	emotionFear,
-	emotionEnergy,
-	];
+		extraversion,
+		selfWorth,
+		personality,
+		trust,
+		energyPersonality,
+		joy,
+		curiosity,
+		combativeness,
+		knowledgeGeneral, 
 	
-	var _dataNames = [
-	"id",
-	"name",
-	"residence",
-	"homeland",
-	"gender",
-	"age",
-	"objectAllegiance",
+		speedValue,
+		weightValue,
+		keenness,
 	
-	"occupation",
-	"religion", /// monka bro wtf
-	"wealth",
-	"status",
-	"alignment",
-	"criminality",
-	"magicStrength",
-	"magicField",
-	"powerLevel",
+		emotionOpinion,
+		emotionMood,
+		emotionTrust,
+		emotionAnger,
+		emotionFear,
+		emotionEnergy,
+		];
 	
-	"extraversion",
-	"selfWorth",
-	"personality",
-	"trust",
-	"energyPersonality",
-	"joy",
-	"curiosity",
-	"combativeness",
-	"knowledgeGeneral",
+		var _dataNames = [
+		"id",
+		"name",
+		"residence",
+		"homeland",
+		"gender",
+		"age",
+		"objectAllegiance",
 	
-	"speedValue",
-	"weightValue",
-	"keenness",
+		"occupation",
+		"religion", /// monka bro wtf
+		"wealth",
+		"status",
+		"alignment",
+		"criminality",
+		"magicStrength",
+		"magicField",
+		"powerLevel",
 	
-	"emotionOpinion",
-	"emotionMood",
-	"emotionTrust",
-	"emotionAnger",
-	"emotionFear",
-	"emotionEnergy",
-	];
+		"extraversion",
+		"selfWorth",
+		"personality",
+		"trust",
+		"energyPersonality",
+		"joy",
+		"curiosity",
+		"combativeness",
+		"knowledgeGeneral",
 	
-	for(var _i = array_length(_data) - 1; _i >= 0; _i--) {
-		draw_set_halign(fa_right);
-		draw_text_transformed(x + 60, y - 200 + _i * 12, _data[_i], .8, .8, 0);
-		draw_set_halign(fa_left);
-		draw_text_transformed(x + 70, y - 200 + _i * 12, _dataNames[_i], .8, .8, 0);
+		"speedValue",
+		"weightValue",
+		"keenness",
+	
+		"emotionOpinion",
+		"emotionMood",
+		"emotionTrust",
+		"emotionAnger",
+		"emotionFear",
+		"emotionEnergy",
+		];
+	
+		for(var _i = array_length(_data) - 1; _i >= 0; _i--) {
+			draw_set_halign(fa_right);
+			draw_text_transformed(x + 60, y - 200 + _i * 12, _data[_i], .8, .8, 0);
+			draw_set_halign(fa_left);
+			draw_text_transformed(x + 70, y - 200 + _i * 12, _dataNames[_i], .8, .8, 0);
+		}
 	}
 }

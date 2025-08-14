@@ -269,6 +269,13 @@ if(instance_exists(_item)) {
 	}
 }
 
+emotionOpinion = lerp(emotionOpinion, .5, .0003);
+emotionMood = lerp(emotionMood, .5, .0008);
+emotionTrust = lerp(emotionTrust, .5, .0005);
+emotionAnger = lerp(emotionAnger, .5, .0012);
+emotionFear = lerp(emotionFear, .5, .0009);
+emotionEnergy = lerp(emotionEnergy, .5, .0003);
+
 /*
 This is finicky hard /: AI steering behaviors and group movement
 

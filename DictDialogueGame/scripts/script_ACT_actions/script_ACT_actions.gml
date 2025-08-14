@@ -11,7 +11,7 @@ function script_ACT_steal(comitter, xx, yy, item, subjects = -1){ // implies ite
 	if(!instance_exists(item)) {
 		return -1;
 	}
-		
+	
 	item = item.item;
 	var _owner = item.owner;
 	var _createdList = false;
@@ -42,7 +42,11 @@ function script_ACT_steal(comitter, xx, yy, item, subjects = -1){ // implies ite
 		var _subjectCount = ds_list_size(subjects);
 		for(var _subjectI = 0; _subjectI < _subjectCount; _subjectI++) {
 			var _npc = subjects[| _subjectI];
-			_resultEmotions = [_blame, _blame * .35, _blame, _blame * .5, _blame * .2, 0]; //TODO horrible, remake this with real values
+			_resultEmotions = [_blame * .2, _blame * .04, _blame * .2, _blame * .1, _blame * .02, 0]; //TODO horrible, remake this with real values
+			
+			for (var _i = 0; _i < 6; _i++) {
+			    _resultEmotions[_i] *= .1;
+			}
 			
 			if(_owner.objectAllegiance == _npc.objectAllegiance) { // clan linking i guess? THough this should be more complex
 				var _itemValueToOwner = script_npcJudgeItem(_npc, item);
@@ -56,6 +60,8 @@ function script_ACT_steal(comitter, xx, yy, item, subjects = -1){ // implies ite
 				_resultEmotions[3] *= 2; // owners are more angry and less suspicious about stolen items that belong to them
 				_resultEmotions[4] *= .7; // idk something something the owner should handle things and know about their stuff, thus not be scared..? Again this needs to be much more complex
 			}
+			
+			
 	
 			var _dataNames = [
 			"emotionOpinion",

@@ -247,6 +247,7 @@
     {"id":{"name":"obj_debugArrow","path":"objects/obj_debugArrow/obj_debugArrow.yy",},},
     {"id":{"name":"obj_dialogueManager","path":"objects/obj_dialogueManager/obj_dialogueManager.yy",},},
     {"id":{"name":"obj_emotionAlchemyManager","path":"objects/obj_emotionAlchemyManager/obj_emotionAlchemyManager.yy",},},
+    {"id":{"name":"obj_emotionParent","path":"objects/obj_emotionParent/obj_emotionParent.yy",},},
     {"id":{"name":"obj_fadingPointLight","path":"objects/obj_fadingPointLight/obj_fadingPointLight.yy",},},
     {"id":{"name":"obj_fadingSpriteLight","path":"objects/obj_fadingSpriteLight/obj_fadingSpriteLight.yy",},},
     {"id":{"name":"obj_gameManager","path":"objects/obj_gameManager/obj_gameManager.yy",},},

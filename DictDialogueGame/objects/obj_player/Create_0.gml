@@ -1,5 +1,7 @@
 if(live_call()) { return live_result }
 
+event_inherited();
+
 audio_listener_orientation(0, 0, 1000, 0, -1, 0)
 
 global.player = id;

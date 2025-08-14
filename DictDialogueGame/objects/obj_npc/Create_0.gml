@@ -1,50 +1,15 @@
 if(live_call()) { return live_result }
 
+event_inherited();
+
 depth -= 3;
 Health = 15;
 attackTimer = 0;
 
-#region npc values for character info
-
-name = -1;
-
-residence = -1; // specific city or village, not house, not region (could be none / travellor maybe?)
-homeland = -1;
-gender = -1;
-age = -1;
-relationshipLevelPartner = -1;
-relationshipPartner = -1;
-objectAllegiance = -1;
-
-occupation = -1;
-religion = -1;
-wealth = -1;
-status = -1;
-alignment = -1;
-criminality = -1;
-magicStrength = -1;
-magicField = -1;
-powerLevel = -1;
-
-extraversion = -1;
-selfWorth = -1;
-personality = -1;
-trust = -1;
-energyPersonality = -1; // this would be vitality/how spry they were, age is a big impact but also magic and history
-joy = -1;
-curiosity = -1;
-combativeness = -1;
-knowledgeGeneral = -1;
-
-speedValue = -1;
-weightValue = -1;
-keenness = -1;
-
-script_npcGeneratePersonality();
-#endregion
-
 inDialogue = false;
 dialogueValid = false;
+
+showDebug = 0;
 
 randomCommentTimer = 0;
 randomCommentTimerMax = 600;
@@ -53,13 +18,6 @@ playerCommentRange = 140;
 
 topicsDiscussed = [];
 expectingAnswer = false;
-
-emotionOpinion = 0;
-emotionMood = 0;
-emotionAnger = 0;
-emotionFear = 0;
-emotionTrust = 0;
-emotionEnergy = 0;
 
 moveDelay = 0;
 moveStartChance = 120;
