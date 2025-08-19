@@ -6,7 +6,7 @@ function script_answerName(subject, otherSpeaker = noone) {
 			if(irandom(1) == 0) {
 				var _firstLetter = string_char_at(occupation, 1);
 				var _addN = "";
-				if(_firstLetter == "e" || _firstLetter == "a" || _firstLetter == "u" || _firstLetter == "i" || _firstLetter == "o") { // love thissss
+				if(is_vowel(_firstLetter)) {
 					_addN = "n";
 				}
 				
@@ -80,7 +80,7 @@ function script_answerMagic(subject, otherSpeaker = noone) {
 			return "No, I've studied it though. I don't have the talent.";
 		} else if(subject.occupation == "king") {
 			if(irandom(2) == 0) {
-				return "A magical king? No, who's ever heard of such a thing. Now run along.";
+				return "A magical king? No, who's ever heard of such a thing. Now run along before I call the guard.";
 			} else {
 				return "Don't you know who you're talking to?";
 			}
@@ -115,24 +115,31 @@ function script_answerMagic(subject, otherSpeaker = noone) {
 function script_answerRomanticPartner(subject, otherSpeaker = noone) {
 	with(subject) {
 		if(relationshipLevelPartner == "single") {
-			if(irandom(1) == 0) {
+			if(irandom(1) == 0) { // is this a good way to do this? Manually affecting emotions based on the chosen response ? Or is this stupid af I don't know, nor do I think I can figure this out until I see the system working more and see the shortfalls in actions
+				script_dialogueInfluenceNpc(id, otherSpeaker, 0, -.01, .01, 0, .02, -.02); // add fear, add trust (hopefully this balances to create a more fragile state that if unbroken leads to trust later, or if broken now leads to a fallout where trust is lost or they get too nervous to say any more and you have to come back (time builds trust yo))
 				return $"I'm alone.";
 			} else if(irandom(1) == 0) {
+				script_dialogueInfluenceNpc(id, otherSpeaker, -.03, -.02, -.01, 0.05, .04, .03); // add fear, add trust (hopefully this balances to create a more fragile state that if unbroken leads to trust later, or if broken now leads to a fallout where trust is lost or they get too nervous to say any more and you have to come back (time builds trust yo))
 				return $"Don't be rude-";
 			} else {
-				return $"That... Well I'm not with anyone.";
+				script_dialogueInfluenceNpc(id, otherSpeaker, 0, -.05, .01, 0, .02, .01); // add fear, add trust (hopefully this balances to create a more fragile state that if unbroken leads to trust later, or if broken now leads to a fallout where trust is lost or they get too nervous to say any more and you have to come back (time builds trust yo))
+				return $"That... Well, I'm not with anyone.";
 			}
 		} else {
 			if(random(1) < trust) { // be cautious
 				if(irandom(1) == 0) {
-					return $"Yes well, I'm {relationshipLevelPartner}.";
+					script_dialogueInfluenceNpc(id, otherSpeaker, 0, 0, .03, 0, .03, .02); // add fear, add trust (hopefully this balances to create a more fragile state that if unbroken leads to trust later, or if broken now leads to a fallout where trust is lost or they get too nervous to say any more and you have to come back (time builds trust yo))
+					return $"Yes, well, I'm {relationshipLevelPartner}.";
 				} else {
+					script_dialogueInfluenceNpc(id, otherSpeaker, 0, 0, .03, 0, .03, .02); // add fear, add trust (hopefully this balances to create a more fragile state that if unbroken leads to trust later, or if broken now leads to a fallout where trust is lost or they get too nervous to say any more and you have to come back (time builds trust yo))
 					return $"I'm with {relationshipPartner.name} and we're {relationshipLevelPartner}.";
 				}
 			} else {
 				if(irandom(1) == 0) {
+					script_dialogueInfluenceNpc(id, otherSpeaker, -.02, -.02, -.02, 0, .02, 0);
 					return $"I'm not really sure why that matters..?";
 				} else {
+					script_dialogueInfluenceNpc(id, otherSpeaker, 0, -.01, -.01, 0.04, .03, 0.02);
 					return $"That's not something I want to tell just anyone, sorry...";
 				}	
 			}

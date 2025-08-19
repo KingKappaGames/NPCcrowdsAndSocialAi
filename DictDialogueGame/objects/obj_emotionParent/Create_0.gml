@@ -1,3 +1,5 @@
+showDebug = 0;
+
 name = -1;
 
 residence = -1; // specific city or village, not house, not region (could be none / travellor maybe?)

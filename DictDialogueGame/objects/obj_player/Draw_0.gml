@@ -1,5 +1,7 @@
 if(live_call()) { return live_result }
 
+event_inherited();
+
 draw_circle(x, y, 10, false);
 
 if(instance_exists(directId)) {

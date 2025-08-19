@@ -1,1 +1,3 @@
+event_inherited();
+
 draw_circle_color(x, y, 10, c_red, c_black, false);

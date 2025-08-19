@@ -9,8 +9,6 @@ attackTimer = 0;
 inDialogue = false;
 dialogueValid = false;
 
-showDebug = 0;
-
 randomCommentTimer = 0;
 randomCommentTimerMax = 600;
 comment = "";
@@ -76,13 +74,13 @@ sayRandomComment = function() {
 				moveStartChance = 30;
 			}
 			comment = script_generatePlayerComment(); // player focused comment
-			script_createSpeechBubble(id, "shadow", x + choose(-40, 40), y - 100, comment[0], 190, 80, .21, curve_SBemerge, curve_SBgrow);
+			script_createSpeechBubble(id, "shadow", x + choose(-40, 40), y - 100, comment[0], 190, 80, .3, curve_SBemerge, curve_SBgrow);
 			exit;
-		}
+		} 
 	}
 	
 	comment = script_generateSelfComment(); // non player focused comment
-	script_createSpeechBubble(id, "shadow", x + choose(-40, 40), y - 100, comment[0], 170, 80, .21, curve_SBemerge, curve_SBgrow);
+	script_createSpeechBubble(id, "shadow", x + choose(-40, 40), y - 100, comment[0], 170, 80, .3, curve_SBemerge, curve_SBgrow);
 }
 
 judgeComment = function(judgment) { // agree, diagree, anger, doubt, laugh

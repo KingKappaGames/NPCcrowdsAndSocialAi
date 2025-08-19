@@ -1,3 +1,5 @@
+event_inherited();
+
 chatterbox = noone;
 
 speakerId = noone; // the OTHER person in this dialogue, not me!
@@ -48,7 +50,7 @@ dialogueClose = function() {
 ///@desc For now just links the speaker and npc, aka, sets their speakerId and inDialogue values
 dialogueOpen = function(speaker) {
 	speakerId = speaker;
-	speakerId.inDialogue = true; // TODO I really need an entry and exit script for dialogues to do all the clean up and set up in one place!
+	speakerId.inDialogue = true; 
 }
 
 dialogueShutdownChat = function() {
@@ -165,6 +167,8 @@ dialogueDoInteraction = function(speaker) {
 				_textSpeed = .6;
 			} else if(_metadata == "jap") {
 				_textSpeed = 2;
+			} else if(array_contains(["joke", "normal", "threat", "sarcasm", "plead", "insult"], _metadata)) { // the possible dialogue tags for the impact of the comment (replacing the concept of embedding influence values to comments) USE E_dialogueImpactTypes for reference
+				script_dialogueInterpretCommentType(id, speakerId, _metadata);
 			}
 		}
 		#endregion

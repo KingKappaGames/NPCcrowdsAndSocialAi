@@ -12,7 +12,7 @@ This is the next line of the start node. #dog #react
 -> happy
     Good! This is the happy response! <-V->
 -> angry
-    This is the angry response, frick you!
+    This is the angry response, frick you! #insult
 -> sad
     This is the sad response, wuh! ):
 This is the end, woe be I, remember me. #cat

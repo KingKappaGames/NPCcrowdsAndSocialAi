@@ -107,6 +107,9 @@ global.allegianceCrossReference = ds_grid_create(allegianceCount, allegianceCoun
 for(var _gridX = 0; _gridX < allegianceCount; _gridX++) {
 	for(var _gridY = 0; _gridY < allegianceCount; _gridY++) {
 		ds_grid_set(global.allegianceCrossReference, _gridX, _gridY, random(1)); // 0 being hates, 1 being loves (the x gives the see'er, y gives the seen)
+		if(_gridX == _gridY) { // same looking at same should like...
+			ds_grid_set(global.allegianceCrossReference, _gridX, _gridY, 1);
+		}
 	} // right now this is just randomly generated so whatever but eventually this will store the relations of all the groups and this can be altered to change the perceptions of all things in the game dynamically
 }
 #endregion

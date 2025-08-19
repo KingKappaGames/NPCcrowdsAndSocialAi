@@ -11,6 +11,16 @@ previousDialogueString = "";
 
 bubble = noone;
 
+// I think all the "fixed" lines like story dialogues, info text, and random comments should be within the chatterbox world. These would be the easiest to write there
+// and don't require much if any dynamic change, since they'll only be seen once for story stuff or maybe contain certain bits that change for random comments, or the 
+// comment itself will change, since that's what skyrim does, just have a bunch of lines for variety. 
+// however the dict dialogue stuff must be in code, the entire response is constructed out of pieces and woven out of script calls. There's no way, at least for me
+// to comfortably build such a system in chatterbox and I don't see why I would try. They can both use the same dialogue result but the text can come from different places
+// I think this would be best and keep everything that's more rigid in chatterbox. You may even embed certain dialogue chains in the dict system that trigger chatterbox
+// responses, for example random probing would yield generated responses but perhaps certain special questions would switch to a fixed responses, essentially
+// triggering a cutscene or dialogue tree from a question that is presumed to be intentionally looking for a plot line. Like "what's your name" would give "i'm jimmy" ect
+// but "have you ever killed anyone" to an npc with a murder quest line would switch to the quest text via chatterbox.
+
 dialogueDictionary = ds_grid_create(18, 2); // REMEMBER TO INCREMENT
 
 #region dialogue entries script_answerName
@@ -95,12 +105,13 @@ parseDialogue = function(enterDialogue = false) {
 		dialogueValid = 0;
 	}
 	
-	if(enterDialogue) {
+	if(enterDialogue) { // whether the dialogue should actually be sent or just evaluated for being valid on that key (to show the green indicator that it's valid while typing)
 		if(_entryPos != -1) {
-			decideResponseFromSet(_entryPos, 1);
-			dialogueValid = true;
-		} else {
-			dialogueValid = false;
+			if(dialogueString == previousDialogueString) { // repeating yourself
+				responseString = script_dialogueRespondToRepeatedComment(dialogueNpcCurrent, global.player, dialogueString);
+			} else {
+				decideResponseFromSet(_entryPos, 1);
+			}
 		}
 		previousDialogueString = dialogueString;
 		dialogueString = "";

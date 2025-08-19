@@ -594,6 +594,8 @@
     {"id":{"name":"script_createWaterSplash","path":"scripts/script_createWaterSplash/script_createWaterSplash.yy",},},
     {"id":{"name":"script_dialogueFragmentScripts","path":"scripts/script_dialogueFragmentScripts/script_dialogueFragmentScripts.yy",},},
     {"id":{"name":"script_dialogueInfluenceNpc","path":"scripts/script_dialogueInfluenceNpc/script_dialogueInfluenceNpc.yy",},},
+    {"id":{"name":"script_dialogueInterpretCommentType","path":"scripts/script_dialogueInterpretCommentType/script_dialogueInterpretCommentType.yy",},},
+    {"id":{"name":"script_dialogueRespondToRepeatedComment","path":"scripts/script_dialogueRespondToRepeatedComment/script_dialogueRespondToRepeatedComment.yy",},},
     {"id":{"name":"script_dialogueScripts","path":"scripts/script_dialogueScripts/script_dialogueScripts.yy",},},
     {"id":{"name":"script_generatePlayerComment","path":"scripts/script_generatePlayerComment/script_generatePlayerComment.yy",},},
     {"id":{"name":"script_generateSelfComment","path":"scripts/script_generateSelfComment/script_generateSelfComment.yy",},},

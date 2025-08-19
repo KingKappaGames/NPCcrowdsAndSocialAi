@@ -276,6 +276,8 @@ emotionAnger = lerp(emotionAnger, .5, .0012);
 emotionFear = lerp(emotionFear, .5, .0009);
 emotionEnergy = lerp(emotionEnergy, .5, .0003);
 
+//todo flash point social moments
+
 /*
 This is finicky hard /: AI steering behaviors and group movement
 

@@ -42,7 +42,7 @@ function script_ACT_steal(comitter, xx, yy, item, subjects = -1){ // implies ite
 		var _subjectCount = ds_list_size(subjects);
 		for(var _subjectI = 0; _subjectI < _subjectCount; _subjectI++) {
 			var _npc = subjects[| _subjectI];
-			_resultEmotions = [_blame * .2, _blame * .04, _blame * .2, _blame * .1, _blame * .02, 0]; //TODO horrible, remake this with real values
+			_resultEmotions = [_blame * -.2, _blame * -.04, _blame * -.2, _blame * -.1, _blame * -.02, 0]; //TODO horrible, remake this with real values
 			
 			for (var _i = 0; _i < 6; _i++) {
 			    _resultEmotions[_i] *= .1;
@@ -83,8 +83,44 @@ function script_ACT_steal(comitter, xx, yy, item, subjects = -1){ // implies ite
 	}
 }
 
-function script_ACT_pray(){
+function script_ACT_pray(comitter, xx, yy, allegiance, strength, subjects = -1){
+	var _createdList = false;
+	if(subjects == -1) {
+		var _radius = /*big for testing*/240 + strength * 50; 
+		subjects = ds_list_create();
+		_createdList = true;
+		collision_circle_list(xx, yy, _radius, obj_npc, false, true, subjects, false); // self doesn't work if it's not being called by the comitter, just check
+	}
 	
+	var _resultEmotions = 0; // opinion, mood, trust, anger, fear, energy
+	var _subjectCount = ds_list_size(subjects);
+	for(var _subjectI = 0; _subjectI < _subjectCount; _subjectI++) {
+		var _npc = subjects[| _subjectI];
+		_resultEmotions = [1, .2, .4, .3, .6, .2];
+		
+		var _alignmentOpinion = script_getAllegianceJudgement(allegiance, _npc.objectAllegiance)  - .5; // .5 to -.5 for liking or disliking. The allegiance grid is really nice for simplifying the relations for this aspect!
+		for (var _i = 0; _i < 6; _i++) {
+			_resultEmotions[_i] *= _alignmentOpinion * strength; // basic reduction in strength since the emotion range is 0-1 ish and the effectors often spit out numbers well into the single digits... hmmm
+		}			
+	
+		var _dataNames = [
+		"PRAYER RELIGION",
+		"emotionOpinion",
+		"emotionMood",
+		"emotionTrust",
+		"emotionAnger",
+		"emotionFear",
+		"emotionEnergy",
+		];
+			
+		script_createDataArrow(_npc.x, _npc.y, comitter, array_concat([allegiance], _resultEmotions), _dataNames, 300);
+			
+		script_dialogueInfluenceNpc(_npc, comitter, _resultEmotions[0], _resultEmotions[1], _resultEmotions[2], _resultEmotions[3], _resultEmotions[4], _resultEmotions[5]);
+	}
+	
+	if(_createdList) {
+		ds_list_destroy(subjects);
+	}
 }
 
 function script_ACT_kill(){
@@ -94,3 +130,41 @@ function script_ACT_kill(){
 function script_ACT_sneak(){
 	
 }
+
+/* template npc affecting code
+
+var _createdList = false;
+	if(subjects == -1) {
+		var _radius = 240 + strength * 50; 
+		subjects = ds_list_create();
+		_createdList = true;
+		collision_circle_list(xx, yy, _radius, obj_npc, false, true, subjects, false); // self doesn't work if it's not being called by the comitter, just check
+	}
+	
+	var _resultEmotions = 0; // opinion, mood, trust, anger, fear, energy
+	var _subjectCount = ds_list_size(subjects);
+	for(var _subjectI = 0; _subjectI < _subjectCount; _subjectI++) {
+		var _npc = subjects[| _subjectI];
+		_resultEmotions = [0, 0, 0, 0, 0, 0]; //TODO horrible, remake this with real values
+			
+		for (var _i = 0; _i < 6; _i++) {
+			_resultEmotions[_i] *= 1;
+		}			
+	
+		var _dataNames = [
+		"emotionOpinion",
+		"emotionMood",
+		"emotionTrust",
+		"emotionAnger",
+		"emotionFear",
+		"emotionEnergy",
+		];
+			
+		script_createDataArrow(_npc.x, _npc.y, comitter, _resultEmotions, _dataNames, 300);
+			
+		script_dialogueInfluenceNpc(_npc, comitter, _resultEmotions[0], _resultEmotions[1], _resultEmotions[2], _resultEmotions[3], _resultEmotions[4], _resultEmotions[5]);
+	}
+	
+	if(_createdList) {
+		ds_list_destroy(subjects);
+	}
