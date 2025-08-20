@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"script_chatterboxProgressConversation",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"script_chatterboxProgressConversation",
+  "parent":{
+    "name":"script_chatterboxTools",
+    "path":"folders/Scripts/dialogue/script_chatterboxTools.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

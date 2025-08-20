@@ -14,8 +14,8 @@
     "path":"folders/Objects.yy",
   },
   "parentObjectId":{
-    "name":"obj_chatNpc",
-    "path":"objects/obj_chatNpc/obj_chatNpc.yy",
+    "name":"obj_npc",
+    "path":"objects/obj_npc/obj_npc.yy",
   },
   "persistent":true,
   "physicsAngularDamping":0.1,

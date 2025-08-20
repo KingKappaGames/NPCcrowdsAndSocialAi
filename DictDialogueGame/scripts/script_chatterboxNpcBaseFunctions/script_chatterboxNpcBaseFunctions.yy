@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"script_chatterboxNpcBaseFunctions",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"script_chatterboxNpcBaseFunctions",
+  "parent":{
+    "name":"script_chatterboxTools",
+    "path":"folders/Scripts/dialogue/script_chatterboxTools.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

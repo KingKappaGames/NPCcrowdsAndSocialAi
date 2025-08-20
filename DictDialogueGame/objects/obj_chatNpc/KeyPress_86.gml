@@ -1,1 +1,0 @@
-instance_create_depth(x + irandom_range(-50, 50), y + irandom_range(-50, 50), -5000, obj_reactExclamation);

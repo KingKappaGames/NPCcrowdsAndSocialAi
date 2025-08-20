@@ -1,70 +1,6 @@
-event_inherited();
-
-chatterbox = noone;
-
-speakerId = noone; // the OTHER person in this dialogue, not me!
-
-text = -1;
-metadata = -1;
-
-bubble = noone;
-bubbleType = choose("shadow", "white");
-
-dialogueValueCollection = noone;
-
-interactionRange = 50;
-
-showingMultiOptions = false; // whether you're showing the dialogue that prompts a multi response or the responses themselves
-emotionReactionsAvaialble = false;
-
-optionChosenArrayDebug = -1;
-optionCriteriaArrayDebug = -1;
-
-/// @desc Function Jumps to the next node based on the conditions and tree of this npcs dialogue, then the frame of the dialogue grabs that info and creates comments with it
-getDialogueResponse = function() {
-	//overwritten by the specific npc
-}
-
-///@desc Simply loads some values from the inital comment, but perhaps can be useful for other first comment things too?
-dialogueStartFirstMeeting = function() {
-	getDialogueResponse(); // sets the chatterbox node, mostly
-				
-	dialogueLoadTextStandard(); // sets the data from this line
-				
-	dialogueValueCollection.timesMet++; // other data
-	dialogueValueCollection.firstMet = true; // do standard dialogue book keeping
-}
-
-///@desc Just loads the text and other data from the current node and line of dialogue that is known to be a standard comment, not a multiple choice
-dialogueLoadTextStandard = function() {
-	text = ChatterboxGetContent(chatterbox, 0);
-	metadata = ChatterboxGetContentMetadata(chatterbox, 0); // get info from node
-}
-
-///@desc For now just delinks the speaker and npc, aka, unsets their speakerId and inDialogue values
-dialogueClose = function() {
-	speakerId.inDialogue = false;
-	speakerId = noone;
-}
-
-///@desc For now just links the speaker and npc, aka, sets their speakerId and inDialogue values
-dialogueOpen = function(speaker) {
-	speakerId = speaker;
-	speakerId.inDialogue = true; 
-}
-
-dialogueShutdownChat = function() {
-	text = -1;
-	speakerId.inDialogue = false;
-	speakerId = noone;
-	if(instance_exists(bubble)) {
-		bubble.duration = 0;
-	}	
-}
-
-dialogueDoInteraction = function(speaker) {
+function script_chatterboxDialogueDoInteraction(speaker) {
 	if(speakerId == speaker || !speaker.inDialogue) { // not already in a dialogue
-		dialogueOpen(speaker);
+		script_chatterboxDialogueOpen(speaker);
 			
 		with(bubble) {
 			if(!multipleChoice && typewritter.get_state() < 1) {
@@ -78,7 +14,7 @@ dialogueDoInteraction = function(speaker) {
 		var _choicesCriteriaResults = undefined;
 		var _fadeDuration = 9999;
 		if(text == -1) {
-			dialogueStartFirstMeeting();
+			script_chatterboxDialogueStartFirstMeeting();
 		} else {
 				
 			var _optionCount = ChatterboxGetOptionCount(chatterbox); // get options or lack thereof
@@ -111,7 +47,7 @@ dialogueDoInteraction = function(speaker) {
 						exit; // no choosing without choosing!
 					}
 						
-					dialogueLoadTextStandard();
+					script_chatterboxDialogueLoadTextStandard();
 				}
 			} else {
 				if(emotionReactionsAvaialble) {
@@ -139,7 +75,7 @@ dialogueDoInteraction = function(speaker) {
 					text = -1;
 					_fadeDuration = 90;
 				} else {
-					dialogueLoadTextStandard();
+					script_chatterboxDialogueLoadTextStandard();
 				}
 			}
 		}
@@ -191,7 +127,7 @@ dialogueDoInteraction = function(speaker) {
 			optionCriteriaArrayDebug = _choicesCriteriaResults;
 		} else { // dialogue over?
 			bubble.duration = 0; // text already ended so end bubble / close dialogue
-			dialogueClose();
+			script_chatterboxDialogueClose();
 		}
 	}
 }

@@ -48,6 +48,35 @@ pathCurrentStartTime = current_time;
 
 pathPOIs = [];
 
+#region chatterbox npc values
+
+chatterbox = noone;
+
+speakerId = noone; // the OTHER person in this dialogue, not me!
+
+text = -1;
+metadata = -1;
+
+bubble = noone;
+bubbleType = choose("shadow", "white");
+
+dialogueValueCollection = noone;
+
+interactionRange = 65;
+
+showingMultiOptions = false; // whether you're showing the dialogue that prompts a multi response or the responses themselves
+emotionReactionsAvaialble = false;
+
+optionChosenArrayDebug = -1;
+optionCriteriaArrayDebug = -1;
+
+/// @desc Function Jumps to the next node based on the conditions and tree of this npcs dialogue, then the frame of the dialogue grabs that info and creates comments with it
+getDialogueResponse = function() {
+	//overwritten by the specific npc
+}
+
+#endregion
+
 talk = function() {
 	inDialogue = !inDialogue;
 	if(inDialogue) {

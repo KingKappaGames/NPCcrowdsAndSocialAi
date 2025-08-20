@@ -8,6 +8,7 @@ dialogueValid = false;
 dialogueString = "";
 responseString = "";
 previousDialogueString = "";
+previousDialogueLineNpc = noone;
 
 bubble = noone;
 
@@ -106,14 +107,15 @@ parseDialogue = function(enterDialogue = false) {
 	}
 	
 	if(enterDialogue) { // whether the dialogue should actually be sent or just evaluated for being valid on that key (to show the green indicator that it's valid while typing)
-		if(_entryPos != -1) {
-			if(dialogueString == previousDialogueString) { // repeating yourself
-				responseString = script_dialogueRespondToRepeatedComment(dialogueNpcCurrent, global.player, dialogueString);
-			} else {
-				decideResponseFromSet(_entryPos, 1);
-			}
+		if(dialogueString == previousDialogueString && previousDialogueLineNpc == dialogueNpcCurrent) { // repeating yourself and to the same person
+			responseString = script_dialogueRespondToRepeatedComment(dialogueNpcCurrent, global.player, dialogueString);
+		} else if(_entryPos != -1) {
+			decideResponseFromSet(_entryPos, 1);
+		} else {
+			responseString = choose("What?", "I can't understand what you're saying.", "I have to go.");
 		}
 		previousDialogueString = dialogueString;
+		previousDialogueLineNpc = dialogueNpcCurrent;
 		dialogueString = "";
 	}
 }

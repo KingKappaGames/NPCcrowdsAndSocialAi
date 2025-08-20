@@ -20,3 +20,7 @@ getDialogueResponse = function() {
 		ChatterboxJump(chatterbox, "Next");
 	}
 }
+
+name = "Owul the Disloyal";
+age = 239;
+magicStrength = .94;

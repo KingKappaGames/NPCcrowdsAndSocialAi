@@ -44,10 +44,10 @@ if(createTime < createTimeMax) { // not yet fully created
 			instance_destroy();
 		}
 	} else { // still current and all that
-		bubbleWidth = lerp(bubbleWidth, bubbleWidthFinal, .11);
-		bubbleHeight = lerp(bubbleHeight, bubbleHeightFinal, .11);
-		bubbleDrawOffX = lerp(bubbleDrawOffX, bubbleDrawOffXFinal, .07); // push bubble to correct positions quickly, especially important for switching sizes and positions for an existing bubble, though I do feel there should be a better place to do this...
-		bubbleDrawOffY = lerp(bubbleDrawOffY, bubbleDrawOffYFinal, .07);
+		bubbleWidth = lerp(bubbleWidth, bubbleWidthFinal, .095);
+		bubbleHeight = lerp(bubbleHeight, bubbleHeightFinal, .095);
+		bubbleDrawOffX = lerp(bubbleDrawOffX, bubbleDrawOffXFinal, .06); // push bubble to correct positions quickly, especially important for switching sizes and positions for an existing bubble, though I do feel there should be a better place to do this...
+		bubbleDrawOffY = lerp(bubbleDrawOffY, bubbleDrawOffYFinal, .06);
 		
 		var _dir = 0;
 		var _count = array_length(messageData);
