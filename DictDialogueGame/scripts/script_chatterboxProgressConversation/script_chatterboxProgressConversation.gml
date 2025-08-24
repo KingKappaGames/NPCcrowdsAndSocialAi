@@ -1,22 +1,33 @@
 function script_chatterboxDialogueDoInteraction(speaker) {
-	if(speakerId == speaker || !speaker.inDialogue) { // not already in a dialogue
-		script_chatterboxDialogueOpen(speaker);
-			
+	var _valid = false;
+	if(dialoguePartner == speaker) {
+		_valid = true;
+		
 		with(bubble) {
 			if(!multipleChoice && typewritter.get_state() < 1) {
 				typewritter.skip(); // skip text to end but don't delete or end bubble
 				exit;
 			}
 		}
+	} else if(!speaker.inDialogue) {
+		script_chatterboxDialogueOpen(speaker);
 		
+		with(bubble) { // close any residual comments/bubbles now to start fresh
+			duration = 0;
+		}
+		bubble = noone;
+		
+		_valid = true;
+	}
+	
+	if(_valid) {				
 		var _multi = false;
 		var _choicesAlreadyChosen = undefined;
 		var _choicesCriteriaResults = undefined;
 		var _fadeDuration = 9999;
-		if(text == -1) {
-			script_chatterboxDialogueStartFirstMeeting();
+		if(text == -1) { // text being -1 means that a dialogue is not currently underway, the text is the current text being displayed, not the previous one.. 
+			script_chatterboxDialogueStartMeeting(); // thus the -1 being start is saying, if no existing dialogue thread then start a new one..? Wack, better now that ive restructured yet again but still wack ngl
 		} else {
-				
 			var _optionCount = ChatterboxGetOptionCount(chatterbox); // get options or lack thereof
 			if(_optionCount != 0 && !emotionReactionsAvaialble) { // is multiple choice but not an emotion choice split
 				if(!showingMultiOptions) { // first time passing this thing (aka the text shown is the intro line, not the options given after)
@@ -42,7 +53,6 @@ function script_chatterboxDialogueDoInteraction(speaker) {
 					var _choice = bubble.choiceHighlightOptionIndex;
 					if(_choice != -1) {
 						ChatterboxSelect(chatterbox, _choice);
-							
 					} else {
 						exit; // no choosing without choosing!
 					}
@@ -73,7 +83,7 @@ function script_chatterboxDialogueDoInteraction(speaker) {
 					
 				if(ChatterboxIsStopped(chatterbox)) {
 					text = -1;
-					_fadeDuration = 90;
+					_fadeDuration = 150;
 				} else {
 					script_chatterboxDialogueLoadTextStandard();
 				}
@@ -104,7 +114,7 @@ function script_chatterboxDialogueDoInteraction(speaker) {
 			} else if(_metadata == "jap") {
 				_textSpeed = 2;
 			} else if(array_contains(["joke", "normal", "threat", "sarcasm", "plead", "insult"], _metadata)) { // the possible dialogue tags for the impact of the comment (replacing the concept of embedding influence values to comments) USE E_dialogueImpactTypes for reference
-				script_dialogueInterpretCommentType(id, speakerId, _metadata);
+				script_dialogueInterpretCommentType(id, dialoguePartner, _metadata);
 			}
 		}
 		#endregion
@@ -116,6 +126,7 @@ function script_chatterboxDialogueDoInteraction(speaker) {
 					bubble.duration = 0; // end previous bubble
 				}
 				
+				msg(text);
 				bubble = script_createSpeechBubble(id, bubbleType, x, y - 100, text, _fadeDuration, 20, _textSpeed, curve_SBemerge, curve_SBgrow, ,, _multi, _choicesAlreadyChosen, _choicesCriteriaResults);
 			} else {          // this 0 is create delay, important if you're replacing the bubble.. Maybe I should make a proper re-apply script or something
 				bubble.setState(text,,,,, 0, _textSpeed, 20, _multi, _choicesAlreadyChosen, _choicesCriteriaResults);

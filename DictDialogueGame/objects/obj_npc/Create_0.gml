@@ -6,7 +6,18 @@ depth -= 3;
 Health = 15;
 attackTimer = 0;
 
+#region chatterbox and dict dialogue values
+
+enum E_dialogueTypes {
+	none = 0,
+	chatterbox = 1,
+	dict = 2,
+}
+
 inDialogue = false;
+dialogueType = E_dialogueTypes.none; // 0 none, 1 chatterbox dialogue, 2 dict system
+dialoguePartner = noone; // the OTHER person in this dialogue, not me!
+
 dialogueValid = false;
 
 randomCommentTimer = 0;
@@ -17,6 +28,32 @@ playerCommentRange = 140;
 topicsDiscussed = [];
 expectingAnswer = false;
 
+chatterbox = noone;
+
+text = -1;
+metadata = -1;
+
+bubble = noone;
+bubbleType = choose("shadow", "white");
+
+dialogueValueCollection = noone;
+
+interactionRange = 65;
+
+showingMultiOptions = false; // whether you're showing the dialogue that prompts a multi response or the responses themselves
+emotionReactionsAvaialble = false;
+
+optionChosenArrayDebug = -1;
+optionCriteriaArrayDebug = -1;
+
+/// @desc Function Jumps to the next node based on the conditions and tree of this npcs dialogue, then the frame of the dialogue grabs that info and creates comments with it
+getDialogueResponse = function() {
+	//overwritten by the specific npc
+}
+
+#endregion
+
+#region movement, pathing, and ai steering behaviors
 moveDelay = 0;
 moveStartChance = 120;
 
@@ -47,39 +84,10 @@ pathPredictDist = 50;
 pathCurrentStartTime = current_time;
 
 pathPOIs = [];
-
-#region chatterbox npc values
-
-chatterbox = noone;
-
-speakerId = noone; // the OTHER person in this dialogue, not me!
-
-text = -1;
-metadata = -1;
-
-bubble = noone;
-bubbleType = choose("shadow", "white");
-
-dialogueValueCollection = noone;
-
-interactionRange = 65;
-
-showingMultiOptions = false; // whether you're showing the dialogue that prompts a multi response or the responses themselves
-emotionReactionsAvaialble = false;
-
-optionChosenArrayDebug = -1;
-optionCriteriaArrayDebug = -1;
-
-/// @desc Function Jumps to the next node based on the conditions and tree of this npcs dialogue, then the frame of the dialogue grabs that info and creates comments with it
-getDialogueResponse = function() {
-	//overwritten by the specific npc
-}
-
 #endregion
 
-talk = function() {
-	inDialogue = !inDialogue;
-	if(inDialogue) {
+talkDictionary = function() {
+	if(!inDialogue) {
 		obj_dialogueManager.startDialogue(id);
 		xChange = 0;
 		yChange = 0;
@@ -103,13 +111,13 @@ sayRandomComment = function() {
 				moveStartChance = 30;
 			}
 			comment = script_generatePlayerComment(); // player focused comment
-			script_createSpeechBubble(id, "shadow", x + choose(-40, 40), y - 100, comment[0], 190, 80, .3, curve_SBemerge, curve_SBgrow);
+			bubble = script_createSpeechBubble(id, "shadow", x + choose(-40, 40), y - 100, comment[0], 190, 80, .3, curve_SBemerge, curve_SBgrow);
 			exit;
 		} 
 	}
 	
 	comment = script_generateSelfComment(); // non player focused comment
-	script_createSpeechBubble(id, "shadow", x + choose(-40, 40), y - 100, comment[0], 170, 80, .3, curve_SBemerge, curve_SBgrow);
+	bubble = script_createSpeechBubble(id, "shadow", x + choose(-40, 40), y - 100, comment[0], 170, 80, .3, curve_SBemerge, curve_SBgrow);
 }
 
 judgeComment = function(judgment) { // agree, diagree, anger, doubt, laugh
@@ -121,10 +129,10 @@ judgeComment = function(judgment) { // agree, diagree, anger, doubt, laugh
 	}
 	if(is_array(comment)) {
 		comment = comment[judgment]; // select actual comment from comment info
-		script_createSpeechBubble(id, "shadow", x, y - 80, is_array(comment) ? comment[0] : comment, 190, 80, .15, curve_SBemerge, curve_SBgrow); // pass either the first index if it is an array or the whole thing if not
+		bubble = script_createSpeechBubble(id, "shadow", x, y - 80, is_array(comment) ? comment[0] : comment, 190, 80, .15, curve_SBemerge, curve_SBgrow); // pass either the first index if it is an array or the whole thing if not
 	} else {
 		comment = "..."; // no more tree to follow..
-		script_createSpeechBubble(id, "shadow", x, y - 80, comment, 190, 80, .15, curve_SBemerge, curve_SBgrow);
+		bubble = script_createSpeechBubble(id, "shadow", x, y - 80, comment, 190, 80, .15, curve_SBemerge, curve_SBgrow);
 	}
 	
 	randomCommentTimer += 300;

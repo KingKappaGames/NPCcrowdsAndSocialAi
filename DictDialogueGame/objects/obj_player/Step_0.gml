@@ -29,7 +29,7 @@ if(instance_exists(heldItem)) {
 	}
 }
 
-if(!instance_exists(obj_dialogueManager.dialogueNpcCurrent)) {
+if(!instance_exists(obj_dialogueManager.speakerId)) {
 	if(keyboard_check_pressed(vk_shift)) {
 		if(stamina > 0) {
 			sprinting = true;

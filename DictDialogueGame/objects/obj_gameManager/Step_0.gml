@@ -12,6 +12,12 @@ if(keyboard_check_released(vk_f11)) {
 	global.territory = choose("pride lands", "dark realm", "quiet vegas", "surface", "reaches");
 }
 
+if(irandom(150) == 0) {
+	if(instance_number(obj_radiantFire) < 5) {
+		instance_create_depth(irandom_range(-500, 500), irandom_range(-500, 500), 0, obj_radiantFire);
+	}
+}
+
 global.dayTime += .035;
 ppxRenderer.SetEffectParameter(FF_SATURATION, PP_SATURATION, 1 - (.3 + dsin(global.dayTime) * .3));
 

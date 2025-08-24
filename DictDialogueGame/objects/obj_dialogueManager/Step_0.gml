@@ -1,8 +1,8 @@
 if(live_call()) { return live_result }
 
-if(instance_exists(dialogueNpcCurrent)) {
+if(instance_exists(speakerId)) {
 	if(keyboard_check_released(vk_enter)) {
-		parseDialogue(1);
+		respondToDictionaryDialogue(1);
 	}
 	
 	var _textChanged = false;
@@ -43,8 +43,8 @@ if(instance_exists(dialogueNpcCurrent)) {
 	}
 	
 	if(_textChanged) {
-		parseDialogue();
+		//parseDialogue(); // hmmm
 	}
 } else {
-	dialogueNpcCurrent = noone;
+	speakerId = noone;
 }

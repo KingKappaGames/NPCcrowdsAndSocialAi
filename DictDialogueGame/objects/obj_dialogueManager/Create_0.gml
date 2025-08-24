@@ -2,9 +2,10 @@ if(live_call()) { return live_result }
 
 randomize();
 
-dialogueNpcCurrent = noone;
-dialogueValid = false;
+speakerId = noone;
+speakerOtherId = noone; // does nothing for now since i think player will be the only one to use this, obviously the typing part but maybe the data fetching?
 
+dialogueValid = false;
 dialogueString = "";
 responseString = "";
 previousDialogueString = "";
@@ -22,9 +23,12 @@ bubble = noone;
 // triggering a cutscene or dialogue tree from a question that is presumed to be intentionally looking for a plot line. Like "what's your name" would give "i'm jimmy" ect
 // but "have you ever killed anyone" to an npc with a murder quest line would switch to the quest text via chatterbox.
 
-dialogueDictionary = ds_grid_create(18, 2); // REMEMBER TO INCREMENT
+dialogueDictionary = ds_grid_create(19, 2); // REMEMBER TO INCREMENT
 
 #region dialogue entries script_answerName
+ds_grid_set(dialogueDictionary, 18, 0, "what do you think of");
+ds_grid_set(dialogueDictionary, 18, 1, [script_answerOpinionOfOther, 1]);
+
 ds_grid_set(dialogueDictionary, 17, 0, "do you want an item");
 ds_grid_set(dialogueDictionary, 17, 1, [script_npcGiveItem, 1]); // what are the values for response choosing specifically?
 
@@ -81,101 +85,255 @@ ds_grid_set(dialogueDictionary, 0, 1, [["It's fine, too much grass around here i
 
 #endregion
 
-startDialogue = function(dialogueNpcCurrentSet) {
+startDialogue = function(speakerIdSet, speakerOtherSet = global.player) { // you could create two bubbles (that fill in with the typing and responses for this) and center the camera around the two speakers.. could be cool!
 	live_auto_call
-	dialogueNpcCurrent = dialogueNpcCurrentSet;
 	
-	x = dialogueNpcCurrent.x;
-	y = dialogueNpcCurrent.y - 40;
+	speakerId = speakerIdSet;
+	speakerId.inDialogue = true;
+	speakerId.dialogueType = E_dialogueTypes.dict; // dict system
+	speakerId.dialoguePartner = speakerOtherSet;
+	
+	// built with the assumption that only the player can use the dict system
+	speakerOtherId = speakerOtherSet;
+	speakerOtherSet.inDialogue = true;
+	speakerOtherSet.dialogueType = E_dialogueTypes.dict; // dict system
+	speakerOtherSet.dialoguePartner = speakerIdSet;
+	
+	x = speakerId.x;
+	y = speakerId.y - 40;
 }
 
 endDialogue = function() {
 	live_auto_call
-	dialogueNpcCurrent = noone;
+	
+	speakerId.inDialogue = false;
+	speakerId.dialogueType = E_dialogueTypes.none; // dict system
+	speakerId.dialoguePartner = noone;
+	
+	// built with the assumption that only the player can use the dict system
+	speakerOtherId.inDialogue = false;
+	speakerOtherId.dialogueType = E_dialogueTypes.none; // dict system
+	speakerOtherId.dialoguePartner = noone;
+	
+	speakerId = noone;
+	speakerOtherId = noone;
+	
 	dialogueString = "";
 	dialogueValid = false;
 }
 
-parseDialogue = function(enterDialogue = false) {
+respondToDictionaryDialogue = function(enterDialogue = false) {
 	live_auto_call
-	var _entryPos = ds_grid_value_x(dialogueDictionary, 0, 0, ds_grid_width(dialogueDictionary) - 1, 0, dialogueString);
+	//var _entryPos = ds_grid_value_x(dialogueDictionary, 0, 0, ds_grid_width(dialogueDictionary) - 1, 0, dialogueString);
 	//show_debug_message("hit " + string(_entryPos))
-	if(_entryPos != -1) {
-		dialogueValid = 1;
-	} else {
-		dialogueValid = 0;
-	}
+	//if(_entryPos != -1) {
+	//	dialogueValid = 1;
+	//} else {
+		//dialogueValid = 0;
+	//}
 	
-	if(enterDialogue) { // whether the dialogue should actually be sent or just evaluated for being valid on that key (to show the green indicator that it's valid while typing)
-		if(dialogueString == previousDialogueString && previousDialogueLineNpc == dialogueNpcCurrent) { // repeating yourself and to the same person
-			responseString = script_dialogueRespondToRepeatedComment(dialogueNpcCurrent, global.player, dialogueString);
-		} else if(_entryPos != -1) {
-			decideResponseFromSet(_entryPos, 1);
+	//if(enterDialogue) { // whether the dialogue should actually be sent or just evaluated for being valid on that key (to show the green indicator that it's valid while typing)
+		if(dialogueString == previousDialogueString && previousDialogueLineNpc == speakerId) { // repeating yourself and to the same person
+			responseString = script_dialogueRespondToRepeatedComment(speakerId, global.player, dialogueString);
 		} else {
-			responseString = choose("What?", "I can't understand what you're saying.", "I have to go.");
+			responseString = parseDictionaryComment(dialogueString);
 		}
+		//} else {
+			//responseString = choose("What?", "I can't understand what you're saying.", "Hol', you're not making sense!", "Speak clearly, becher-");
+		//}
+		
+		if(instance_exists(bubble)) { bubble.duration = 0; }
+	
+		var _npc = speakerId;
+		bubble = script_createSpeechBubble(_npc, "white", _npc.x, _npc.y - 100, responseString, 720, 25, .5, curve_SBemerge, curve_SBgrow, ,,,,);
+		
 		previousDialogueString = dialogueString;
-		previousDialogueLineNpc = dialogueNpcCurrent;
+		previousDialogueLineNpc = speakerId;
 		dialogueString = "";
-	}
+	//}
 }
 
-decideResponseFromSet = function(gridX, gridY = 1) {
+parseDictionaryComment = function(commentString) {
 	live_auto_call
 	responseString = "No! (default)";
 	
-	var _responseData = ds_grid_get(dialogueDictionary, gridX, gridY); // all possible responses with criteria for each
-	var _validResponses = [];
-	var _validCount = 0;
+	var _words = [];
+	var _commentStringLength = string_length(commentString);
+	var _currentWord = "";
+	var _char = "";
 	
-	if(is_array(_responseData[0])) {
-		for(var _criteriaCheckI = array_length(_responseData) - 1; _criteriaCheckI > -1; _criteriaCheckI--) { // figure out which responses can't be used do to criteria and add the valid ones to valid responses []
-			//if(_responseData[_criteriaCheckI][which pos(s) to check?] > npcFear or npcTrust or npcDrunkeness) { // success criteria based on values and checks
-				array_push(_validResponses, _responseData[_criteriaCheckI]); //success
-				_validCount++;
-			//}
+	for(var _charI = 1; _charI <= _commentStringLength; _charI++) {
+		_char = string_char_at(commentString, _charI);
+		if(_char == " ") {
+			array_push(_words, _currentWord);
+			_currentWord = "";
+		} else {
+			_currentWord += _char;
 		}
-	} else {
-		_validResponses[0] = _responseData;
-		_validCount = 1;
 	}
 	
-	msg("Valid count: " + string(_validCount));
+	if(_currentWord != "") {
+		array_push(_words, _currentWord);
+		_currentWord = "";
+	}
 	
-	if(_validCount > 0) {
-		if(_validCount == 1) { // only one response which also means you don't have to do the random choosing (only one means no choosing you know?..)
-			if(is_string(_validResponses[0][0])) {
-				responseString = _validResponses[0][0];
-			} else if(typeof(_validResponses[0][0]) == "ref") {
-				responseString = _validResponses[0][0](dialogueNpcCurrent, global.player); // need some value to store the other partner in the conversation (it won't always just be player right)
-			}
-		} else { // more than one working option, choose random
-			var _randTotal = 0; //grab random from collection of possible
-			for(var _randCountUpI = array_length(_validResponses) - 1; _randCountUpI > -1; _randCountUpI--) {
-				_randTotal += _validResponses[_randCountUpI][1]; // the random chance component
-			} // add up random weights
+	var _wordCount = array_length(_words);
+	
+	#region parsing nested if tree... this feels wrong to do this way but the result of the if chain gives the result and logic so... it's tried and true right? As long as we keep the structure simple? I dunno man
+	
+	try {
+	
+		if(_words[0] == "who") {
+			if(_words[1] == "is") { // embedding checks for word count all the way down I guess...
+				if(_words[2] == "the") {
+					// fetch title holding and whatnot eg who is the king
+				} else {
+					var _nameArray = array_create(_wordCount - 2);
+					array_copy(_nameArray, 0, _words, 2, _wordCount - 2); // add all remaining pieces (assumingly name fragments) to the info array
+					var _npc = script_npcFindName(_nameArray);
 			
-			msg("Rand total added: " + string(_randTotal));
-			_randTotal = random(_randTotal); // randomly pick a point within the range to be the result
-			msg($"Random point chosen {_randTotal}");
-			
-			for(var _randDecayI = array_length(_validResponses) - 1; _randDecayI > -1; _randDecayI--) {
-				_randTotal -= _validResponses[_randDecayI][1]; // the random chance component
-				if(_randTotal <= 0) {
-					msg("Response chosen index: " + string(_randDecayI));
-					if(is_string(_validResponses[_randDecayI][0])) {
-						responseString = _validResponses[_randDecayI][0];
-					} else if(typeof(_validResponses[_randDecayI][0]) == "ref") {
-						responseString = _validResponses[_randDecayI][0](dialogueNpcCurrent, global.player);
+					if(instance_exists(_npc)) {
+						if(_npc == speakerId) {
+							return $"Well! That's me! My name is {_words[2]}!";
+						} else {
+							return $"{_words[2]} is npc #{_npc.id}, why do you ask?";
+						}
+					} else {
+						return "I'm not sure... Never heard of them...";
 					}
-					break;
 				}
-			} // cut down the random until it "lands" on a result
+			} else if(_words[1] == "are") {
+				if(_words[2] == "you") {
+					return script_answerName(speakerId, speakerOtherId);
+				}
+			}
+		} else if(_words[0] == "what") {
+			if(_words[1] == "is") {
+				if(_words[2] == "your") {
+					if(_words[3] == "name") {
+						return script_answerName(speakerId, speakerOtherId);
+					}
+				}
+			} else if(_words[1] == "do") {
+				if(_words[2] == "you") {
+					if(_words[3] == "think") {
+						if(_words[4] == "of") {
+							// dictionary of keyterms that might be worth checking as well? Like check terms, if not found, check names, if not found, check ?, else assume they mispoke.. ? That seems okay, maybe conglomerate the set into a general "parseNoun" script that tries to understand what you're refering to via mass checks and dictionary checking? And you can do binary checks if sorted so I guess even a dictionary of 5000 game terms would only be like 12 checks, CS is amazing isn't it?
+							var _nameArray = array_create(_wordCount - 5);
+							array_copy(_nameArray, 0, _words, 5, _wordCount - 5); // add all remaining pieces (assumingly name fragments) to the info array
+							var _npc = script_npcFindName(_nameArray);
+							
+							if(instance_exists(_npc)) {
+								if(_npc == speakerId) {
+									if(speakerId.selfWorth < .3) {
+										return $"That's me, you realize? That's my name. Anyway, they're alright.";
+									} else {
+										return $"Well! That's me!";
+									}
+								} else {
+									return $"{_words[2]} is npc #{_npc.id} and my opinion is {script_npcJudgeOtherPersonality(speakerId, _npc)}.";
+								}
+							} else {
+								return "I'm not sure... Never heard of them...";
+							}
+						}
+					}
+				}
+			} else if(_words[1] == "are") {
+				if(_words[2] == "you") {
+					if(_words[3] == "doing") {
+						return script_answerAction(speakerId, speakerOtherId);
+					}
+				}
+			}
+		} else if(_words[0] == "when") {
+	
+		} else if(_words[0] == "where") {
+			
+		} else if(_words[0] == "why") {
+	
+		} else if(_words[0] == "are") {
+			if(_words[1] == "you") {
+				if(_words[2] == "married") {
+					//answer marriage
+				} else if(_words[2] == "rich") {
+					return script_answerStatus(speakerId, speakerOtherId);
+				} else if(_words[2] == "poor") {
+					return choose("Rude.", script_answerStatus(speakerId, speakerOtherId));
+				}
+			}
+		} else if(_words[0] == "how") {
+			if(_wordCount == 1) {
+				return "... \"How\" what?";
+			}
+			
+			if(_words[1] == "are") {
+				if(_words[2] == "you") {
+					return script_answerMood(speakerId, speakerOtherId);
+				}
+			} else if(_words[1] == "old") {
+				if(_words[2] == "are") {
+					if(_words[3] == "you") {
+						return choose("You shouldn't ask people that.", "Rude...", script_answerAge(speakerId, speakerOtherId));
+					}
+				}
+			}
 		}
-	} // if it has no valids (which shouldn't ever happen for the record...) then it'll say the default string above.
 	
-	if(instance_exists(bubble)) { bubble.duration = 0; }
+	}
 	
-	var _npc = dialogueNpcCurrent;
-	bubble = script_createSpeechBubble(_npc, "white", _npc.x, _npc.y - 100, responseString, 720, 25, .5, curve_SBemerge, curve_SBgrow, ,,,,);
+	catch(_error) {
+		// wah do nothing (why do you need to catch an error even if you're not doing anything with it? Otherwise it crashes like normal, no try utility!
+	}
+	
+	#region old system of direct matches... in hindsight I can see why trying to match exact phrases isn't exactly an expansive solution, though, it could probably work if you did it in depth enough with keyword swaps
+	//var _responseData = ds_grid_get(dialogueDictionary, gridX, gridY); // all possible responses with criteria for each
+	//var _validResponses = [];
+	//var _validCount = 0;
+	
+	//if(is_array(_responseData[0])) {
+	//	for(var _criteriaCheckI = array_length(_responseData) - 1; _criteriaCheckI > -1; _criteriaCheckI--) { // figure out which responses can't be used do to criteria and add the valid ones to valid responses []
+	//		//if(_responseData[_criteriaCheckI][which pos(s) to check?] > npcFear or npcTrust or npcDrunkeness) { // success criteria based on values and checks
+	//			array_push(_validResponses, _responseData[_criteriaCheckI]); //success
+	//			_validCount++;
+	//		//}
+	//	}
+	//} else {
+	//	_validResponses[0] = _responseData;
+	//	_validCount = 1;
+	//}
+	
+	//msg("Valid count: " + string(_validCount));
+	
+	//if(_validCount > 0) {
+	//	if(_validCount == 1) { // only one response which also means you don't have to do the random choosing (only one means no choosing you know?..)
+	//		if(is_string(_validResponses[0][0])) {
+	//			responseString = _validResponses[0][0];
+	//		} else if(typeof(_validResponses[0][0]) == "ref") {
+	//			responseString = _validResponses[0][0](speakerId, global.player); // need some value to store the other partner in the conversation (it won't always just be player right)
+	//		}
+	//	} else { // more than one working option, choose random
+	//		var _randTotal = 0; //grab random from collection of possible
+	//		for(var _randCountUpI = array_length(_validResponses) - 1; _randCountUpI > -1; _randCountUpI--) {
+	//			_randTotal += _validResponses[_randCountUpI][1]; // the random chance component
+	//		} // add up random weights
+			
+	//		_randTotal = random(_randTotal); // randomly pick a point within the range to be the result
+			
+	//		for(var _randDecayI = array_length(_validResponses) - 1; _randDecayI > -1; _randDecayI--) {
+	//			_randTotal -= _validResponses[_randDecayI][1]; // the random chance component
+	//			if(_randTotal <= 0) {
+	//				if(is_string(_validResponses[_randDecayI][0])) {
+	//					responseString = _validResponses[_randDecayI][0];
+	//				} else if(typeof(_validResponses[_randDecayI][0]) == "ref") {
+	//					responseString = _validResponses[_randDecayI][0](speakerId, global.player, extraValue);
+	//				}
+	//				break;
+	//			}
+	//		} // cut down the random until it "lands" on a result
+	//	}
+	//} // if it has no valids (which shouldn't ever happen for the record...) then it'll say the default string above.
+	#endregion
+	
+	return "I don't understand what you're saying.";
 }

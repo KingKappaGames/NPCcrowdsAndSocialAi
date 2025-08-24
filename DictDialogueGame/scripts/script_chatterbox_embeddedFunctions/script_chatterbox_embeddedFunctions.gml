@@ -15,8 +15,8 @@ function script_chatterbox_getId(target) {
 	if(target == "self") { // use defaults for me...
 		return id;
 	} else if(target == "other") { // ...and other, besides those you will have to get the id or something
-		if(instance_exists(speakerId)) {
-			return speakerId;
+		if(instance_exists(dialoguePartner)) {
+			return dialoguePartner;
 		} else {
 			return noone;
 		}

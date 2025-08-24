@@ -36,6 +36,8 @@ followingLight.selfShadows = true;
 followingLight.shaderType = LIGHT_SHADER_BRDF;
 
 inDialogue = false;
+dialogueType = E_dialogueTypes.none;
+dialoguePartner = noone;
 
 var _prevLink = id;
 repeat(1) {

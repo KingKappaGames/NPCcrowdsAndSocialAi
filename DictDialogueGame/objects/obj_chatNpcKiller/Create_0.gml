@@ -5,7 +5,6 @@ chatterbox = ChatterboxCreate("chat.yarn", true);
 bubbleType = "shadow";
 
 dialogueValueCollection = {
-	firstMet : 0,
 	secretTold : 0,
 	questDone : 0,
 	itemGiven : 0,
@@ -16,7 +15,7 @@ dialogueValueCollection = {
 interactionRange = 50;
 
 getDialogueResponse = function() {
-	if(dialogueValueCollection.firstMet == 0) {
+	if(dialogueValueCollection.timesMet == 0) {
 		ChatterboxJump(chatterbox, "Start");
 	} else {
 		var _timesMet = dialogueValueCollection.timesMet;

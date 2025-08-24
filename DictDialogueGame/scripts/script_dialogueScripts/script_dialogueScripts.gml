@@ -166,3 +166,25 @@ function script_answerStatus(subject, otherSpeaker = noone) {
 		}
 	}
 }
+
+function script_answerOpinionOfOther(subject, otherSpeaker = noone, target = noone) {
+	if(instance_exists(target)) {
+		var _opinion = script_npcJudgeOtherPersonality(subject, target);
+		
+		if(_opinion < .2) {
+			return "They're- I don't want to talk about them... Egh.";
+		} else if(_opinion < .5) {
+			return "Not, well.. I'm not fond.";
+		} else if(_opinion < .8) {
+			return "I like em!";
+		} else {
+			return "Are you kidding? They're a hero of mine. Don't tell them I said that, or, uh, nevermind.";
+		}
+	} else {
+		if(target == noone) {
+			return "I don't think about the void as a person but go ahead.";
+		} else {
+			return "I'm not sure who that is...";
+		}
+	}
+}

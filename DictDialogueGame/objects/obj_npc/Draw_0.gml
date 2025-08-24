@@ -45,3 +45,8 @@ if(leader) {
 } else if(instance_exists(followingId)) {
 	draw_sprite(spr_crown, 1, x, y - 10);
 }
+
+draw_text(x, y + 100, dialoguePartner);
+draw_text(x, y + 120, inDialogue);
+draw_text(x, y + 140, dialogueType);
+draw_text(x, y + 160, text);
