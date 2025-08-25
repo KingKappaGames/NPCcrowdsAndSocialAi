@@ -109,7 +109,7 @@ if(keyboard_check_released(ord("H"))) {
 }
 
 if(keyboard_check_released(ord("N"))) {
-	instance_create_layer(mouse_x, mouse_y, "Instances", obj_npc);
+	script_createNpc(obj_npc, mouse_x, mouse_y);
 }
 
 if(keyboard_check_released(ord("R"))) {

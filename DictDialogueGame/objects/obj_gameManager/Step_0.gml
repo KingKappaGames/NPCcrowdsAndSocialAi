@@ -1,5 +1,7 @@
-if(keyboard_check_released(ord("F"))) {
-	window_set_fullscreen(!window_get_fullscreen());
+if(global.player.dialogueType != E_dialogueTypes.dict) {
+	if(keyboard_check_released(ord("F"))) {
+		window_set_fullscreen(!window_get_fullscreen());
+	}
 }
 
 if(irandom(750) == 0) {

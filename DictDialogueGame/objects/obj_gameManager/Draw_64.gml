@@ -7,3 +7,5 @@ draw_text(view_wport[0] - 65, 20, fps_real);
 draw_text(view_wport[0] - 65, 40, mouse_x);
 
 draw_text(view_wport[0] - 65, 60, mouse_y);
+
+draw_text(50, 300, instance_number(obj_infoArrow));

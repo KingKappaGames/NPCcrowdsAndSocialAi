@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"script_npcJudgeItem",
   "parent":{
-    "name":"dialogue",
-    "path":"folders/Scripts/dialogue.yy",
+    "name":"script_group_npcFunctions",
+    "path":"folders/Scripts/dialogue/script_group_npcFunctions.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

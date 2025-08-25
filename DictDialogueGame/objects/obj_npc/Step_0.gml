@@ -41,7 +41,7 @@ if(inDialogue) { // custom dialogue (not chatterbox)
 		var _player = instance_nearest(x,y, obj_player); // same s different inputs
 		if(instance_exists(_player)) {
 			if(point_distance(x, y, _player.x, _player.y) < 100) {
-				talkDictionary();
+				talkDictionary(_player);
 			}
 		}
 	}
@@ -264,6 +264,7 @@ if(inDialogue) { // custom dialogue (not chatterbox)
 	if(irandom(60) == 0) {
 		if(instance_exists(followingId) && object_is_ancestor(followingId.object_index, obj_radiantObject)) {
 			if(point_distance(followingId.x, followingId.y, x, y) < followingId.range ) {
+				script_ACT_destroy(id, followingId);
 				followingId.radiantDestroy();
 			}
 		} else {

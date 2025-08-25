@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"script_npcGeneratePersonality",
+  "%Name":"script_createNpc",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"script_npcGeneratePersonality",
+  "name":"script_createNpc",
   "parent":{
     "name":"script_group_npcFunctions",
     "path":"folders/Scripts/dialogue/script_group_npcFunctions.yy",

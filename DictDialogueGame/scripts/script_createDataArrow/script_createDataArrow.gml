@@ -1,4 +1,6 @@
 function script_createDataArrow(originX, originY, target, dataArray, dataNamesArray, duration) {
+	msg("calling CREATE script");
+	
 	var _arrow = instance_create_depth(originX, originY, -5000, obj_infoArrow);
 	
 	_arrow.target = target;

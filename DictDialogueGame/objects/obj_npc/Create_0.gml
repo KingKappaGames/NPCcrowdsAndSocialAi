@@ -28,6 +28,9 @@ playerCommentRange = 140;
 topicsDiscussed = [];
 expectingAnswer = false;
 
+//lastInteractedWith = noone; // idk if these values will be used but they would store the most recent npcs you spoke with or attacked or whatever, these could be used for assuming dialogue subjects or triggering interactions based on npc-npc chains like 3 person dialogue scenes maybe? I dunno, they're commented for now
+//lastInteractedWithSubstantial = noone;
+
 chatterbox = noone;
 
 text = -1;
@@ -86,11 +89,13 @@ pathCurrentStartTime = current_time;
 pathPOIs = [];
 #endregion
 
-talkDictionary = function() {
+talkDictionary = function(otherSpeaker) {
 	if(!inDialogue) {
-		obj_dialogueManager.startDialogue(id);
-		xChange = 0;
-		yChange = 0;
+		if(!otherSpeaker.inDialogue) {
+			obj_dialogueManager.startDialogue(id);
+			xChange = 0;
+			yChange = 0;
+		}
 	} else {
 		obj_dialogueManager.endDialogue();
 		moveDelay = irandom_range(20, 180);

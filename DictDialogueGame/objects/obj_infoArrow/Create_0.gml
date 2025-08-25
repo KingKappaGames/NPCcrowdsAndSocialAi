@@ -3,4 +3,4 @@ target = noone;
 data = [];
 dataNames = [];
 
-duration = 30;
+duration = 40;

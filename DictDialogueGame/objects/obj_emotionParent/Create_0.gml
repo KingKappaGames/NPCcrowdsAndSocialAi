@@ -38,7 +38,27 @@ script_npcGeneratePersonality();
 
 emotionOpinion = .5;
 emotionMood = .5;
+emotionTrust = .5;
 emotionAnger = .5;
 emotionFear = .5;
-emotionTrust = .5;
 emotionEnergy = .5; // i dont think player needs these but for now I'll let them sit here
+
+npcRelationshipCollection = [];
+
+createNpcRelationship = function(target) {
+	var _relationshipInfo = {
+		npcSelf: id, // the "self" since I'm not sure this wouldn't be hard to get otherwise... at some point
+		npc: target, // the npc of which you hold this opinion
+		opinion: .5,
+		mood: .5,
+		trust: .5,
+		anger: 0,
+		fear: 0,
+		energy: .5,
+		debt: 0,
+	}
+	
+	array_push(npcRelationshipCollection, _relationshipInfo); // remember to add the data struct to the array moron
+	
+	return _relationshipInfo;
+}

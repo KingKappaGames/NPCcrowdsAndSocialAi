@@ -182,9 +182,17 @@ function script_answerOpinionOfOther(subject, otherSpeaker = noone, target = noo
 		}
 	} else {
 		if(target == noone) {
-			return "I don't think about the void as a person but go ahead.";
+			return "I don't think about the void as a person but go on.";
 		} else {
 			return "I'm not sure who that is...";
 		}
 	}
+}
+
+function script_answerHomeland(subject, otherSpeaker = noone) {
+	return $"I'm from the {subject.homeland}.";
+}
+
+function script_answerResidence(subject, otherSpeaker = noone) {
+	return $"I live in the {subject.residence}.";
 }

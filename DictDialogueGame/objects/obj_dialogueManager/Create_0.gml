@@ -231,7 +231,7 @@ parseDictionaryComment = function(commentString) {
 										return $"Well! That's me!";
 									}
 								} else {
-									return $"{_words[2]} is npc #{_npc.id} and my opinion is {script_npcJudgeOtherPersonality(speakerId, _npc)}.";
+									return $"{_words[5]} is npc #{_npc.id} and my opinion is {script_npcJudgeOtherPersonality(speakerId, _npc)}.";
 								}
 							} else {
 								return "I'm not sure... Never heard of them...";
@@ -249,9 +249,27 @@ parseDictionaryComment = function(commentString) {
 		} else if(_words[0] == "when") {
 	
 		} else if(_words[0] == "where") {
-			
+			if(_words[1] == "are") {
+				if(_words[2] == "you") {
+					if(_words[3] == "from") {
+						return script_answerHomeland(speakerId, speakerOtherId);
+					}
+				}
+			} else if(_words[1] == "do") {
+				if(_words[2] == "you") {
+					if(_words[3] == "live") {
+						return script_answerResidence(speakerId, speakerOtherId);
+					}
+				}
+			}
 		} else if(_words[0] == "why") {
-	
+			if(_words[1] == "are") {
+				if(_words[2] == "you") {
+					if(_words[3] == "here") {
+						return "fixed response, for the money.";
+					}
+				}
+			}
 		} else if(_words[0] == "are") {
 			if(_words[1] == "you") {
 				if(_words[2] == "married") {
@@ -275,6 +293,14 @@ parseDictionaryComment = function(commentString) {
 				if(_words[2] == "are") {
 					if(_words[3] == "you") {
 						return choose("You shouldn't ask people that.", "Rude...", script_answerAge(speakerId, speakerOtherId));
+					}
+				}
+			}
+		} else if(_words[0] == "do") {
+			if(_words[1] == "you") {
+				if(_words[2] == "know") {
+					if(_words[3] == "magic") {
+						return choose(script_answerMagic(speakerId, speakerOtherId), "No, of course not. Why do you ask?", "There's no witches here, if that's your meaning.");
 					}
 				}
 			}

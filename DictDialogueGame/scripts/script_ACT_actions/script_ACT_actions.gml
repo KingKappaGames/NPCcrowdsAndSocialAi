@@ -123,11 +123,51 @@ function script_ACT_pray(comitter, xx, yy, allegiance, strength, subjects = -1){
 	}
 }
 
-function script_ACT_kill(){
+function script_ACT_destroy(comitter, instance, subjects = -1) {
+	var _createdList = false;
+	if(subjects == -1) {
+		var _radius = 240 + instance.range * 5; 
+		subjects = ds_list_create();
+		_createdList = true;
+		collision_circle_list(instance.x, instance.y, _radius, obj_npc, false, true, subjects, false); // self doesn't work if it's not being called by the comitter, just check
+	}
+	
+	var _resultEmotions = 0; // opinion, mood, trust, anger, fear, energy
+	var _subjectCount = ds_list_size(subjects);
+	for(var _subjectI = 0; _subjectI < _subjectCount; _subjectI++) {
+		var _npc = subjects[| _subjectI];
+		var _opinion = (_npc.alignment - instance.alignment) * .2;
+		
+		_resultEmotions = [_opinion, _opinion * .5, _opinion * .2, _opinion * .8, _opinion * .2, _opinion * .15]; 
+			
+		for (var _i = 0; _i < 6; _i++) {
+			_resultEmotions[_i] *= 1;
+		}			
+	
+		var _dataNames = [
+		"emotionOpinion",
+		"emotionMood",
+		"emotionTrust",
+		"emotionAnger",
+		"emotionFear",
+		"emotionEnergy",
+		];
+			
+		script_createDataArrow(_npc.x, _npc.y, comitter, _resultEmotions, _dataNames, 300);
+			
+		script_dialogueInfluenceNpc(_npc, comitter, _resultEmotions[0], _resultEmotions[1], _resultEmotions[2], _resultEmotions[3], _resultEmotions[4], _resultEmotions[5]);
+	}
+	
+	if(_createdList) {
+		ds_list_destroy(subjects);
+	}
+}
+
+function script_ACT_kill() {
 	
 }
 
-function script_ACT_sneak(){
+function script_ACT_sneak() {
 	
 }
 
@@ -145,7 +185,7 @@ var _createdList = false;
 	var _subjectCount = ds_list_size(subjects);
 	for(var _subjectI = 0; _subjectI < _subjectCount; _subjectI++) {
 		var _npc = subjects[| _subjectI];
-		_resultEmotions = [0, 0, 0, 0, 0, 0]; //TODO horrible, remake this with real values
+		_resultEmotions = [0, 0, 0, 0, 0, 0];
 			
 		for (var _i = 0; _i < 6; _i++) {
 			_resultEmotions[_i] *= 1;
