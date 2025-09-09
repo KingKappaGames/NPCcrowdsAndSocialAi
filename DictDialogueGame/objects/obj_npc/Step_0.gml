@@ -319,6 +319,10 @@ emotionAnger = lerp(emotionAnger, .5, .0012);
 emotionFear = lerp(emotionFear, .5, .0009);
 emotionEnergy = lerp(emotionEnergy, .5, .0003);
 
+if(point_distance(0, 0, xChange, yChange) > 1) { // idk if 1 is fast ngl but oh well
+	script_ACT_run(id, x, y);
+}
+
 //todo flash point social moments
 
 /*

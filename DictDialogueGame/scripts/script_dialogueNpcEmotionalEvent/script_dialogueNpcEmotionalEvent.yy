@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"script_dialogueNpcEmotionalEvent",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"script_dialogueNpcEmotionalEvent",
+  "parent":{
+    "name":"dialogue",
+    "path":"folders/Scripts/dialogue.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

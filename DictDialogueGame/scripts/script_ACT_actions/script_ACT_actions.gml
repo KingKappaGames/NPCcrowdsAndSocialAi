@@ -167,8 +167,82 @@ function script_ACT_kill() {
 	
 }
 
-function script_ACT_sneak() {
+function script_ACT_sneak(comitter, xx, yy, subjects = -1) {
+	var _createdList = false;
+	if(subjects == -1) {
+		var _radius = 240; 
+		subjects = ds_list_create();
+		_createdList = true;
+		collision_circle_list(xx, yy, _radius, obj_npc, false, true, subjects, false); // self doesn't work if it's not being called by the comitter, just check
+	}
 	
+	var _resultEmotions = 0; // opinion, mood, trust, anger, fear, energy
+	var _subjectCount = ds_list_size(subjects);
+	for(var _subjectI = 0; _subjectI < _subjectCount; _subjectI++) {
+		var _npc = subjects[| _subjectI];
+		
+		_resultEmotions = [-0.005, -.01, -.02, .01, .005, .02];
+			
+		for (var _i = 0; _i < 6; _i++) {
+			_resultEmotions[_i] *= 1;
+		}			
+	
+		var _dataNames = [
+		"emotionOpinion",
+		"emotionMood",
+		"emotionTrust",
+		"emotionAnger",
+		"emotionFear",
+		"emotionEnergy",
+		];
+			
+		script_createDataArrow(_npc.x, _npc.y, comitter, _resultEmotions, _dataNames, 300);
+			
+		script_dialogueInfluenceNpc(_npc, comitter, _resultEmotions[0], _resultEmotions[1], _resultEmotions[2], _resultEmotions[3], _resultEmotions[4], _resultEmotions[5]);
+	}
+	
+	if(_createdList) {
+		ds_list_destroy(subjects);
+	}
+}
+
+function script_ACT_run(comitter, xx, yy, subjects = -1) { // only under the assumption that running towards someone is weird / the player running near npcs should trigger some kind of reaction (though it might not be emotion system stuff at all) (like in skyrim running against npcs pushes them but that's different)
+	var _createdList = false;
+	if(subjects == -1) {
+		var _radius = 120; 
+		subjects = ds_list_create();
+		_createdList = true;
+		collision_circle_list(xx, yy, _radius, obj_npc, false, true, subjects, false); // self doesn't work if it's not being called by the comitter, just check
+	}
+	
+	var _resultEmotions = 0; // opinion, mood, trust, anger, fear, energy
+	var _subjectCount = ds_list_size(subjects);
+	for(var _subjectI = 0; _subjectI < _subjectCount; _subjectI++) {
+		var _npc = subjects[| _subjectI];
+		
+		_resultEmotions = [-0.003, 0, -.01, .01, .005, .01];
+			
+		for (var _i = 0; _i < 6; _i++) {
+			_resultEmotions[_i] *= 1;
+		}			
+	
+		var _dataNames = [
+		"emotionOpinion",
+		"emotionMood",
+		"emotionTrust",
+		"emotionAnger",
+		"emotionFear",
+		"emotionEnergy",
+		];
+			
+		script_createDataArrow(_npc.x, _npc.y, comitter, _resultEmotions, _dataNames, 300);
+			
+		script_dialogueInfluenceNpc(_npc, comitter, _resultEmotions[0], _resultEmotions[1], _resultEmotions[2], _resultEmotions[3], _resultEmotions[4], _resultEmotions[5]);
+	}
+	
+	if(_createdList) {
+		ds_list_destroy(subjects);
+	}
 }
 
 /* template npc affecting code
