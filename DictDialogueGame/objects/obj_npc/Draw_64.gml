@@ -11,7 +11,9 @@ if(instance_exists(bubble) && inDialogue && dialogueType == E_dialogueTypes.chat
 	draw_text(_right - 260, 140, "Current node: " + string(ChatterboxGetCurrent(chatterbox)));
 	draw_text(_right - 260, 180, "Total lines: " + string(_dict.totalDialogueLinesGiven))
 	draw_text(_right - 260, 220, "Times met: " + string(_dict.timesMet))
-	draw_text(_right - 260, 300, "Secret told: " + string(_dict.secretTold))
+	if(object_index == obj_chatNpcKiller) {
+		draw_text(_right - 260, 300, "Secret told: " + string(_dict.secretTold))
+	}
 	draw_text(_right - 260, 340, "Options chosen: " + string(optionChosenArrayDebug))
 	draw_text(_right - 260, 380, "Options viable: " + string(optionCriteriaArrayDebug))
 	
