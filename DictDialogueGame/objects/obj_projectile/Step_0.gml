@@ -35,8 +35,6 @@ if(height <= 0) {
 	
 	instance_destroy();
 } else {
-	x += xChange;
-	y += yChange;
 	height += heightChange;
 	
 	heightChange -= gravityStrength;

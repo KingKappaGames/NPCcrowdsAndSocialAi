@@ -6,11 +6,9 @@ image_xscale = baseScale * _scale;
 image_yscale = baseScale * _scale;
 
 image_angle += spinSpeed;
-x += xChange;
-y += yChange;
 
-xChange *= speedDecay;
-yChange *= speedDecay;
+hspeed *= speedDecay;
+vspeed *= speedDecay;
 spinSpeed *= spinDecay;
 
 if(_age >= 1) {

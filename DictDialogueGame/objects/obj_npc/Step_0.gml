@@ -50,14 +50,12 @@ if(inDialogue) { // custom dialogue (not chatterbox)
 		#region moving on a path
 		moveDelay--;
 		if(moveDelay <= 0) {
-			xChange = 0;
-			yChange = 0;
+			speed = 0;
 			if(irandom(moveStartChance) == 0) {
 				var _speed = random(moveSpeed);
 				var _pointDir = point_direction(x, y, pathGoalX, pathGoalY);
 			
-				xChange = dcos(_pointDir) * moveSpeed;
-				yChange = -dsin(_pointDir) * moveSpeed;
+				motion_set(_pointDir, moveSpeed);
 				moveDelay = irandom_range(60, 420);
 			}
 		} else {
@@ -94,8 +92,7 @@ if(inDialogue) { // custom dialogue (not chatterbox)
 			
 					var _pointDir = point_direction(x, y, pathGoalX, pathGoalY);
 			
-					xChange = dcos(_pointDir) * moveSpeed;
-					yChange = -dsin(_pointDir) * moveSpeed;
+					motion_set(_pointDir, moveSpeed);
 				}
 			}
 		}
@@ -126,8 +123,7 @@ if(inDialogue) { // custom dialogue (not chatterbox)
 				followPointY = _monster.y;
 				
 				var _monsterDir = point_direction(x,y, _monster.x, _monster.y);
-				xChange += dcos(_monsterDir) * .35;
-				yChange -= dsin(_monsterDir) * .35;
+				motion_add(_monsterDir, .35);
 				
 				if(attackTimer <= 0) {
 					if(_monsterDist < 60) {
@@ -137,8 +133,8 @@ if(inDialogue) { // custom dialogue (not chatterbox)
 			}
 			if(_monsterDist == -1) {
 				if(instance_exists(followingId)) {
-					followPointX = followingId.x + followingId.xChange * 14;
-					followPointY = followingId.y + followingId.yChange * 14;
+					followPointX = followingId.x + followingId.hspeed * 14;
+					followPointY = followingId.y + followingId.vspeed * 14;
 				} else if(followingId != noone) {
 					followingId = noone;
 					followingPoint = false;
@@ -159,8 +155,7 @@ if(inDialogue) { // custom dialogue (not chatterbox)
 				_approachSpeed = clamp((_approachSpeed - 1.5) / 7, 0, 2.2);
 			}
 			
-			xChange += dcos(_dir) * _approachSpeed;
-			yChange += -dsin(_dir) * _approachSpeed;
+			motion_add(_dir, _approachSpeed);
 				
 			#region avoiding stuff (janky?)
 			var _avoiding = true; // as you go up check the avoid vs approach difference to see if you should check for this
@@ -171,8 +166,10 @@ if(inDialogue) { // custom dialogue (not chatterbox)
 				var _approachX = 0;
 				var _approachY = 0;
 			
-				var _avoidXChange = 0;
-				var _avoidYChange = 0; // speeds to add up
+				var _initialSpeedX = hspeed;
+				var _initialSpeedY = vspeed;
+				
+				speed = 0;
 				
 				var _avoidDir = 0;
 				var _avoidDist = 0;
@@ -195,8 +192,7 @@ if(inDialogue) { // custom dialogue (not chatterbox)
 						if(_avoidDist < 26) {
 							_avoidDir = point_direction(_enemyX, _enemyY, x, y);
 							
-							_avoidXChange += 22 * dcos(_avoidDir) / max(power(_avoidDist, .75), 2);
-							_avoidYChange -= 22 * dsin(_avoidDir) / max(power(_avoidDist, .75), 2);
+							motion_add(_avoidDir, 22 / max(power(_avoidDist, .75), 2));
 						} else {
 							_avoiding = false;
 						}
@@ -206,30 +202,26 @@ if(inDialogue) { // custom dialogue (not chatterbox)
 				_approachX /= npcAroundCount;
 				_approachY /= npcAroundCount;
 				
-				_avoidXChange /= npcAroundCount;
-				_avoidYChange /= npcAroundCount; // push enemies away with normalized average / 100 for distance to speed
-				
-				xChange += clamp(_avoidXChange, -.7, .7);
-				yChange += clamp(_avoidYChange, -.7, .7);
+				speed = min(speed / npcAroundCount, .7);
 				
 				var _approachDir = point_direction(x, y, _approachX, _approachY);
 				var _approachDist = point_distance(x, y, _approachX, _approachY); // move towars center of mass
-				xChange += dcos(_approachDir) * (1 - (_approachDist / 200)) / 110;
-				yChange -= dsin(_approachDir) * (1 - (_approachDist / 200)) / 110;
+				motion_add(_approachDir, (1 - (_approachDist / 200)) / 110);
+				
+				hspeed += _initialSpeedX;
+				vspeed += _initialSpeedY;
 			}
 			#endregion
 			
 			if(instance_exists(followingId) && object_is_ancestor(followingId.object_index, obj_radiantObject) && point_distance(followingId.x, followingId.y, x, y) > followingId.range * .6) {
-				xChange += dcos(_dir) * .3; // push towards radiant goal, this is all supposed to be handled by steering behavior stuff but ehhhhhh
-				yChange -= dsin(_dir) * .3;
+				motion_add(_dir, .3);
 			}
 		}
 	} else { // no goal
 		#region random moving
 		moveDelay--;
 		if(moveDelay <= 0) {
-			xChange = 0;
-			yChange = 0;
+			speed = 0;
 			if(irandom(moveStartChance) == 0) {
 				var _dir = 0;
 				if(irandom(3) == 0) {
@@ -243,8 +235,7 @@ if(inDialogue) { // custom dialogue (not chatterbox)
 			
 				var _speed = random(moveSpeed);
 			
-				xChange = dcos(_dir) * _speed;
-				yChange = -dsin(_dir) * _speed;
+				motion_set(_dir, _speed);
 				moveDelay = irandom_range(60, 420);
 			}
 		}
@@ -276,10 +267,7 @@ if(inDialogue) { // custom dialogue (not chatterbox)
 		}
 	}
 	
-	x += xChange;
-	y += yChange;
-	xChange *= speedDecay;
-	yChange *= speedDecay;
+	speed *= speedDecay;
 	depth = -y;
 	
 	if(dialogueValueCollection != noone) { // enter chatterbox dialogue from no dialogue
@@ -319,9 +307,9 @@ emotionAnger = lerp(emotionAnger, .5, .0012);
 emotionFear = lerp(emotionFear, .5, .0009);
 emotionEnergy = lerp(emotionEnergy, .5, .0003);
 
-if(point_distance(0, 0, xChange, yChange) > 1) { // idk if 1 is fast ngl but oh well
-	script_ACT_run(id, x, y);
-}
+//if(point_distance(0, 0, hspeed, vspeed) > 1) { // idk if 1 is fast ngl but oh well
+	//script_ACT_run(id, x, y);
+//}
 
 //todo flash point social moments
 

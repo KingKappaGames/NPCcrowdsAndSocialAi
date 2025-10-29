@@ -1,5 +1,5 @@
-xChange = 0;
-yChange = 0;
+hspeed = 0;
+vspeed = 0;
 
 alignment = random(1);
 danger = random(1);

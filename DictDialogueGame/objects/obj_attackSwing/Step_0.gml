@@ -1,6 +1,3 @@
-x += xChange;
-y += yChange;
-
 part_particles_create(global.sys, x + irandom_range(-radius, radius), y + irandom_range(-radius, radius), shimmer, 1);
 
 if(duration == round(durationMax)) {

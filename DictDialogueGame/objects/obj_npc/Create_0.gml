@@ -62,8 +62,7 @@ moveStartChance = 120;
 
 pathMoving = 0;
 
-xChange = 0;
-yChange = 0;
+speed = 0;
 moveSpeed = 2.8;
 speedDecay = .98;
 
@@ -93,8 +92,7 @@ talkDictionary = function(otherSpeaker) {
 	if(!inDialogue) {
 		if(!otherSpeaker.inDialogue) {
 			obj_dialogueManager.startDialogue(id);
-			xChange = 0;
-			yChange = 0;
+			speed = 0;
 		}
 	} else {
 		obj_dialogueManager.endDialogue();
@@ -110,8 +108,7 @@ sayRandomComment = function() {
 	if(instance_exists(_player)) {
 		if(point_distance(_player.x, _player.y, x, y) < playerCommentRange) {
 			if(irandom(1) == 0) {
-				xChange = 0;
-				yChange = 0;
+				speed = 0;
 				moveDelay = irandom_range(100, 140);
 				moveStartChance = 30;
 			}
@@ -143,8 +140,7 @@ judgeComment = function(judgment) { // agree, diagree, anger, doubt, laugh
 	randomCommentTimer += 300;
 	
 	if(irandom(3) != 0) {
-		xChange = 0;
-		yChange = 0;
+		speed = 0;
 		moveDelay = irandom_range(80, 140);
 		moveStartChance = 30;
 	}
@@ -174,8 +170,7 @@ startPathMovement = function(path = pathCurrent, pathFollowIncrement = pathIncre
 		pathPOIs = script_getPathPOIs(pathCurrent);
 		
 		var _pointDir = point_direction(x, y, pathGoalX, pathGoalY);
-		xChange = dcos(_pointDir) * moveSpeed;
-		yChange = -dsin(_pointDir) * moveSpeed;
+		motion_set(_pointDir, moveSpeed);
 	}
 }
 
@@ -225,8 +220,7 @@ part_type_orientation(bloodPart, 0, 360, 0, 0, 0);
 
 hit = function(dir, knockback, damage) {
 	Health -= damage;
-	xChange += dcos(dir) * knockback;
-	yChange -= dsin(dir) * knockback;
+	motion_add(dir, knockback);
 	
 	part_particles_create(global.sys, x, y, bloodPart, 10 + irandom(10));
 	

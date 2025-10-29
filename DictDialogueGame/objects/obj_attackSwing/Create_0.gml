@@ -5,8 +5,8 @@ durationMax = 20;
 
 dir = 0;
 spd = 0;
-xChange = 0;
-yChange = 0;
+hspeed = 0;
+vspeed = 0;
 
 hitType = noone;
 damage = 1;

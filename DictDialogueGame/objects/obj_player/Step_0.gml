@@ -9,7 +9,7 @@ followingLight.depth = depth;
 followingLight.persistent = true;
 
 if(instance_exists(heldItem)) {
-	var _speed = point_distance(0, 0, xChange, yChange);
+	var _speed = point_distance(0, 0, hspeed, vspeed);
 	
 	heldItem.x = x;
 	heldItem.y = y - 20;
@@ -38,8 +38,8 @@ if(!instance_exists(obj_dialogueManager.speakerId)) {
 		sprinting = false;
 	}
 	
-	xChange += (keyboard_check(ord("D")) - keyboard_check(ord("A"))) * (moveSpeed + sprinting * moveSpeed * 1.2);
-	yChange += (keyboard_check(ord("S")) - keyboard_check(ord("W"))) * (moveSpeed + sprinting * moveSpeed * 1.2); 
+	hspeed += (keyboard_check(ord("D")) - keyboard_check(ord("A"))) * (moveSpeed + sprinting * moveSpeed * 1.2);
+	vspeed += (keyboard_check(ord("S")) - keyboard_check(ord("W"))) * (moveSpeed + sprinting * moveSpeed * 1.2); 
 	
 	if(sprinting) {
 		stamina -= 3;
@@ -49,10 +49,8 @@ if(!instance_exists(obj_dialogueManager.speakerId)) {
 	}
 }
 
-x += xChange;
-y += yChange;
-xChange *= speedDecay;
-yChange *= speedDecay;
+hspeed *= speedDecay;
+vspeed *= speedDecay;
 
 stamina = clamp(stamina + 1, 0, staminaMax);
 

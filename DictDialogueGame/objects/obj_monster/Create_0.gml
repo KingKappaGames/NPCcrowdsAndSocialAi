@@ -4,8 +4,8 @@
 //}) // behaviors and functions (named with leave, enter, step, ect)
 sprite_index = spr_ghoul;
 
-xChange = 0;
-yChange = 0;
+hspeed = 0;
+vspeed = 0;
 moveSpeed = .3;
 
 Health = 30;
@@ -37,14 +37,14 @@ fsm.add("fight", {
 		if(instance_exists(_target)) {
 			var _dir = point_direction(x,y,_target.x,_target.y);
 			var _dist = point_distance(x,y,_target.x,_target.y);
-			xChange += dcos(_dir) * moveSpeed;
-			yChange -= dsin(_dir) * moveSpeed;
-			xChange *= .92;
-			yChange *= .92;
+			hspeed += dcos(_dir) * moveSpeed;
+			vspeed -= dsin(_dir) * moveSpeed;
+			hspeed *= .92;
+			vspeed *= .92;
 			
 			if(_dist < 60) {
-				xChange *= .99;
-				yChange *= .99;
+				hspeed *= .99;
+				vspeed *= .99;
 				
 				if(attackTimer > 0) {
 					attackTimer--;
@@ -73,8 +73,8 @@ fsm.add("wander", {
 		wanderTime--;
 		if(wanderTime <= 0) {
 			if(irandom(2) == 0) {
-				xChange = irandom_range(-2, 2);
-				yChange = irandom_range(-2, 2);
+				hspeed = irandom_range(-2, 2);
+				vspeed = irandom_range(-2, 2);
 				wanderTime = irandom_range(60, 300);
 			} else {
 				fsm.change("idle");
@@ -95,8 +95,8 @@ part_type_orientation(bloodPart, 0, 360, 0, 0, 0);
 
 hit = function(dir, knockback, damage) {
 	Health -= damage;
-	xChange += dcos(dir) * knockback;
-	yChange -= dsin(dir) * knockback;
+	hspeed += dcos(dir) * knockback;
+	vspeed -= dsin(dir) * knockback;
 	
 	part_particles_create(global.sys, x, y, bloodPart, 10 + irandom(10));
 	

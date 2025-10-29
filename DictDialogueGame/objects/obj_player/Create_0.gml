@@ -15,8 +15,8 @@ heldItem = noone;
 reaction = 0;
 
 moveSpeed = .9;
-xChange = 0;
-yChange = 0;
+hspeed = 0;
+vspeed = 0;
 speedDecay = .68;
 
 sprinting = 0;

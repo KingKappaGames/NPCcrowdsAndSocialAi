@@ -6,8 +6,8 @@ durationMax = 55;
 baseScale = 1;
 image_angle = irandom_range(-1, 1);
 
-xChange = random_range(-1, 1);
-yChange = random_range(-1, 1);
+hspeed = random_range(-1, 1);
+vspeed = random_range(-1, 1);
 spinSpeed = random_range(-3.4, 3.4);
 
 speedDecay = .92;

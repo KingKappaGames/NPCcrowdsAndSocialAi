@@ -6,7 +6,7 @@ function script_dialogueNpcEmotionalEvent(target, event, magnitude) { // the ind
 		var _trustChange = 0;
 		var _angerChange = 0;
 		var _fearChange = 0;
-		var _energyChange = 0;
+		var _energvspeed = 0;
 		// injured or i that an action, probably an action
 		if(event == 0) { // enum? (disapointted)
 			
@@ -27,6 +27,6 @@ function script_dialogueNpcEmotionalEvent(target, event, magnitude) { // the ind
 		emotionTrust += _trustChange * (1 / power(abs(emotionTrust - .5) * 2 + 1, 2.0));
 		emotionAnger += _angerChange * (1 / power(abs(emotionAnger - .5) * 2 + 1, 2.0));
 		emotionFear += _fearChange * (1 / power(abs(emotionFear - .5) * 2 + 1, 2.0));
-		emotionEnergy += _energyChange * (1 / power(abs(emotionEnergy - .5) * 2 + 1, 2.0));
+		emotionEnergy += _energvspeed * (1 / power(abs(emotionEnergy - .5) * 2 + 1, 2.0));
 	}
 }
