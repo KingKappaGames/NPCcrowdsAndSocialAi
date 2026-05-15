@@ -27,14 +27,14 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
-    {"$GMObjectProperty":"v1","%Name":"shadowLength","filters":[],"listItems":[],"multiselect":false,"name":"shadowLength","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"50","varType":0,},
-    {"$GMObjectProperty":"v1","%Name":"transformMode","filters":[],"listItems":[
+    {"$GMObjectProperty":"v2","%Name":"shadowLength","filters":[],"listItems":[],"multiselect":false,"name":"shadowLength","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"50","varType":0,},
+    {"$GMObjectProperty":"v2","%Name":"transformMode","filters":[],"listItems":[
         "SHADOW_SOFT_TRANSFORMED",
         "SHADOW_HARD_TRANSFORMED",
         "SHADOW_SOFT_NO_TRANSFORM",
         "SHADOW_HARD_NO_TRANSFORM",
       ],"multiselect":false,"name":"transformMode","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"SHADOW_SOFT_TRANSFORMED","varType":6,},
-    {"$GMObjectProperty":"v1","%Name":"sides","filters":[],"listItems":[],"multiselect":false,"name":"sides","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"7","varType":0,},
+    {"$GMObjectProperty":"v2","%Name":"sides","filters":[],"listItems":[],"multiselect":false,"name":"sides","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"7","varType":0,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

@@ -27,15 +27,15 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
-    {"$GMObjectProperty":"v1","%Name":"shadowLength","filters":[],"listItems":[],"multiselect":false,"name":"shadowLength","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"50","varType":0,},
-    {"$GMObjectProperty":"v1","%Name":"transformMode","filters":[],"listItems":[
+    {"$GMObjectProperty":"v2","%Name":"shadowLength","filters":[],"listItems":[],"multiselect":false,"name":"shadowLength","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"50","varType":0,},
+    {"$GMObjectProperty":"v2","%Name":"transformMode","filters":[],"listItems":[
         "SHADOW_SOFT_TRANSFORMED",
         "SHADOW_HARD_TRANSFORMED",
         "SHADOW_SOFT_NO_TRANSFORM",
         "SHADOW_HARD_NO_TRANSFORM",
       ],"multiselect":false,"name":"transformMode","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"SHADOW_SOFT_TRANSFORMED","varType":6,},
-    {"$GMObjectProperty":"v1","%Name":"path","filters":[],"listItems":[],"multiselect":false,"name":"path","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"__cle_pthOccluderWall","path":"paths/__cle_pthOccluderWall/__cle_pthOccluderWall.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"__cle_pthOccluderWall","varType":5,},
-    {"$GMObjectProperty":"v1","%Name":"relative","filters":[],"listItems":[],"multiselect":false,"name":"relative","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"True","varType":3,},
+    {"$GMObjectProperty":"v2","%Name":"path","filters":[],"listItems":[],"multiselect":false,"name":"path","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"__cle_pthOccluderWall","path":"paths/__cle_pthOccluderWall/__cle_pthOccluderWall.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"__cle_pthOccluderWall","varType":5,},
+    {"$GMObjectProperty":"v2","%Name":"relative","filters":[],"listItems":[],"multiselect":false,"name":"relative","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"True","varType":3,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
