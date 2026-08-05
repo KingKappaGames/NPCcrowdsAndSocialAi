@@ -54,6 +54,36 @@ function script_answerAge(subject, otherSpeaker = noone) {
 	}
 }
 
+function script_answerBirthDate(subject, otherSpeaker = noone) {
+	if(subject.age < 3) {
+		return $"Goo goo ({2026 - subject.age}) ga ga bitch";
+	} else if(subject.age < 11) {
+		if(irandom(2) == 0) {
+			return $" ({subject.age})";
+		} else {
+			return $"It wasn't very long ago, {2026 - subject.age}! Hehe.";
+		}
+	} else if(subject.age <= 30) {
+		if(irandom(1) == 0) {
+			return $"{2026 - subject.age}, now.";
+		} else {
+			return $"Back in {2026 - subject.age}";
+		}
+	} else if(subject.age < 60) {
+		if(irandom(1) == 0) {
+			return $"In the {floor((2026 - subject.age) / 10) * 10}'s...";
+		} else {
+			return $"{2026 - subject.age}";
+		}
+	} else {
+		if(irandom(2) == 0) {
+			return $"An eon ago now, {2026 - subject.age}";
+		} else {
+			return $"In {2026 - subject.age}, that was before your time I expect.";
+		}
+	}
+}
+
 function script_answerAction(subject, otherSpeaker = noone) {
 	if(subject.pathCurrent != -1) {
 		if(irandom(2) == 0) {
@@ -164,6 +194,26 @@ function script_answerStatus(subject, otherSpeaker = noone) {
 		} else {
 			return "Why does it matter?";
 		}
+	}
+}
+
+function script_answerFamiliarity(subject, otherSpeaker = noone) {
+	with(subject) {
+		var _familiarity = random(1); // based on proximity and actions in the area plus dialogue interactions
+		
+		if(_familiarity < .05) {
+			return "I don't know you, I think. Have we met?"
+		} else if(_familiarity < .3) {
+			return "We've met, haven't we. But not often."
+		} else if(_familiarity < .6) {
+			return "Are you serious? I see you around all the time.";
+		} else if(_familiarity < .9) {
+			return "Oh, come on. You're messing around now.";
+		} else {
+			return "Hah, okay, what?";
+		}
+		
+		//return $"I'm {script_dialogueGetFamiliarity(id, otherSpeaker, "insert")}.";
 	}
 }
 

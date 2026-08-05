@@ -247,7 +247,13 @@ parseDictionaryComment = function(commentString) {
 				}
 			}
 		} else if(_words[0] == "when") {
-	
+			if(_words[1] == "were") {
+				if(_words[2] == "you") {
+					if(_words[3] == "born") {
+						return script_answerBirthDate(speakerId, speakerOtherId);
+					}
+				}
+			}
 		} else if(_words[0] == "where") {
 			if(_words[1] == "are") {
 				if(_words[2] == "you") {
@@ -301,6 +307,8 @@ parseDictionaryComment = function(commentString) {
 				if(_words[2] == "know") {
 					if(_words[3] == "magic") {
 						return choose(script_answerMagic(speakerId, speakerOtherId), "No, of course not. Why do you ask?", "There's no witches here, if that's your meaning.");
+					} else if(_words[3] == "me") {
+						return script_answerFamiliarity(speakerId, speakerOtherId);
 					}
 				}
 			}

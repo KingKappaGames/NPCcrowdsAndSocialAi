@@ -142,7 +142,11 @@
     {"$GMFolder":"","%Name":"Sounds","folderPath":"folders/stuffIDontUseMuch/Sounds.yy","name":"Sounds","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Tile Sets","folderPath":"folders/stuffIDontUseMuch/Tile Sets.yy","name":"Tile Sets","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
-  "ForcedPrefabProjectReferences":[],
+  "ForcedPrefabProjectReferences":[
+    {"link":"io.gamemaker.gm_effect_glow-1.0.0","name":"io.gamemaker.gm_effect_glow-1.0.0","path":"io.gamemaker.gm_effect_glow-1.0.0.yyp",},
+    {"link":"io.gamemaker.gm_filter_heathaze-1.0.0","name":"io.gamemaker.gm_filter_heathaze-1.0.0","path":"io.gamemaker.gm_filter_heathaze-1.0.0.yyp",},
+    {"link":"io.gamemaker.gm_filter_rgbnoise-1.0.0","name":"io.gamemaker.gm_filter_rgbnoise-1.0.0","path":"io.gamemaker.gm_filter_rgbnoise-1.0.0.yyp",},
+  ],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"chat.yarn","CopyToMask":-1,"filePath":"datafiles","name":"chat.yarn","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"chatFarlands.yarn","CopyToMask":-1,"filePath":"datafiles","name":"chatFarlands.yarn","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
@@ -204,7 +208,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.13.1.193",
+    "IDEVersion":"2026.0.0.16",
   },
   "name":"DictDialogueGame",
   "resources":[
